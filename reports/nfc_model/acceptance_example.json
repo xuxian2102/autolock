@@ -1,0 +1,175 @@
+{
+  "scenario": {
+    "name": "ACCEPTANCE_EXAMPLE",
+    "description": "40 mm non-metal solid-core apartment entry door.",
+    "door_material": "fire_rated_composite",
+    "door_thickness_mm": 40,
+    "phone_case": "Phone-M",
+    "phone_gap_mm": 2,
+    "offset_x_mm": 10.0,
+    "offset_y_mm": 0.0,
+    "tilt_x_deg": 0.0,
+    "tilt_y_deg": 10.0,
+    "metals": [
+      {
+        "material": "mild_steel",
+        "width_mm": 80.0,
+        "height_mm": 25.0,
+        "thickness_mm": 1.5,
+        "distance_mm": 10.0,
+        "position": "partial_overlap",
+        "area_scale": 1.0
+      }
+    ],
+    "ferrite": {
+      "material": "medium",
+      "thickness_mm": 0.5,
+      "coverage_fraction": 1.0,
+      "mu_prime_override": null,
+      "mu_double_prime_override": null
+    },
+    "l_tolerance_fraction": 0.0,
+    "capacitance_tolerance_fraction": 0.0,
+    "q_multiplier": 1.0,
+    "metal_coefficient_scale": 1.0
+  },
+  "geometry": {
+    "total_coil_separation_mm": 42,
+    "phone_gap_mm": 2,
+    "door_thickness_mm": 40,
+    "offset_x_mm": 10.0,
+    "offset_y_mm": 0.0,
+    "tilt_x_deg": 0.0,
+    "tilt_y_deg": 10.0
+  },
+  "antenna_air": {
+    "L_uH": 1.6735902783953596,
+    "R_dc_ohm": 0.7421871945130288,
+    "R_ac_ohm": 1.417579320345727,
+    "Q_bare": 100.58687903028793,
+    "Q_loaded_reference": 19.018122185718784,
+    "skin_depth_copper_um": 17.94635647686562,
+    "self_resonance_estimate_MHz": 157.68803491398822,
+    "method": "Mohan current-sheet L; wide-strip skin + uncertain proximity R"
+  },
+  "antenna_installed": {
+    "L_uH": 1.8387559594299925,
+    "L_ratio": 1.0986894362179218,
+    "R_ac_equivalent_ohm": 2.1365923706027172,
+    "Q_bare_equivalent": 73.32329582198024,
+    "Q_loaded": 19.066540893667014
+  },
+  "receiver": {
+    "case": "Phone-M",
+    "equivalent_dimensions_mm": [
+      30.0,
+      38.0
+    ],
+    "L_estimate_uH": 0.08904005261822635,
+    "status": "representative equivalent, not a device teardown"
+  },
+  "environment": {
+    "door": {
+      "amplitude": 0.9977890295724118,
+      "loss_db": -0.01922550648068379,
+      "epsilon_r": 5.75,
+      "tan_delta": 0.16,
+      "mu_r": 1.0095,
+      "equivalent_loss_conductivity_s_m": 0.0006940265985861636,
+      "method": "quasi-static mu interface with conservative low-loss slab absorption bound"
+    },
+    "ferrite": {
+      "metal_isolation": 0.4445398117087823,
+      "front_field_factor": 1.0688973383389109,
+      "inductance_ratio": 1.1033460075083665,
+      "q_ratio": 0.9775498067406182,
+      "mu_prime": 97.5,
+      "mu_double_prime": 3.25,
+      "magnetic_loss_tangent": 0.03333333333333333,
+      "uncertainty_db": 0.9889733833891099,
+      "method": "finite-thickness saturation prior anchored to NFC-sheet mu'/mu''; calibrate by VNA"
+    },
+    "metal_effects": [
+      {
+        "object": {
+          "material": "mild_steel",
+          "width_mm": 80.0,
+          "height_mm": 25.0,
+          "thickness_mm": 1.5,
+          "distance_mm": 10.0,
+          "position": "partial_overlap",
+          "area_scale": 1.0
+        },
+        "effect": {
+          "field_factor": 0.886323584456116,
+          "field_loss_db": -1.0481538853368957,
+          "inductance_ratio": 0.9957795911176037,
+          "q_ratio": 0.7456958918023328,
+          "skin_depth_um": 4.411178889350179,
+          "shielding_strength": 0.11367641554388395,
+          "uncertainty_db": 1.3683820777194198,
+          "method": "bounded eddy-current/image-field prior; calibrate for actual metal geometry"
+        },
+        "ferrite_isolation_for_object": 0.4445398117087823
+      }
+    ],
+    "combined_field_factor": 0.9452942714458662,
+    "combined_L_ratio": 1.0986894362179218,
+    "combined_Q_ratio": 0.7289548749186433,
+    "prior_uncertainty_db_1sigma_approx": 1.6883535955704951
+  },
+  "field": {
+    "H_geometry_A_per_m_per_A": 8.142322690113271,
+    "H_installed_A_per_m_per_A": 7.69689099522777,
+    "H_reference_A_per_m_per_A": 93.91748061790973,
+    "H_over_reference": 0.08195376350161591,
+    "field_loss_db": -21.728621957072907,
+    "note": "magnetic near field per 1 A coil current; not far-field path loss"
+  },
+  "coupling": {
+    "M_geometry_nH": 9.614196826486234,
+    "M_installed_nH": 9.088245184630463,
+    "M_reference_nH": 216.07217682400733,
+    "k_geometry": 0.02490552682440441,
+    "k_installed": 0.022460803291865634,
+    "k_reference": 0.5597338491211794,
+    "relative_coupling": 0.04012764875151045,
+    "coupling_loss_db": -27.931125733387162,
+    "note": "20log10(k/k_reference), not Friis or a far-field RF path loss"
+  },
+  "matching": {
+    "f0_air_hz": 13560000.0,
+    "f0_installed_hz": 12936661.51607495,
+    "delta_f_hz": -623338.4839250501,
+    "installed_loaded_q": 19.066540893667014,
+    "detune_amplitude": 0.4955120336483379,
+    "detune_loss_db": -6.098915881753308,
+    "equivalent_series_capacitance_each_pf": 61.891921191196744,
+    "series_trim_delta_each_pf": -6.108078808803256,
+    "retune_recommended": true,
+    "retune_instruction": "L rose; reduce each C29/C30 by approximately 6.1 pF equivalent; parallel DNP pads cannot subtract capacitance, then VNA-tune C35/C36",
+    "method": "air network normalized to 13.56 MHz; first-order LC shift, not full PN7161 S-parameter fit"
+  },
+  "margin": {
+    "reference": "same phone equivalent, centered parallel at 2 mm in free air",
+    "coupling_only_margin_db": -27.931125733387162,
+    "detune_penalty_db": -6.098915881753308,
+    "loaded_Q_energy_term_db": 0.011042759637003036,
+    "nfc_margin_proxy_db": -34.01899885550347,
+    "absolute_success_threshold": null,
+    "success_probability": null,
+    "interpretation": "relative engineering proxy only; calibrate threshold with repeated HomeKey trials"
+  },
+  "risks": [
+    "total separation/alignment: -27.9 dB coupling vs 2 mm free-air reference",
+    "installed resonance detuning: -6.1 dB first-order response penalty",
+    "partial_overlap mild_steel at 10.0 mm: prior field term -1.0 dB"
+  ],
+  "limitations": [
+    "Phone-S/M/L are generic equivalent loops, not measured iPhone antenna geometries.",
+    "No absolute HomeKey receiver threshold or success probability is asserted.",
+    "Metal/ferrite field, L, and Q terms are bounded priors until installed VNA/EM calibration.",
+    "The real door core, moisture, hidden reinforcement, and lock geometry are unknown.",
+    "The KiCad file omits copper stackup thickness; 35 um nominal with 18-35 um uncertainty is assumed."
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "summary": {
+    "coupling_margin_db": {
+      "median": -29.50171519588298,
+      "P10": -32.334351394164486,
+      "P90": -26.640868494184268,
+      "worst_reasonable_P1": -34.888164650405905,
+      "minimum_observed": -37.2213633516734,
+      "maximum_observed": -23.48687326688996
+    },
+    "nfc_margin_proxy_db": {
+      "median": -35.27458198479087,
+      "P10": -40.36635422570056,
+      "P90": -29.633919555214646,
+      "worst_reasonable_P1": -43.86220621643769,
+      "minimum_observed": -46.84964747334057,
+      "maximum_observed": -24.023738818828914
+    },
+    "installed_L_uH": {
+      "median": 1.8343921506039864,
+      "P10": 1.7145258970858088,
+      "P90": 1.950804361796806,
+      "worst_reasonable_P1": 1.627660150501279,
+      "minimum_observed": 1.5969617795480704,
+      "maximum_observed": 2.0937888785257104
+    },
+    "installed_Q_loaded": {
+      "median": 19.437093766872977,
+      "P10": 17.805041203606567,
+      "P90": 20.917801356133072,
+      "worst_reasonable_P1": 16.3212881113307,
+      "minimum_observed": 15.805415464980287,
+      "maximum_observed": 23.40612282226852
+    },
+    "installed_f0_MHz": {
+      "median": 12.963129134811314,
+      "P10": 12.532569752656007,
+      "P90": 13.43603761514978,
+      "worst_reasonable_P1": 12.148942708551164,
+      "minimum_observed": 11.899598678576888,
+      "maximum_observed": 14.048926264710724
+    },
+    "samples": 1200,
+    "seed": 7161,
+    "worst_reasonable_definition": "P1 of the stated engineering-prior distribution, not an absolute bound"
+  },
+  "sensitivity": [
+    {
+      "variable": "antenna_L_tolerance_fraction",
+      "spearman_rho": -0.7557232748078297,
+      "importance_abs_rho": 0.7557232748078297
+    },
+    {
+      "variable": "door_thickness_mm",
+      "spearman_rho": -0.3824770919979805,
+      "importance_abs_rho": 0.3824770919979805
+    },
+    {
+      "variable": "phone_offset_mm",
+      "spearman_rho": -0.2740798014443065,
+      "importance_abs_rho": 0.2740798014443065
+    },
+    {
+      "variable": "matching_C_tolerance_fraction",
+      "spearman_rho": -0.2728768978311791,
+      "importance_abs_rho": 0.2728768978311791
+    },
+    {
+      "variable": "ferrite_thickness_mm",
+      "spearman_rho": -0.08526221893209647,
+      "importance_abs_rho": 0.08526221893209647
+    },
+    {
+      "variable": "ferrite_mu_prime",
+      "spearman_rho": -0.079311221743904,
+      "importance_abs_rho": 0.079311221743904
+    },
+    {
+      "variable": "lock_distance_mm",
+      "spearman_rho": 0.04343672460883653,
+      "importance_abs_rho": 0.04343672460883653
+    },
+    {
+      "variable": "Q_multiplier",
+      "spearman_rho": -0.042360112750078296,
+      "importance_abs_rho": 0.042360112750078296
+    },
+    {
+      "variable": "steel_area_scale",
+      "spearman_rho": 0.03844724197725137,
+      "importance_abs_rho": 0.03844724197725137
+    },
+    {
+      "variable": "metal_prior_scale",
+      "spearman_rho": 0.012442453085036864,
+      "importance_abs_rho": 0.012442453085036864
+    },
+    {
+      "variable": "phone_angle_deg",
+      "spearman_rho": 0.008871526994115968,
+      "importance_abs_rho": 0.008871526994115968
+    }
+  ]
+}

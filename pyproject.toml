@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autolock-nfc-model"
+version = "0.1.0"
+description = "Reduced-order 13.56 MHz NFC coupling model for Autolock Rev A"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24",
+  "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+report = ["matplotlib>=3.7"]
+
+[project.scripts]
+autolock-nfc = "nfc_model.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "tools"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["tools"]
+
+[tool.setuptools.package-data]
+nfc_model = ["data/*.json", "data/*.csv", "data/scenarios/*.json"]
