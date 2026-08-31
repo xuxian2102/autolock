@@ -1,0 +1,74 @@
+{
+  "_about": "Datasheet-verified pin functions and the connection rules the datasheets state as requirements. Checked by verify_release.py --only pins so the verification does not have to be repeated by hand. Every entry cites the document and revision it came from; re-verify against a newer revision before trusting it for a new order.",
+  "parts": {
+    "U1": {
+      "mpn": "AP63205WU-7",
+      "package": "TSOT26",
+      "source": "Diodes DS41326 Rev. 3-2 (Nov 2024), Pin Descriptions + Typical Application Circuit",
+      "notes": "Fixed 5.0 V output, so FB connects straight to the output node with no divider (the divider is only for the adjustable AP63200/AP63201). EN tied to VIN is explicitly sanctioned: 'Attach to VIN or leave open for automatic startup'.",
+      "pins": {"1": "FB", "2": "EN", "3": "VIN", "4": "GND", "5": "SW", "6": "BST"},
+      "rules": [
+        {"kind": "ground", "pins": ["4"], "why": "GND"},
+        {"kind": "same_net", "pins": ["2", "3"], "why": "EN tied to VIN for always-on operation"}
+      ]
+    },
+    "U3": {
+      "mpn": "AP63203WU-7",
+      "package": "TSOT26",
+      "source": "Diodes DS41326 Rev. 3-2 (Nov 2024), Pin Descriptions + Setting the Output Voltage",
+      "notes": "Fixed 3.3 V output; same FB-direct-to-output rule as U1. VIN minimum is 3.8 V, which SYS_5V clears even from a weak USB source.",
+      "pins": {"1": "FB", "2": "EN", "3": "VIN", "4": "GND", "5": "SW", "6": "BST"},
+      "rules": [
+        {"kind": "ground", "pins": ["4"], "why": "GND"},
+        {"kind": "same_net", "pins": ["2", "3"], "why": "EN tied to VIN for always-on operation"}
+      ]
+    },
+    "U6": {
+      "mpn": "TPS565201DDCR",
+      "package": "SOT-23-6 (DDC)",
+      "source": "TI SLVSE71 (Sept 2017), Pin Functions + Electrical Characteristics",
+      "notes": "Adjustable, so VFB needs the external divider that R28/R29 provide. EN carries an internal 120-400 kOhm pull-down to ground (245 kOhm typical), which must be included when sizing the enable network: with R26 10k in series and R27 100k to ground a 3.3 V GPIO still presents 2.79-2.93 V against a 1.6 V threshold, and the pin sits at 0 V when the GPIO is low or high-Z.",
+      "pins": {"1": "GND", "2": "SW", "3": "VIN", "4": "VFB", "5": "EN", "6": "VBST"},
+      "rules": [
+        {"kind": "ground", "pins": ["1"], "why": "GND"}
+      ]
+    },
+    "Q1": {
+      "mpn": "AO4407A",
+      "package": "SOIC-8",
+      "source": "Alpha & Omega AO4407A Rev. 11.1 (March 2024), SOIC-8 pin configuration",
+      "notes": "P-channel. For reverse-polarity protection the drain faces the battery and the source faces the load, so the body diode conducts in normal polarity and blocks when the pack is reversed; the gate is pulled to ground through R1 and clamped by D2.",
+      "pins": {"1": "S", "2": "S", "3": "S", "4": "G", "5": "D", "6": "D", "7": "D", "8": "D"},
+      "rules": [
+        {"kind": "same_net", "pins": ["1", "2", "3"], "why": "all source pins are one terminal"},
+        {"kind": "same_net", "pins": ["5", "6", "7", "8"], "why": "all drain pins are one terminal"}
+      ]
+    },
+    "U5": {
+      "mpn": "PN7161B1HN/C100E",
+      "package": "HVQFN40",
+      "source": "NXP PN7160_PN7161 product data sheet Rev. 3.2 (30 Sept 2021), Table 5 pin description",
+      "notes": "Pins 23/24 (ANT1/ANT2) and 25 (VDD(HF)) are the very low-power RF field detector of data sheet section 10.4.4: an internal rectifier that lets the controller notice an external field while powered off. A HomeKey lock is the reader and must poll actively, so that block is deliberately unpopulated and all three pins stay open. Pin 39 WKUP_REQ carries a 55-120 kOhm internal pull-down in Hard Power Down, so leaving it open is defined rather than floating. The project symbol labels pin 37 DCDC_EN; the data sheet calls it i.c. on HVQFN40. The connection (open) is right either way, but the name is not the vendor's.",
+      "pins": {
+        "1": "I2C_ADR0/SPI_NSS", "2": "DWL_REQ", "3": "I2C_ADR1/SPI_MOSI", "4": "VSS(PAD)",
+        "5": "I2C_SDA/SPI_MISO", "6": "VDD(PAD)", "7": "I2C_SCL/SPI_SCK", "8": "IRQ",
+        "9": "VSS(A)", "10": "VEN", "11": "i.c.", "12": "VBAT2", "13": "VDD(UP)",
+        "14": "VDD(TX)", "15": "RXN", "16": "RXP", "17": "VDD(VMID)", "18": "TVDD_IN",
+        "19": "TX2", "20": "VSS(TX)", "21": "TX1", "22": "TVDD_IN2", "23": "ANT1",
+        "24": "ANT2", "25": "VDD(HF)", "26": "VDD(A)", "27": "VDD", "28": "VBAT",
+        "29": "XTAL2", "30": "NFC_CLK_XTAL1", "31": "VDD(D)",
+        "32": "n.c.", "33": "n.c.", "34": "n.c.", "35": "n.c.", "36": "n.c.",
+        "37": "i.c.", "38": "i.c.", "39": "WKUP_REQ", "40": "CLK_REQ", "41": "VSS (centre pad)"
+      },
+      "rules": [
+        {"kind": "ground", "pins": ["4", "9", "20", "41"], "why": "data sheet: VSS(PAD), VSS(A), VSS(TX) and the centre pad must be connected to ground"},
+        {"kind": "same_net", "pins": ["14", "18", "22"], "why": "data sheet: TVDD_IN and TVDD_IN2 must be connected to VDD(TX)"},
+        {"kind": "same_net", "pins": ["26", "27", "31"], "why": "data sheet: VDD(A) connects to VDD(D), and VDD must be connected to both"},
+        {"kind": "same_net", "pins": ["12", "28"], "why": "data sheet: VBAT2 must be connected to VBAT"},
+        {"kind": "same_net", "pins": ["13", "28"], "why": "VDD(UP) is the TXLDO input; this design feeds it from the same rail as VBAT"},
+        {"kind": "open", "pins": ["11", "37", "38"], "why": "data sheet: i.c. pins are to be left open"},
+        {"kind": "open", "pins": ["23", "24", "25"], "why": "very low-power RF field detector deliberately unpopulated: a HomeKey lock polls, it is not woken by an external field"}
+      ]
+    }
+  }
+}

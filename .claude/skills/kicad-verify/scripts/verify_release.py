@@ -9,7 +9,9 @@ asking KiCad itself three questions:
   1. DRC   - does KiCad think the board is clean?
   2. NET   - does the copper actually implement design_data.py, pad by pad?
            (KiCad computes the netlist; we never ask the project's code.)
-  3. GERBER- does the released ZIP still fall out of the committed .kicad_pcb,
+  3. PINS  - does the manifest still obey the connection rules the five
+           critical datasheets state as requirements?
+  4. GERBER- does the released ZIP still fall out of the committed .kicad_pcb,
            byte for byte?
 
 Only step 2 reads project code, and only design_data.py, which is the manifest
@@ -204,6 +206,68 @@ def check_netlist(pcb: Path, project: Path, workdir: Path) -> dict:
 
 
 # --------------------------------------------------------------------------
+# 2b. Pin maps against the datasheets
+# --------------------------------------------------------------------------
+def check_pins(project: Path) -> dict:
+    """Hold the manifest to the connection rules the datasheets state.
+
+    Reading five datasheets by hand catches a wrong pin map once.  Encoding
+    what they require catches it every time someone edits design_data.py --
+    which matters because a swapped supply pin is not a defect a board test
+    finds gently.  references/pinmaps.json carries the verified pin functions
+    and cites the document each came from.
+    """
+    spec_path = Path(__file__).resolve().parent.parent / "references" / "pinmaps.json"
+    if not spec_path.is_file():
+        return {"ok": False, "error": f"pin map reference missing: {spec_path}"}
+    spec = json.loads(spec_path.read_text())["parts"]
+
+    sys.path.insert(0, str(project / "tools"))
+    try:
+        import design_data
+    except Exception as exc:                                  # pragma: no cover
+        return {"ok": False, "error": f"cannot import design_data.py: {exc}"}
+
+    failures, checked = [], 0
+    for ref, part_spec in sorted(spec.items()):
+        try:
+            part = design_data.part_by_ref(ref)
+        except StopIteration:
+            failures.append((ref, "-", f"{ref} is in the pin-map reference but not in the manifest"))
+            continue
+        declared_nc = set(design_data.NC_PINS.get(ref, []))
+
+        # The recorded pin functions must still describe the same part.
+        for pin in part_spec["pins"]:
+            if pin not in part.pins and pin not in declared_nc:
+                failures.append((ref, pin,
+                                 f"{part_spec['pins'][pin]} is neither wired nor declared NC"))
+
+        for rule in part_spec["rules"]:
+            checked += 1
+            pins, why = rule["pins"], rule["why"]
+            if rule["kind"] == "ground":
+                for p in pins:
+                    net = part.pins.get(p)
+                    if net != "GND":
+                        failures.append((ref, p, f"must be GND ({why}), found {net!r}"))
+            elif rule["kind"] == "same_net":
+                nets = {p: part.pins.get(p) for p in pins}
+                if len(set(nets.values())) != 1 or None in nets.values():
+                    failures.append((ref, ",".join(pins),
+                                     f"must share one net ({why}), found {nets}"))
+            elif rule["kind"] == "open":
+                for p in pins:
+                    if p in part.pins:
+                        failures.append((ref, p,
+                                         f"must be left open ({why}), found {part.pins[p]!r}"))
+                    elif p not in declared_nc:
+                        failures.append((ref, p, f"must be declared in NC_PINS ({why})"))
+
+    return {"ok": not failures, "parts": len(spec), "rules": checked, "failures": failures}
+
+
+# --------------------------------------------------------------------------
 # 3. Gerber reproduction
 # --------------------------------------------------------------------------
 def check_gerbers(pcb: Path, released_zip: Path, workdir: Path) -> dict:
@@ -250,7 +314,7 @@ def main() -> int:
     ap.add_argument("--zip", dest="zip_path", help="released Gerber ZIP to reproduce")
     ap.add_argument("--strict", action="store_true",
                     help="also run DRC with every ignored rule re-enabled")
-    ap.add_argument("--only", choices=["drc", "net", "gerber"], action="append",
+    ap.add_argument("--only", choices=["drc", "net", "pins", "gerber"], action="append",
                     help="run only these checks (repeatable)")
     ap.add_argument("--json", dest="json_out", help="write the full result as JSON")
     args = ap.parse_args()
@@ -269,7 +333,7 @@ def main() -> int:
     else:
         released = project / "production" / f"{pcb.stem}_JLCPCB_Gerber.zip"
 
-    wanted = set(args.only or ["drc", "net", "gerber"])
+    wanted = set(args.only or ["drc", "net", "pins", "gerber"])
     version = run(["kicad-cli", "--version"]).stdout.strip()
 
     print(f"project    {project}")
@@ -287,6 +351,8 @@ def main() -> int:
                 results["drc_strict"] = check_drc(pcb, workdir, strict=True)
         if "net" in wanted:
             results["netlist"] = check_netlist(pcb, project, workdir)
+        if "pins" in wanted:
+            results["pins"] = check_pins(project)
         if "gerber" in wanted:
             results["gerbers"] = check_gerbers(pcb, released, workdir)
 
@@ -321,6 +387,16 @@ def main() -> int:
                 print(f"        {ref}: in the manifest but not on the board")
             for ref, pad, net in r["undeclared_pads"]:
                 print(f"        {ref}.{pad} carries {net!r} but is neither mapped nor declared NC")
+
+    r = results.get("pins")
+    if r:
+        if "error" in r:
+            print(f"{paint(False, 'FAIL')}  Pin maps: {r['error']}")
+        else:
+            print(f"{paint(r['ok'], 'PASS' if r['ok'] else 'FAIL')}  Pin maps vs datasheets — "
+                  f"{r['rules']} rules across {r['parts']} parts, {len(r['failures'])} failures")
+            for ref, pin, msg in r["failures"][:20]:
+                print(f"        {ref} pin {pin}: {msg}")
 
     r = results.get("gerbers")
     if r:
