@@ -1,0 +1,6 @@
+# Working tree unpacked from the release tarball by the SessionStart hook.
+# Not a source of truth — regenerate it, never edit it in place.
+.work/
+
+__pycache__/
+*.pyc
