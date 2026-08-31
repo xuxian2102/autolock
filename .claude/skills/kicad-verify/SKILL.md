@@ -31,6 +31,8 @@ Useful flags:
 | `--strict` | Also re-runs DRC with every rule the project set to `ignore` turned back on. Run this before believing any "0 violations" claim. |
 | `--only net` | Just the netlist check (repeatable: `--only drc --only net`). Fast loop while editing the manifest. |
 | `--only pins` | Just the datasheet pin rules. Instant, needs no KiCad — run it on every manifest edit. |
+
+CPL rotation is a separate script, `scripts/audit_cpl_rotation.py` — it needs network rather than KiCad. See below.
 | `--project DIR` | Point at a different tree — e.g. a scratch copy you're experimenting on. |
 | `--zip PATH` | Compare against a specific Gerber ZIP instead of the one in `production/`. |
 | `--json PATH` | Machine-readable results for CI or for diffing across commits. |
@@ -115,6 +117,38 @@ Interpret results by *which* check broke — they fail for very different reason
   because the copper faithfully implements the wrong thing.
 - **New violation type under `--strict`** — a rule got silenced. Ask why before
   accepting it.
+
+## Settling CPL rotation without a JLCPCB preview
+
+`scripts/audit_cpl_rotation.py` answers the question a local audit normally
+cannot: is each CPL angle measured against the same zero-degree orientation
+JLC's pick-and-place uses? That orientation lives in JLC's parts library — but
+the library is reachable, because LCSC serves the EasyEDA package model for any
+part number and that model is what JLC assembles from.
+
+The script fetches each part's LCSC model and asks at which rotation the
+project's footprint lands pad-for-pad on it *with the pad numbers agreeing*.
+Insisting on the numbers is the whole point: a SOIC-8's pad positions are
+180-degree symmetric, so a position-only comparison would call a rotation
+harmless when it would actually swap pin 1 with pin 5.
+
+Baseline: 52 of 55 part groups correct as emitted, including every polarised
+part — D1-D5, C44, J2, Q1, U1-U6, X1 and the ESP32-C6 module. The three
+exceptions are benign and worth knowing so nobody re-investigates them:
+
+- **J4** pin header — through-hole, not in the CPL, hand-soldered to silkscreen.
+- **L3/L4** 0603 inductor — numbering agrees only at 180 degrees, but a
+  two-terminal inductor has interchangeable ends.
+- **SW1-3** tact switch — the project numbers the pads by row (1,1,2,2), LCSC
+  by corner (1,2,3,4). Geometry fits at 0 and 180, and an SPST switch is
+  symmetric between its two rows.
+
+One trap this proves: the community JLC rotation database used by the standard
+KiCad plugins matches four of this board's footprints by name prefix
+(`^SOIC-`, `^SOT-23`, `^TSOT-23`) and would rotate Q1, U1, U2 and U6. Those are
+EasyEDA-derived footprints that already sit in JLC's orientation, so applying
+those corrections would break parts that are currently right. Do not run this
+board's CPL through a generic rotation-correction step.
 
 ## Things worth knowing before you edit
 
