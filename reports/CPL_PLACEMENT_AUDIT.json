@@ -1,0 +1,658 @@
+{
+  "result": "PASS",
+  "board_footprints": 120,
+  "cpl_rows": 93,
+  "expected_top_smt": 93,
+  "coordinates_exact": true,
+  "rotations_exact": true,
+  "all_layers_top": true,
+  "d5": {
+    "rotation_deg": 270.0,
+    "pin1": {
+      "count": 1,
+      "coordinates_mm": [
+        [
+          145.0,
+          20.2125
+        ]
+      ],
+      "nets": [
+        "GND"
+      ]
+    },
+    "pin2": {
+      "count": 1,
+      "coordinates_mm": [
+        [
+          145.0,
+          21.7875
+        ]
+      ],
+      "nets": [
+        "LED_A"
+      ]
+    }
+  },
+  "critical": [
+    {
+      "reference": "D1",
+      "value": "SMBJ15A",
+      "lcsc": "C320232",
+      "footprint": "SMB_L4.6-W3.6-LS5.3-RD",
+      "x_mm": 103.5,
+      "y_mm": 62.0,
+      "rotation_deg": 90.0,
+      "pin1": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            103.5,
+            64.36
+          ]
+        ],
+        "nets": [
+          "BAT_FUSED"
+        ]
+      },
+      "pin2": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            103.5,
+            59.64
+          ]
+        ],
+        "nets": [
+          "GND"
+        ]
+      }
+    },
+    {
+      "reference": "D2",
+      "value": "10V Zener",
+      "lcsc": "C209597",
+      "footprint": "SOD-123FL_L2.6-W1.6-LS3.5-R-FD",
+      "x_mm": 110.0,
+      "y_mm": 62.0,
+      "rotation_deg": 90.0,
+      "pin1": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            110.0,
+            60.3
+          ]
+        ],
+        "nets": [
+          "BAT_SYS"
+        ]
+      },
+      "pin2": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            110.0,
+            63.7
+          ]
+        ],
+        "nets": [
+          "PMOS_GATE"
+        ]
+      }
+    },
+    {
+      "reference": "D3",
+      "value": "B5819W",
+      "lcsc": "C8598",
+      "footprint": "SOD-123_L2.7-W1.6-LS3.7-RD-1",
+      "x_mm": 121.0,
+      "y_mm": 45.5,
+      "rotation_deg": 0.0,
+      "pin1": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            119.3,
+            45.5
+          ]
+        ],
+        "nets": [
+          "SYS_5V"
+        ]
+      },
+      "pin2": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            122.7,
+            45.5
+          ]
+        ],
+        "nets": [
+          "5V_BAT"
+        ]
+      }
+    },
+    {
+      "reference": "D4",
+      "value": "B5819W",
+      "lcsc": "C8598",
+      "footprint": "SOD-123_L2.7-W1.6-LS3.7-RD-1",
+      "x_mm": 122.0,
+      "y_mm": 28.5,
+      "rotation_deg": 0.0,
+      "pin1": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            120.3,
+            28.5
+          ]
+        ],
+        "nets": [
+          "SYS_5V"
+        ]
+      },
+      "pin2": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            123.7,
+            28.5
+          ]
+        ],
+        "nets": [
+          "USB_5V"
+        ]
+      }
+    },
+    {
+      "reference": "D5",
+      "value": "Green LED",
+      "lcsc": "C12624",
+      "footprint": "LED_0603_1608Metric",
+      "x_mm": 145.0,
+      "y_mm": 21.0,
+      "rotation_deg": 270.0,
+      "pin1": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            145.0,
+            20.2125
+          ]
+        ],
+        "nets": [
+          "GND"
+        ]
+      },
+      "pin2": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            145.0,
+            21.7875
+          ]
+        ],
+        "nets": [
+          "LED_A"
+        ]
+      }
+    },
+    {
+      "reference": "Q1",
+      "value": "AO4407A",
+      "lcsc": "C16072",
+      "footprint": "SOIC-8_L4.9-W3.9-P1.27-LS6.0-BL",
+      "x_mm": 108.0,
+      "y_mm": 68.0,
+      "rotation_deg": 0.0,
+      "pin1": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            106.1,
+            70.6
+          ]
+        ],
+        "nets": [
+          "BAT_SYS"
+        ]
+      },
+      "pin2": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            107.37,
+            70.6
+          ]
+        ],
+        "nets": [
+          "BAT_SYS"
+        ]
+      }
+    },
+    {
+      "reference": "C44",
+      "value": "1000uF 10V",
+      "lcsc": "C311227",
+      "footprint": "CAP-SMD_BD8.0-L8.3-W8.3-FD",
+      "x_mm": 136.0,
+      "y_mm": 65.0,
+      "rotation_deg": 0.0,
+      "pin1": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            132.73,
+            65.0
+          ]
+        ],
+        "nets": [
+          "SERVO_6V"
+        ]
+      },
+      "pin2": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            139.27,
+            65.0
+          ]
+        ],
+        "nets": [
+          "GND"
+        ]
+      }
+    },
+    {
+      "reference": "U1",
+      "value": "AP63205WU-7 5V",
+      "lcsc": "C2071056",
+      "footprint": "TSOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL",
+      "x_mm": 100.0,
+      "y_mm": 53.5,
+      "rotation_deg": 0.0,
+      "pin1": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            99.05,
+            54.7
+          ]
+        ],
+        "nets": [
+          "5V_BAT"
+        ]
+      },
+      "pin2": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            100.0,
+            54.7
+          ]
+        ],
+        "nets": [
+          "BAT_SYS"
+        ]
+      }
+    },
+    {
+      "reference": "U2",
+      "value": "USBLC6-2SC6",
+      "lcsc": "C5261088",
+      "footprint": "SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR",
+      "x_mm": 122.0,
+      "y_mm": 11.0,
+      "rotation_deg": 0.0,
+      "pin1": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            123.35,
+            11.95
+          ]
+        ],
+        "nets": [
+          "USB_DN_CONN"
+        ]
+      },
+      "pin2": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            123.35,
+            11.0
+          ]
+        ],
+        "nets": [
+          "GND"
+        ]
+      }
+    },
+    {
+      "reference": "U3",
+      "value": "AP63203WU-7 3V3",
+      "lcsc": "C780769",
+      "footprint": "TSOT-26_L2.9-W1.6-P0.95-LS2.8-BL",
+      "x_mm": 100.0,
+      "y_mm": 35.5,
+      "rotation_deg": 0.0,
+      "pin1": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            99.05,
+            36.7
+          ]
+        ],
+        "nets": [
+          "3V3"
+        ]
+      },
+      "pin2": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            100.0,
+            36.7
+          ]
+        ],
+        "nets": [
+          "SYS_5V"
+        ]
+      }
+    },
+    {
+      "reference": "U4",
+      "value": "ESP32-C6-MINI-1-N4",
+      "lcsc": "C5736265",
+      "footprint": "ESP32-C6-MINI-1",
+      "x_mm": 99.0,
+      "y_mm": 8.5,
+      "rotation_deg": 0.0,
+      "pin1": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            93.1,
+            7.2
+          ]
+        ],
+        "nets": [
+          "GND"
+        ]
+      },
+      "pin2": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            93.1,
+            8.0
+          ]
+        ],
+        "nets": [
+          "GND"
+        ]
+      }
+    },
+    {
+      "reference": "U5",
+      "value": "PN7161B1HN/C100E",
+      "lcsc": "C3303780",
+      "footprint": "HVQFN-40_L6.0-W6.0-P0.50-BL-EP4.1",
+      "x_mm": 78.5,
+      "y_mm": 37.5,
+      "rotation_deg": 180.0,
+      "pin1": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            80.75,
+            34.45
+          ]
+        ],
+        "nets": [
+          "PN_NSS_IC"
+        ]
+      },
+      "pin2": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            80.25,
+            34.45
+          ]
+        ],
+        "nets": [
+          "PN_DWL_REQ"
+        ]
+      }
+    },
+    {
+      "reference": "U6",
+      "value": "TPS565201DDCR",
+      "lcsc": "C327676",
+      "footprint": "SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR",
+      "x_mm": 128.0,
+      "y_mm": 50.5,
+      "rotation_deg": 0.0,
+      "pin1": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            129.35,
+            51.45
+          ]
+        ],
+        "nets": [
+          "GND"
+        ]
+      },
+      "pin2": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            129.35,
+            50.5
+          ]
+        ],
+        "nets": [
+          "SW_SERVO"
+        ]
+      }
+    },
+    {
+      "reference": "J2",
+      "value": "USB-C USB2",
+      "lcsc": "C165948",
+      "footprint": "USB-C_SMD-TYPE-C-31-M-12_1",
+      "x_mm": 134.0,
+      "y_mm": 5.3,
+      "rotation_deg": 180.0,
+      "pin1": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            129.67,
+            7.01
+          ]
+        ],
+        "nets": [
+          "GND"
+        ]
+      },
+      "pin2": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            129.67,
+            2.83
+          ]
+        ],
+        "nets": [
+          "GND"
+        ]
+      }
+    },
+    {
+      "reference": "X1",
+      "value": "27.12MHz 10pF",
+      "lcsc": "C90919",
+      "footprint": "Crystal_SMD_3225-4Pin_3.2x2.5mm",
+      "x_mm": 79.0,
+      "y_mm": 48.0,
+      "rotation_deg": 0.0,
+      "pin1": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            77.9,
+            48.85
+          ]
+        ],
+        "nets": [
+          "XTAL1"
+        ]
+      },
+      "pin2": {
+        "count": 1,
+        "coordinates_mm": [
+          [
+            80.1,
+            48.85
+          ]
+        ],
+        "nets": [
+          "GND"
+        ]
+      }
+    },
+    {
+      "reference": "SW1",
+      "value": "RESET",
+      "lcsc": "C2886899",
+      "footprint": "SW_SPST_TL3305A",
+      "x_mm": 113.0,
+      "y_mm": 22.0,
+      "rotation_deg": 0.0,
+      "pin1": {
+        "count": 2,
+        "coordinates_mm": [
+          [
+            116.6,
+            20.5
+          ],
+          [
+            109.4,
+            20.5
+          ]
+        ],
+        "nets": [
+          "ESP_EN"
+        ]
+      },
+      "pin2": {
+        "count": 2,
+        "coordinates_mm": [
+          [
+            116.6,
+            23.5
+          ],
+          [
+            109.4,
+            23.5
+          ]
+        ],
+        "nets": [
+          "GND"
+        ]
+      }
+    },
+    {
+      "reference": "SW2",
+      "value": "BOOT",
+      "lcsc": "C2886899",
+      "footprint": "SW_SPST_TL3305A",
+      "x_mm": 124.0,
+      "y_mm": 22.0,
+      "rotation_deg": 0.0,
+      "pin1": {
+        "count": 2,
+        "coordinates_mm": [
+          [
+            127.6,
+            20.5
+          ],
+          [
+            120.4,
+            20.5
+          ]
+        ],
+        "nets": [
+          "BOOT"
+        ]
+      },
+      "pin2": {
+        "count": 2,
+        "coordinates_mm": [
+          [
+            127.6,
+            23.5
+          ],
+          [
+            120.4,
+            23.5
+          ]
+        ],
+        "nets": [
+          "GND"
+        ]
+      }
+    },
+    {
+      "reference": "SW3",
+      "value": "SERVICE",
+      "lcsc": "C2886899",
+      "footprint": "SW_SPST_TL3305A",
+      "x_mm": 136.0,
+      "y_mm": 22.0,
+      "rotation_deg": 0.0,
+      "pin1": {
+        "count": 2,
+        "coordinates_mm": [
+          [
+            139.6,
+            20.5
+          ],
+          [
+            132.4,
+            20.5
+          ]
+        ],
+        "nets": [
+          "SERVICE_BTN"
+        ]
+      },
+      "pin2": {
+        "count": 2,
+        "coordinates_mm": [
+          [
+            139.6,
+            23.5
+          ],
+          [
+            132.4,
+            23.5
+          ]
+        ],
+        "nets": [
+          "GND"
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "limitation": "Local audit proves source/CPL consistency. JLC's library-model zero-degree orientation still requires online placement preview."
+}

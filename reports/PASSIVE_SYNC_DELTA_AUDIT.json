@@ -1,0 +1,419 @@
+{
+  "baseline_archive": "/workspace/scratch/e692c3d32621/restore/HomeKey-Lock-RevA-PN7161-footprint-sync-audited.tar.gz",
+  "baseline_archive_sha256": "4fb51e3f71cb330b60458a917adfca5c68160539bd14abcb5758b2a4a98cb3ee",
+  "current_board_sha256": "78b418e901af186669a3a8aab1af6a9e8349c6347a9de8debe902a87b5f03f59",
+  "target_count": 58,
+  "verified_board_library_link_only_changes": 58,
+  "verified_schematic_footprint_property_only_changes": 58,
+  "non_target_board_footprints_unchanged": true,
+  "board_tracks_zones_graphics_nets_unchanged": true,
+  "non_target_schematic_symbols_unchanged": true,
+  "schematic_non_symbol_data_unchanged": true,
+  "fabrication_files": [
+    {
+      "file": "HomeKey-Lock-RevA-PN7161-NPTH.drl",
+      "physical_bytes_identical_after_creation_date_normalization": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161-PTH.drl",
+      "physical_bytes_identical_after_creation_date_normalization": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.G2",
+      "physical_bytes_identical_after_creation_date_normalization": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.G3",
+      "physical_bytes_identical_after_creation_date_normalization": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.GBL",
+      "physical_bytes_identical_after_creation_date_normalization": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.GBO",
+      "physical_bytes_identical_after_creation_date_normalization": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.GBP",
+      "physical_bytes_identical_after_creation_date_normalization": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.GBS",
+      "physical_bytes_identical_after_creation_date_normalization": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.GKO",
+      "physical_bytes_identical_after_creation_date_normalization": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.GTL",
+      "physical_bytes_identical_after_creation_date_normalization": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.GTO",
+      "physical_bytes_identical_after_creation_date_normalization": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.GTP",
+      "physical_bytes_identical_after_creation_date_normalization": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.GTS",
+      "physical_bytes_identical_after_creation_date_normalization": true
+    }
+  ],
+  "fabrication_geometry_identical": true,
+  "changes": [
+    {
+      "reference": "C10",
+      "schematic": "01_POWER_USB.kicad_sch",
+      "before": "HomeKey_RevA:C_1206_3216Metric",
+      "after": "HomeKey_RevA:C_1206_3216Metric_FabRef"
+    },
+    {
+      "reference": "C2",
+      "schematic": "01_POWER_USB.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_ValueHidden"
+    },
+    {
+      "reference": "C3",
+      "schematic": "01_POWER_USB.kicad_sch",
+      "before": "HomeKey_RevA:C_1206_3216Metric",
+      "after": "HomeKey_RevA:C_1206_3216Metric_ValueHidden"
+    },
+    {
+      "reference": "C5",
+      "schematic": "01_POWER_USB.kicad_sch",
+      "before": "HomeKey_RevA:C_1206_3216Metric",
+      "after": "HomeKey_RevA:C_1206_3216Metric_FabRef"
+    },
+    {
+      "reference": "C6",
+      "schematic": "01_POWER_USB.kicad_sch",
+      "before": "HomeKey_RevA:C_1206_3216Metric",
+      "after": "HomeKey_RevA:C_1206_3216Metric_ValueHidden"
+    },
+    {
+      "reference": "C7",
+      "schematic": "01_POWER_USB.kicad_sch",
+      "before": "HomeKey_RevA:C_1206_3216Metric",
+      "after": "HomeKey_RevA:C_1206_3216Metric_FabRef"
+    },
+    {
+      "reference": "C9",
+      "schematic": "01_POWER_USB.kicad_sch",
+      "before": "HomeKey_RevA:C_1206_3216Metric",
+      "after": "HomeKey_RevA:C_1206_3216Metric_FabRef"
+    },
+    {
+      "reference": "R2",
+      "schematic": "01_POWER_USB.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "R3",
+      "schematic": "01_POWER_USB.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C11",
+      "schematic": "02_MCU_IO.kicad_sch",
+      "before": "HomeKey_RevA:C_1206_3216Metric",
+      "after": "HomeKey_RevA:C_1206_3216Metric_FabRef"
+    },
+    {
+      "reference": "C12",
+      "schematic": "02_MCU_IO.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C13",
+      "schematic": "02_MCU_IO.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "R7",
+      "schematic": "02_MCU_IO.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_ValueHidden"
+    },
+    {
+      "reference": "R8",
+      "schematic": "02_MCU_IO.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "R9",
+      "schematic": "02_MCU_IO.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C15",
+      "schematic": "03_NFC_CONTROLLER.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C16",
+      "schematic": "03_NFC_CONTROLLER.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C17",
+      "schematic": "03_NFC_CONTROLLER.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C18",
+      "schematic": "03_NFC_CONTROLLER.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C19",
+      "schematic": "03_NFC_CONTROLLER.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C20",
+      "schematic": "03_NFC_CONTROLLER.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C21",
+      "schematic": "03_NFC_CONTROLLER.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C22",
+      "schematic": "03_NFC_CONTROLLER.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C23",
+      "schematic": "03_NFC_CONTROLLER.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C24",
+      "schematic": "03_NFC_CONTROLLER.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C25",
+      "schematic": "03_NFC_CONTROLLER.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C26",
+      "schematic": "03_NFC_CONTROLLER.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_ValueHidden"
+    },
+    {
+      "reference": "R12",
+      "schematic": "03_NFC_CONTROLLER.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "R13",
+      "schematic": "03_NFC_CONTROLLER.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "R14",
+      "schematic": "03_NFC_CONTROLLER.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "R15",
+      "schematic": "03_NFC_CONTROLLER.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "R16",
+      "schematic": "03_NFC_CONTROLLER.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "R17",
+      "schematic": "03_NFC_CONTROLLER.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C27",
+      "schematic": "04_RF_ANTENNA.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C28",
+      "schematic": "04_RF_ANTENNA.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C29",
+      "schematic": "04_RF_ANTENNA.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C30",
+      "schematic": "04_RF_ANTENNA.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_ValueHidden"
+    },
+    {
+      "reference": "C31",
+      "schematic": "04_RF_ANTENNA.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C32",
+      "schematic": "04_RF_ANTENNA.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C33",
+      "schematic": "04_RF_ANTENNA.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C34",
+      "schematic": "04_RF_ANTENNA.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C35",
+      "schematic": "04_RF_ANTENNA.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C36",
+      "schematic": "04_RF_ANTENNA.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C37",
+      "schematic": "04_RF_ANTENNA.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_ValueHidden"
+    },
+    {
+      "reference": "C38",
+      "schematic": "04_RF_ANTENNA.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_ValueHidden"
+    },
+    {
+      "reference": "R18",
+      "schematic": "04_RF_ANTENNA.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_ValueHidden"
+    },
+    {
+      "reference": "R19",
+      "schematic": "04_RF_ANTENNA.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_ValueHidden"
+    },
+    {
+      "reference": "R20",
+      "schematic": "04_RF_ANTENNA.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_ValueHidden"
+    },
+    {
+      "reference": "R21",
+      "schematic": "04_RF_ANTENNA.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_ValueHidden"
+    },
+    {
+      "reference": "R22",
+      "schematic": "04_RF_ANTENNA.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_ValueHidden"
+    },
+    {
+      "reference": "R23",
+      "schematic": "04_RF_ANTENNA.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_ValueHidden"
+    },
+    {
+      "reference": "C39",
+      "schematic": "05_SERVO_DRIVER.kicad_sch",
+      "before": "HomeKey_RevA:C_1206_3216Metric",
+      "after": "HomeKey_RevA:C_1206_3216Metric_FabRef"
+    },
+    {
+      "reference": "C40",
+      "schematic": "05_SERVO_DRIVER.kicad_sch",
+      "before": "HomeKey_RevA:C_0603_1608Metric",
+      "after": "HomeKey_RevA:C_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "C42",
+      "schematic": "05_SERVO_DRIVER.kicad_sch",
+      "before": "HomeKey_RevA:C_1206_3216Metric",
+      "after": "HomeKey_RevA:C_1206_3216Metric_FabRef"
+    },
+    {
+      "reference": "C43",
+      "schematic": "05_SERVO_DRIVER.kicad_sch",
+      "before": "HomeKey_RevA:C_1206_3216Metric",
+      "after": "HomeKey_RevA:C_1206_3216Metric_FabRef"
+    },
+    {
+      "reference": "R28",
+      "schematic": "05_SERVO_DRIVER.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "R29",
+      "schematic": "05_SERVO_DRIVER.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_FabRef"
+    },
+    {
+      "reference": "R31",
+      "schematic": "05_SERVO_DRIVER.kicad_sch",
+      "before": "HomeKey_RevA:R_0603_1608Metric",
+      "after": "HomeKey_RevA:R_0603_1608Metric_FabRef"
+    }
+  ],
+  "errors": [],
+  "result": "PASS"
+}

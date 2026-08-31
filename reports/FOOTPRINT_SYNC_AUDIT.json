@@ -1,0 +1,84 @@
+{
+  "metadata": {
+    "schema_version": 1,
+    "mode": "read-only",
+    "board": "kicad/HomeKey-Lock-RevA-PN7161.kicad_pcb",
+    "board_sha256": "72101a077827d86e26ad6c44af2159ee3bae850446bcb41e75e271862ce69996",
+    "project_library": "kicad/HomeKey_RevA.pretty",
+    "project_library_file_count": 33,
+    "project_library_sha256": {
+      "CAP-SMD_BD8.0-L8.3-W8.3-FD.kicad_mod": "d53da3332eb3643f8f8248650e9ae5813ce87cb9679c2336063c9998a4714293",
+      "C_0603_1608Metric.kicad_mod": "608e18fb80450783fac25cc58c9252747b9ea2194cf45d152599bf23170afeb6",
+      "C_0603_1608Metric_FabRef.kicad_mod": "958d1c1d526197ba7a384e2bec401eb9b6f0656e933e45745d648cbda3bc56c2",
+      "C_0603_1608Metric_ValueHidden.kicad_mod": "669bd56feebc66c3811ec497a849810f7f53122a1e938ca4dcf2ff9a25a40d36",
+      "C_1206_3216Metric.kicad_mod": "0260300ad70a54d468e7e1462882d2b79160ff261c8536201e95cb1b67454a56",
+      "C_1206_3216Metric_FabRef.kicad_mod": "50fc5d6cfb6572c5cbc9f85effc6e3311344af61e47d559563c293dba5620c06",
+      "C_1206_3216Metric_ValueHidden.kicad_mod": "37433ac30b61ca8fcc0cd650e4da56b03bb100ca96300e51b3fa6b7d1480fefe",
+      "C_1210_3225Metric.kicad_mod": "2ad591836efc840922ed90cd7f8cee81f2c2f3787f3ace2b1035b2eac523f705",
+      "Crystal_SMD_3225-4Pin_3.2x2.5mm.kicad_mod": "1d912c18534e44236760ccc924d21954f0034c0e8bbc736c1ba7e695908a3d3d",
+      "ESP32-C6-MINI-1.kicad_mod": "49e370d919ea04fd1ef2481104f00b1e9bd8b458ad3921393b377657f8910c28",
+      "F1812.kicad_mod": "62d1f1bbf42ea5b2c90f8b9a38958ee3634653050a4c8d61036f403dad394106",
+      "HVQFN-40_L6.0-W6.0-P0.50-BL-EP4.1.kicad_mod": "48d9627e4dca52142bae41acc30a845259c7a9282ca2102f9825fd017ac87a0a",
+      "IND-SMD_L7.0-W6.6_APH0630.kicad_mod": "fa1b893b9a1e6b8a0d29144d742636aa29b5a064e88a30468f420a05ce66ab8e",
+      "LED_0603_1608Metric.kicad_mod": "11eca0d6fc926a49d9049ca88889809a55a3a2c49c7d1e9567c5b55c35a2755b",
+      "L_0603_1608Metric.kicad_mod": "3b8860b3eba0443012927d95ed3e161e6517e7d55139fa0dbfedc5a7f7c21ed5",
+      "MountingHole_3.2mm_M3.kicad_mod": "cffe1cecb8536d62072b3bfefa3463fae513359c2bd4f1f9e69daf7250cee6e1",
+      "NFC_Antenna_40x40_4T.kicad_mod": "de0afb6c421dd61d2857a71f9d548352c7f679a90b0e1d768c621305fbd533ee",
+      "PinHeader_1x02_P2.54mm_Vertical.kicad_mod": "b139f1eec9b291e43b292de1268707e3008fb8015c61bd0b8382742e44c261fe",
+      "PinHeader_1x03_P2.54mm_Vertical.kicad_mod": "e708d7796c69d692eda897d831aa65d9785dbf212440f5fde37478b8f7b97758",
+      "R_0603_1608Metric.kicad_mod": "c9cacb54994c0aa1d42dfe9c3fb385868f53f5a8d826a51a7f08056f34d871b4",
+      "R_0603_1608Metric_FabRef.kicad_mod": "131750fd498fd75982ba8e928b5ae8c7106e4a6e06357122523289b1538c7a7b",
+      "R_0603_1608Metric_ValueHidden.kicad_mod": "8ad7b7f7bdd71b70cc9fa40a5e6a30c71cc1a5a8b91a9ff096faf2438e96a046",
+      "SMB_L4.6-W3.6-LS5.3-RD.kicad_mod": "4f162e16f29e1ba45f1543088907cc5a55d88524e47e11f1a45c27513d960cbb",
+      "SOD-123FL_L2.6-W1.6-LS3.5-R-FD.kicad_mod": "ec1ee83dd101863e273cbfdcda8e73f05998d7771c3f13b80bab6c0285498dfb",
+      "SOD-123_L2.7-W1.6-LS3.7-RD-1.kicad_mod": "b65da31e90662f2b7af57349cfaa3e9417ccfef4cc06997954ec77ff10080b00",
+      "SOIC-8_L4.9-W3.9-P1.27-LS6.0-BL.kicad_mod": "8b8410a1a6dd5250cb68b1e642ef8d9d205cd8bb2394ed07ff02b8631a2835dd",
+      "SOT-23-6_L2.9-W1.6-P0.95-LS2.8-BR.kicad_mod": "61b4213010d35058ab228e3ab2aa01762ab9249c37bb1025984c026bd13f9840",
+      "SW_SPST_TL3305A.kicad_mod": "5bdc0affddeebe87563db8c2339dec56b049ddef8f6319764e34cbf838ecfd9c",
+      "TSOT-23-6_L2.9-W1.6-P0.95-LS2.8-BL.kicad_mod": "29d13ac8d836a74097fea30a37941f83697357a5e8953837c3aca98ca0238ad6",
+      "TSOT-26_L2.9-W1.6-P0.95-LS2.8-BL.kicad_mod": "a88cce07e84ccf80b707de8910cd565c9e5441d1c9a9b4ed87538813ed30af60",
+      "TerminalBlock_1x02_P5.08mm.kicad_mod": "90f898cc8e0490a75cbedebf0db3d933f8289a755352fa6812a9249564bbf87d",
+      "TestPoint_Pad_D1.0mm.kicad_mod": "f656c9fb1f11e345b0f97d9a7119972e5dcca486fc2ca65bd06c086ce49cc0f7",
+      "USB-C_SMD-TYPE-C-31-M-12_1.kicad_mod": "a5768edc5b6a37c1b4e5f0d3e236463ed424052f7684d1657874f2eec38da7ca"
+    },
+    "drc_source": "reports/KICAD10_DRC_U5_SYNC_OFFICIAL.json",
+    "drc_sha256": "50846df02f352c3c1304be8b80200636671eaa385de49d7d099f13d1b62e6fbd",
+    "drc_violation_count": 0,
+    "audited_instance_count": 0,
+    "distinct_library_id_count": 0,
+    "normalization": {
+      "ignored": [
+        "UUID/tstamp",
+        "placed-instance net assignment",
+        "board placement and rotation",
+        "reference/value text content",
+        "pin function/type copied from schematic"
+      ],
+      "pad_number_rule": "compare as text",
+      "coordinate_precision_decimal_places": 6
+    }
+  },
+  "risk_definitions": {
+    "COPPER_CRITICAL_REVIEW": [
+      "copper_graphics",
+      "drills",
+      "pads"
+    ],
+    "STRUCTURAL_REVIEW": [
+      "courtyard",
+      "models",
+      "other_graphics",
+      "settings",
+      "zones"
+    ],
+    "GRAPHICS_ONLY": [
+      "silk",
+      "fab",
+      "reference_field",
+      "value_field",
+      "user_fields"
+    ]
+  },
+  "library_groups": [],
+  "instances": []
+}

@@ -1,0 +1,16 @@
+HomeKey-Lock-RevA-PN7161 MANUFACTURING EXPORT AUDIT
+========================================================================
+Board source: kicad/HomeKey-Lock-RevA-PN7161.kicad_pcb
+Board outline: 150.0 x 75.0 mm
+Fabrication files: 13 / 13 required
+PTH: 240 round + 4 slots
+NPTH: 6 round + 0 slots
+BOM active refs: 95
+CPL top-side refs: 93
+Errors: 0
+Warnings: 1
+
+OPEN ITEMS / LIMITATIONS
+ - Official KiCad fabrication output still requires JLC online layer preview before payment
+
+RESULT: PASS (export integrity)

@@ -1,0 +1,89 @@
+{
+  "baseline_archive": "/workspace/scratch/e692c3d32621/HomeKey-Lock-RevA-PN7161-passive-sync-batch1.tar.gz",
+  "baseline_archive_sha256": "dcf536451b59e1b5a336ac5f7dc22d2c085f7b1106a0d2ef820ffc3fb0389d1f",
+  "current_board_sha256": "68fd605992097e5ed051526ba7873be3688777c197c7510c0f2ebb9e833b85b1",
+  "target_instances": 58,
+  "verified_text_angles": 174,
+  "verified_pad_angles": 116,
+  "non_target_footprints_unchanged": true,
+  "board_outside_footprints_unchanged": true,
+  "schematics": [
+    {
+      "file": "01_POWER_USB.kicad_sch",
+      "identical": true
+    },
+    {
+      "file": "02_MCU_IO.kicad_sch",
+      "identical": true
+    },
+    {
+      "file": "03_NFC_CONTROLLER.kicad_sch",
+      "identical": true
+    },
+    {
+      "file": "04_RF_ANTENNA.kicad_sch",
+      "identical": true
+    },
+    {
+      "file": "05_SERVO_DRIVER.kicad_sch",
+      "identical": true
+    }
+  ],
+  "fabrication_files": [
+    {
+      "file": "HomeKey-Lock-RevA-PN7161-NPTH.drl",
+      "geometry_identical": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161-PTH.drl",
+      "geometry_identical": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.G2",
+      "geometry_identical": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.G3",
+      "geometry_identical": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.GBL",
+      "geometry_identical": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.GBO",
+      "geometry_identical": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.GBP",
+      "geometry_identical": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.GBS",
+      "geometry_identical": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.GKO",
+      "geometry_identical": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.GTL",
+      "geometry_identical": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.GTO",
+      "geometry_identical": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.GTP",
+      "geometry_identical": true
+    },
+    {
+      "file": "HomeKey-Lock-RevA-PN7161.GTS",
+      "geometry_identical": true
+    }
+  ],
+  "fabrication_geometry_identical": true,
+  "errors": [],
+  "result": "PASS"
+}

@@ -1,0 +1,9 @@
+HomeKey-Lock-RevA-PN7161 GEOMETRY AUDIT
+========================================================================
+Copper layer/net unions: 221
+Copper primitives checked: 8521
+Minimum audited different-net clearance: 0.10 mm
+Errors: 0
+Warnings: 0
+
+RESULT: PASS — no different-net copper touch or sub-0.10 mm clearance found

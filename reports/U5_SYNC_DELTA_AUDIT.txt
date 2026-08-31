@@ -1,0 +1,19 @@
+HOMEKEY LOCK REV A — U5 SOT618-1 PHYSICAL DELTA AUDIT
+============================================================================
+[PASS] reviewed J2 checkpoint identity
+[PASS] baseline archive path scope
+[PASS] board text outside U5 is byte-identical
+[PASS] U5 identity and placement
+[PASS] U5 41 copper pads, nets, and physical orientation unchanged
+[PASS] legacy full-area exposed-pad paste identified
+[PASS] NXP 3 x 3 stencil is exact
+[PASS] U5 text fields retain physical orientation
+[PASS] all schematic sheets are byte-identical
+[PASS] project-library change scope is U5 only
+[PASS] only top-paste manufacturing geometry changed
+[PASS] assembly exports are byte-identical
+
+Only the NXP-backed stencil/courtyard and native representation changes are waived.
+Copper, drill, nets, placement, other footprints, and assembly data remain gated.
+
+RESULT: PASS (0 errors)

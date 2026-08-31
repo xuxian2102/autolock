@@ -1,0 +1,14 @@
+# KiCad 自动备份与锁文件
+*-backups/
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*.kicad_prl
+~*.lck
+fp-info-cache
+
+# Python
+__pycache__/
+*.pyc
+
+# 构建产物 / 临时导出目录
+*.tar.gz

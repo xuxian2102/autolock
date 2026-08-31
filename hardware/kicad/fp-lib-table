@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name "HomeKey_RevA")(type "KiCad")(uri "${KIPRJMOD}/HomeKey_RevA.pretty")(options "")(descr "Rev A self-contained footprints"))
+)

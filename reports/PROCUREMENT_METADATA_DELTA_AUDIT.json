@@ -1,0 +1,37 @@
+{
+  "baseline_archive": "/workspace/scratch/e692c3d32621/HomeKey-Lock-RevA-PN7161-u5-sot618-fixed.tar.gz",
+  "baseline_archive_sha256": "33c642d369097ed37935f80ef376afe2fee3a5a30dfb76de2d70d963e78ff025",
+  "board_identical": true,
+  "board_sha256": "72101a077827d86e26ad6c44af2159ee3bae850446bcb41e75e271862ce69996",
+  "schematics": [
+    {
+      "file": "01_POWER_USB.kicad_sch",
+      "identical_after_metadata_normalization": true
+    },
+    {
+      "file": "02_MCU_IO.kicad_sch",
+      "identical_after_metadata_normalization": true
+    },
+    {
+      "file": "03_NFC_CONTROLLER.kicad_sch",
+      "identical_after_metadata_normalization": true
+    },
+    {
+      "file": "04_RF_ANTENNA.kicad_sch",
+      "identical_after_metadata_normalization": true
+    },
+    {
+      "file": "05_SERVO_DRIVER.kicad_sch",
+      "identical_after_metadata_normalization": true
+    }
+  ],
+  "design_data_electrical_signature_identical": true,
+  "allowed_changes": [
+    "LCSC",
+    "MPN",
+    "Manufacturer",
+    "procurement note/report/export files"
+  ],
+  "errors": [],
+  "result": "PASS"
+}

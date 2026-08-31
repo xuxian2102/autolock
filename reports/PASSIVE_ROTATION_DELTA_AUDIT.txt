@@ -1,0 +1,11 @@
+HOMEKEY LOCK REV A — PASSIVE ROTATION DELTA AUDIT
+========================================================================
+Target instances: 58
+Verified text child angles: 174
+Verified pad child angles: 116
+Non-target footprints unchanged: True
+Board outside footprints unchanged: True
+Fabrication geometry identical: True (13 files)
+Errors: 0
+
+RESULT: PASS
