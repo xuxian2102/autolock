@@ -1,0 +1,14 @@
+{
+  "name": "WORST_STEEL",
+  "description": "Stress test only: large aluminium plate directly behind the coil; not the assumed Sydney apartment door.",
+  "door_material": "fire_rated_composite",
+  "door_thickness_mm": 50,
+  "phone_case": "Phone-S",
+  "phone_gap_mm": 3,
+  "offset_x_mm": 20,
+  "tilt_y_deg": 20,
+  "metals": [
+    {"material": "aluminium", "width_mm": 150, "height_mm": 150, "thickness_mm": 1.5, "distance_mm": 2, "position": "behind"}
+  ],
+  "ferrite": {"material": "medium", "thickness_mm": 0}
+}

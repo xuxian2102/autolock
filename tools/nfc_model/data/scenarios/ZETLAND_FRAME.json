@@ -1,0 +1,12 @@
+{
+  "name": "ZETLAND_FRAME",
+  "description": "40 mm non-metal door with a mild-steel frame beside the coil.",
+  "door_material": "fire_rated_composite",
+  "door_thickness_mm": 40,
+  "phone_case": "Phone-M",
+  "phone_gap_mm": 2,
+  "metals": [
+    {"material": "mild_steel", "width_mm": 50, "height_mm": 200, "thickness_mm": 1.5, "distance_mm": 50, "position": "steel_frame_side"}
+  ],
+  "ferrite": {"material": "medium", "thickness_mm": 0}
+}

@@ -1,0 +1,10 @@
+{
+  "name": "ZETLAND_BASELINE",
+  "description": "40 mm non-metal solid-core apartment entry door.",
+  "door_material": "fire_rated_composite",
+  "door_thickness_mm": 40,
+  "phone_case": "Phone-M",
+  "phone_gap_mm": 2,
+  "metals": [],
+  "ferrite": {"material": "medium", "thickness_mm": 0}
+}

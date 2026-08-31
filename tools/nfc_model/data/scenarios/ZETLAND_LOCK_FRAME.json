@@ -1,0 +1,13 @@
+{
+  "name": "ZETLAND_LOCK_FRAME",
+  "description": "Case Z4: 40 mm non-metal door, partial-overlap lock body at 10 mm, and steel frame at 50 mm.",
+  "door_material": "fire_rated_composite",
+  "door_thickness_mm": 40,
+  "phone_case": "Phone-M",
+  "phone_gap_mm": 2,
+  "metals": [
+    {"material": "mild_steel", "width_mm": 80, "height_mm": 25, "thickness_mm": 1.5, "distance_mm": 10, "position": "partial_overlap"},
+    {"material": "mild_steel", "width_mm": 50, "height_mm": 200, "thickness_mm": 1.5, "distance_mm": 50, "position": "steel_frame_side"}
+  ],
+  "ferrite": {"material": "medium", "thickness_mm": 0}
+}

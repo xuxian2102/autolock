@@ -1,0 +1,10 @@
+{
+  "name": "FREE_AIR",
+  "description": "Centered parallel Phone-M reference at a 2 mm air gap.",
+  "door_material": "air",
+  "door_thickness_mm": 0,
+  "phone_case": "Phone-M",
+  "phone_gap_mm": 2,
+  "metals": [],
+  "ferrite": {"material": "medium", "thickness_mm": 0}
+}

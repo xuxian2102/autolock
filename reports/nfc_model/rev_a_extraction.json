@@ -1,0 +1,65 @@
+{
+  "coil": {
+    "name": "Autolock Rev A AE1",
+    "turn_sizes_mm": [
+      [
+        40.0,
+        40.0
+      ],
+      [
+        38.6,
+        38.6
+      ],
+      [
+        37.2,
+        37.2
+      ],
+      [
+        35.8,
+        35.8
+      ]
+    ],
+    "trace_width_mm": 0.4,
+    "spacing_mm": 0.29999999999999927,
+    "copper_thickness_um": 35.0,
+    "center_mm": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "turns_equivalent": 1.0,
+    "metadata": {
+      "copper_thickness_range_um": [
+        18.0,
+        35.0
+      ],
+      "copper_thickness_status": "not encoded in KiCad stackup; 35 um nominal assumption",
+      "antenna_layer": "F.Cu with one B.Cu crossover",
+      "source_footprint": "HomeKey_RevA:NFC_Antenna_40x40_4T",
+      "actual_conductor_length_mm": 602.6560019445793,
+      "closed_turn_filament_length_mm": 606.4
+    }
+  },
+  "footprint_at_mm": [
+    48.0,
+    37.5,
+    0.0
+  ],
+  "copper_outer_bbox_mm": [
+    4.8,
+    17.3,
+    48.2,
+    57.7
+  ],
+  "documented_keepout_bbox_mm": [
+    4.0,
+    16.0,
+    48.0,
+    59.0
+  ],
+  "pcb_thickness_mm": 1.6,
+  "copper_thickness_source": "assumed nominal 35 um; KiCad file has no stackup copper thickness",
+  "raw_trace_length_mm": 602.6560019445793,
+  "crossover_length_mm": 16.45600194457937,
+  "source": "/workspace/scratch/54abc8b6e1c9/autolock/HomeKey-Lock-RevA-PN7161_RevA_Review_Package.zip:kicad/HomeKey-Lock-RevA-PN7161.kicad_pcb"
+}

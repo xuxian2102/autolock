@@ -1,0 +1,12 @@
+{
+  "name": "ZETLAND_LOCK_FERRITE_05",
+  "description": "ZETLAND_LOCK_NEAR with a 0.5 mm medium-permeability NFC ferrite sheet.",
+  "door_material": "fire_rated_composite",
+  "door_thickness_mm": 40,
+  "phone_case": "Phone-M",
+  "phone_gap_mm": 2,
+  "metals": [
+    {"material": "mild_steel", "width_mm": 80, "height_mm": 25, "thickness_mm": 1.5, "distance_mm": 10, "position": "partial_overlap"}
+  ],
+  "ferrite": {"material": "medium", "thickness_mm": 0.5, "coverage_fraction": 1.0}
+}
