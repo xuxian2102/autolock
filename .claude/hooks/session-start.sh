@@ -44,16 +44,25 @@ else
 fi
 
 # --- Python packages ------------------------------------------------------
-# tools/ imports these; none of them is declared in the repo.  pillow is
-# listed because noble's system PIL is too old for the pip matplotlib that
-# render_board.py pulls in, which breaks the import chain.
-PY_DEPS="kiutils shapely numpy matplotlib pillow gerber-writer"
-if python3 -c 'import kiutils, shapely, numpy, matplotlib, gerber_writer' 2>/dev/null; then
+# tools/ imports these; none of them is declared in the repo.  pillow is here
+# because noble's system PIL is too old for the pip matplotlib that
+# render_board.py pulls in; python-dateutil because matplotlib.pyplot needs it.
+#
+# Two subtleties, both learned the hard way:
+#  * verify with HOME neutralised.  A package sitting in ~/.local satisfies a
+#    plain import check but vanishes for any process run with a different HOME,
+#    which is exactly how build_release.py failed while a bare check passed.
+#  * install into the interpreter's own system site directory for the same
+#    reason -- a --user install is invisible the moment HOME changes.
+PY_DEPS="kiutils shapely numpy matplotlib pillow gerber-writer python-dateutil six"
+PY_CHECK='import kiutils, shapely, gerber_writer; import matplotlib.pyplot'
+if env HOME=/nonexistent python3 -c "$PY_CHECK" 2>/dev/null; then
   log "python dependencies already satisfied"
 else
-  log "installing python dependencies: $PY_DEPS"
-  pip3 install -q --break-system-packages --upgrade $PY_DEPS
-  python3 -c 'import kiutils, shapely, numpy, matplotlib, gerber_writer'
+  PY_SITE="$(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')"
+  log "installing python dependencies into $PY_SITE"
+  python3 -m pip install -q --break-system-packages --upgrade --target "$PY_SITE" $PY_DEPS
+  env HOME=/nonexistent python3 -c "$PY_CHECK"
 fi
 
 # --- Unpack the design ----------------------------------------------------
