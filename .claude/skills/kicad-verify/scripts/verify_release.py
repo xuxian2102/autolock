@@ -44,7 +44,11 @@ LAYER_MAP = {
 # silkscreen layers reproduce.  Without it F_Silkscreen/B_Silkscreen differ
 # from the release even though the board is identical, which looks alarming
 # and is not.  Found by bisecting the export options against the shipped ZIP.
-GERBER_FLAGS = ["--no-protel-ext", "--subtract-soldermask"]
+# --check-zones fills the ground pours as part of the export.  The board file
+# stores them unfilled -- that is what keeps it readable by the project's
+# kiutils tools -- so without this flag In1.Cu and B.Cu come out as bare tracks
+# and nothing matches the release.
+GERBER_FLAGS = ["--no-protel-ext", "--subtract-soldermask", "--check-zones"]
 
 # Volatile header lines: they encode export wall-clock time, not board content.
 VOLATILE = re.compile(r"TF\.CreationDate|TF\.ProjectId|G04 Created by|CreationDate")
@@ -113,8 +117,11 @@ def check_drc(pcb: Path, workdir: Path, strict: bool) -> dict:
         label = f"strict (re-enabled: {', '.join(silenced) or 'nothing was ignored'})"
 
     out = workdir / f"drc{'_strict' if strict else ''}.json"
+    # --refill-zones for the same reason as the Gerber export: the pours ship
+    # unfilled, and DRC without it reports every ground connection that relies
+    # on a plane as unconnected.
     proc = run(["kicad-cli", "pcb", "drc", "--format", "json", "--severity-all",
-                "--output", str(out), str(target_pcb)])
+                "--refill-zones", "--output", str(out), str(target_pcb)])
     if not out.exists():
         return {"ok": False, "error": proc.stderr.strip() or proc.stdout.strip(), "label": label}
 

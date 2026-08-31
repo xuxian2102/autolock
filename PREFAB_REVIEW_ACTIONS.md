@@ -115,8 +115,10 @@ CC1/CC2   1.683 V @ 330 µA        5.1k 下拉,Type-C sink 角色正确
   **27 pin_not_connected(error)**、24 碎线头、**6 标签悬空(error)**、1 处 GND 与 USB_5V 同点。
   例:U4 pin8 EN、pin12 IRQ、pin13 VEN、U5 pin21 TX1、AE1 两脚,清单里都接了,图上是断的。
   **后果:Rev A 电气正确性只靠 `design_data.py` 一份兜底,没有第二道独立校验。**
-- **E3 In1.Cu 199 个悬空铜线头** —— `track_dangling` 被设成 `ignore`;地平面是 7176 段走线不是敷铜。
-  残桩就在 NFC 天线正下方那层。连通性没问题(0 unconnected 已独立确认)。
+- **E3 In1.Cu 199 个悬空铜线头** —— ~~`track_dangling` 被设成 `ignore`;地平面是 7176 段走线不是敷铜。
+  残桩就在 NFC 天线正下方那层。连通性没问题(0 unconnected 已独立确认)。~~
+  **已修复**:In1.Cu 的 382 段接地走线换成真正的敷铜,B.Cu 也补了一层;
+  `track_dangling` 已从 `ignore` 改回 `error`,重跑 0 违规。见 J 节。
 - **E4 仓库只有压缩包,构建链跑不起来**
   - git 跟踪 40 MB 归档,源文件未版本化;review 包嵌在 tar 里,同内容存约 3 份
   - `tmp/easyeda/` 未打包 —— 偏偏是修 E1/E2 要用的 `generate_schematics.py` 跑不起来
@@ -180,6 +182,25 @@ BOM 电阻编码无错配 · U4 引脚归类无遗漏 · Gerber X2 层序 L1–L
   `--strict` 打开被 ignore 的规则,区分「问题修好了」和「规则被关了」。
   反向测试:改一个网络、改一个 Gerber 坐标都能抓到。
 - `INDEPENDENT_REVIEW_KICAD10.md` —— 首轮独立复核报告。
+- **接地平面改敷铜(E3 / P3)** —— `tools/pour_ground_planes.py`:删掉 In1.Cu 的 382 段
+  接地走线,In1.Cu 与 B.Cu 各铺一块真正的 GND zone,NFC 线圈和 ESP32 板边天线下方
+  四层全覆盖禁铜。接地铜覆盖率 In1.Cu 42.6% → 77.2%,B.Cu 0.3% → 73.9%;三颗稳压器
+  6 mm 半径内的四层接地铜合计 U1 64.1 → 206.0、U3 64.4 → 211.6、U6 65.0 → 210.7 mm²
+  (各 ×3.2,满值 452.4)。`track_dangling` 199 → 0,并已从 `ignore` 改回
+  `error` —— 工程侧现在**没有任何一条 DRC 规则被关掉**。
+  - zone 以**未填充**状态入库,所以 `kiutils` 和工程里全部审计脚本照常解析;填充交给
+    `kicad-cli`(`drc --refill-zones` / `export gerbers --check-zones`),制造图仍由一条
+    确定的命令产出。
+  - 敷铜会被走线切碎;7 块与地断开的碎铜里 2 块够大,自动补了缝合过孔(0.3/0.6 mm,
+    PTH 孔数 240 → 242),其余 5 块共 4.91 mm² 由 island removal 删除,**成品不留浮铜**。
+  - `audit_board.py` 增加一条检查:敷铜轮廓减去禁铜区之后不得进入两个天线禁区
+    —— 反向测试(把禁铜区改小)会报 953 mm² 越界。
+  - `audit_connectivity.py` 现在把敷铜算作铜;填充层面的连通性由 `drc --refill-zones`
+    的 0 unconnected 背书。反向测试(删掉 105 个接地过孔)仍会报 GND 断成 71 块。
+- **U4 位号移回板内** —— 上一版 U4 的位号落在 (99, −1.0),在板框外面。修 `design_data.py`
+  → 项目封装库那一步让文件里出现 `(version 20240108)`,KiCad 从此把 U4 的
+  `(property "Reference")` 当成真字段解析,位号会真的印出来,于是把它从 (0, −9.5) 挪到
+  (0, +9.5),落在 (99, 18.0),U4 courtyard 下方的空白带里。
 
 ---
 

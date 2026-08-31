@@ -65,7 +65,11 @@ Failed to load schematic
 **影响**：原理图不能跑 ERC、不能导网表、不能作为评审依据、Rev B 改动无法从原理图入手。
 Rev A 的电气正确性目前**只靠 `design_data.py` 这一份 Python 清单**兜底，没有第二道独立校验。
 
-### P3（中）In1.Cu 有 199 个悬空铜线头，被 DRC 规则屏蔽掉了
+### P3（中）In1.Cu 有 199 个悬空铜线头，被 DRC 规则屏蔽掉了 —— 已修复
+
+> **2026-08-31 已修复。** In1.Cu 的接地走线换成真正的 KiCad 敷铜，B.Cu 也补了一层，
+> `track_dangling` 从 `ignore` 改回 `error`，重跑 0 违规、0 未连接。
+> 详情见 `PREFAB_REVIEW_ACTIONS.md` J 节。下面是当时的原始记录。
 
 `.kicad_pro` 里把 `track_dangling` 设成了 `ignore`。把它打开重跑：
 
@@ -138,8 +142,8 @@ Found 0 unconnected items
 
 **第二批 —— 清掉被屏蔽的 DRC**
 
-4. In1.Cu 地平面改成真正的 KiCad zone（保留 NFC/U4 区域的禁铜），删掉 7176 段手绘走线；
-5. 把 `track_dangling` 从 `ignore` 改回 `error`，让它自然归零，而不是关掉；
+4. ~~In1.Cu 地平面改成真正的 KiCad zone（保留 NFC/U4 区域的禁铜），删掉 7176 段手绘走线；~~ **已做**
+5. ~~把 `track_dangling` 从 `ignore` 改回 `error`，让它自然归零，而不是关掉；~~ **已做**
 6. 补齐 17 个封装的 component type。
 
 **第三批 —— 仓库与可复现性**
