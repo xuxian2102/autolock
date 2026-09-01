@@ -37,7 +37,7 @@ KIUTILS = WORKSPACE_ROOT / ".tools" / "py"
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(KIUTILS))
 
-from design_data import BOARD_SIZE, PROJECT_NAME, parts  # noqa: E402
+from design_data import BOARD_SIZE, NATIVE_CHILD_ANGLE_REFS, PROJECT_NAME, parts  # noqa: E402
 from generate_board import BOARD_PATH  # noqa: E402
 from u4_native import install_u4_native_block  # noqa: E402
 import pour_ground_planes  # noqa: E402
@@ -59,6 +59,10 @@ LAYERS = ("F.Cu", "B.Cu", "In2.Cu")
 COPPER_LAYERS = ("F.Cu", "In1.Cu", "In2.Cu", "B.Cu")
 ROUTER_LAYERS = {name: index for index, name in enumerate(LAYERS)}
 DEFAULT_CLEARANCE = 0.18
+# Radius reserved around every routing endpoint so a net routed later still has
+# a way out of its own fanout.  The failure this prevents had a foreign trace
+# 0.311 mm from an escape.
+ESCAPE_KEEPALIVE = 0.5
 
 # Where pour_ground_planes.py is not allowed to fill, so a ground via standing
 # inside one has no In1.Cu plane to reach.  Kept in step with the same
@@ -379,7 +383,20 @@ def all_pad_points(board: Board):
                     fp_y=footprint.position.Y,
                     size_x=size_x,
                     size_y=size_y,
-                    angle=-((footprint.position.angle or 0) + (pad.position.angle or 0)),
+                    # generate_board.py bakes the footprint's rotation into
+                    # the children of everything in NATIVE_CHILD_ANGLE_REFS, so
+                    # for those the pad angle is already the absolute one and
+                    # adding the footprint angle counts it twice.  Getting this
+                    # wrong transposes the pad rectangle: 92 of 364 pads were
+                    # blocked at the wrong aspect, C1 by 1.55 mm, and the
+                    # router was free to lay a 0.5 mm SYS_5V trace 0.10 mm from
+                    # a foreign pad.  audit_board.pad_geometry has always had
+                    # the right rule; this is the same one.
+                    angle=-(
+                        (pad.position.angle or 0)
+                        if reference in NATIVE_CHILD_ANGLE_REFS
+                        else (footprint.position.angle or 0) + (pad.position.angle or 0)
+                    ),
                     through=through,
                 )
             )
@@ -1669,6 +1686,24 @@ def main() -> None:
     ground_vias = add_ground_connections(
         board, net_by_name, occupancy, pads_by_net["GND"], signal_vias,
     )
+
+    # Keep every net's escape reachable.
+    #
+    # Fanout has run for every net and ground has taken its vias, so all
+    # endpoints are known and nothing else is routed yet.  Reserve a little
+    # room around each one, owned by its own net, so a net routed early cannot
+    # seal in a net routed late.
+    #
+    # Without this the router is coupled across the whole board in a way that
+    # makes placement experiments unreadable.  Moving R29 next to U6 rerouted
+    # SERVO_6V_OUT -- a 116 mm net spanning half the board -- so that it passed
+    # 0.311 mm from U3's 3V3 escape at (98.500, 37.375), 28 mm away, and 3V3
+    # then reached none of its eleven remaining endpoints.  See #3.
+    for reserved_net, (_front, endpoints, _before, _after) in prepared.items():
+        for point in endpoints:
+            occupancy.add_disk(
+                point.layer, point.x, point.y, ESCAPE_KEEPALIVE, reserved_net
+            )
 
     for net_name in non_ground_nets:
         front, endpoints, before_vias, fanout_vias = prepared[net_name]
