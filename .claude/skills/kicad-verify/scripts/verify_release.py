@@ -79,13 +79,12 @@ def find_project(explicit: str | None) -> Path:
         return Path(env).resolve()
     here = Path(__file__).resolve()
     for parent in here.parents:
-        candidate = parent / ".work" / "HomeKey-Lock-RevA-PN7161"
-        if candidate.is_dir():
-            return candidate
+        if (parent / "hardware" / "kicad").is_dir() and (parent / "tools").is_dir():
+            return parent
     sys.exit(
-        "Cannot locate the project tree.  The SessionStart hook unpacks it to\n"
-        "  <repo>/.work/HomeKey-Lock-RevA-PN7161\n"
-        "Run .claude/hooks/session-start.sh, or pass --project."
+        "Cannot locate the project.  Expected a repository root holding both\n"
+        "  hardware/kicad/   and   tools/\n"
+        "Pass --project if it lives somewhere else."
     )
 
 
@@ -317,7 +316,7 @@ def check_gerbers(pcb: Path, released_zip: Path, workdir: Path) -> dict:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--project", help="project tree (default: $HOMEKEY_PROJECT_DIR or <repo>/.work/...)")
+    ap.add_argument("--project", help="repository root (default: $HOMEKEY_PROJECT_DIR, else found from this script)")
     ap.add_argument("--zip", dest="zip_path", help="released Gerber ZIP to reproduce")
     ap.add_argument("--strict", action="store_true",
                     help="also run DRC with every ignored rule re-enabled")
@@ -330,7 +329,7 @@ def main() -> int:
         sys.exit("kicad-cli not on PATH.  Run .claude/hooks/session-start.sh first.")
 
     project = find_project(args.project)
-    pcbs = list((project / "kicad").glob("*.kicad_pcb"))
+    pcbs = list((project / "hardware" / "kicad").glob("*.kicad_pcb"))
     if len(pcbs) != 1:
         sys.exit(f"expected exactly one .kicad_pcb under {project/'kicad'}, found {len(pcbs)}")
     pcb = pcbs[0]
@@ -338,7 +337,7 @@ def main() -> int:
     if args.zip_path:
         released = Path(args.zip_path).resolve()
     else:
-        released = project / "production" / f"{pcb.stem}_JLCPCB_Gerber.zip"
+        released = project / "hardware" / "production" / "gerber.zip"
 
     wanted = set(args.only or ["drc", "net", "pins", "gerber"])
     version = run(["kicad-cli", "--version"]).stdout.strip()

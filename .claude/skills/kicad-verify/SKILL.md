@@ -37,7 +37,7 @@ CPL rotation is a separate script, `scripts/audit_cpl_rotation.py` — it needs 
 | `--zip PATH` | Compare against a specific Gerber ZIP instead of the one in `production/`. |
 | `--json PATH` | Machine-readable results for CI or for diffing across commits. |
 
-The script finds the board via `$HOMEKEY_PROJECT_DIR`, else `<repo>/.work/HomeKey-Lock-RevA-PN7161`.
+The script finds the board via `$HOMEKEY_PROJECT_DIR`, else by walking up from itself to the repository root that holds both `hardware/kicad/` and `tools/`.
 Both are set up by the SessionStart hook; if `kicad-cli` is missing, run
 `.claude/hooks/session-start.sh`.
 

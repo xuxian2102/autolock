@@ -1,0 +1,22 @@
+GROUND POUR
+========================================================================
+In1.Cu ground mesh tracks removed: 384
+Copper keep-outs added: 2 (all four layers)
+Ground pours added: In1.Cu, B.Cu
+Stitching vias added: 2
+
+POUR COVERAGE (of the 150 x 75 mm board)
+ - In1.Cu:   8683.1 mm^2  (77.2%)
+ - B.Cu:   8306.8 mm^2  (73.8%)
+
+STITCHING VIAS
+ -  113.977,   16.823
+ -   88.051,   22.239
+
+FILL FRAGMENTS DROPPED BY ISLAND REMOVAL
+ - B.Cu: 5 fragment(s), 4.91 mm^2 total (largest 2.91 mm^2)
+   These are too small, or too hemmed in by other nets, to take a stitching via; island removal deletes them so no floating copper ships.
+
+Fragments above the 1.0 mm^2 stitching threshold with no room for a via: 2.91 mm^2
+
+Zones ship unfilled.  kicad-cli fills them itself: run_official_drc.py passes --refill-zones and export_official_fabrication.py passes --check-zones, so the manufacturing image and the DRC both see the same fill without the board file leaving kiutils-readable syntax.

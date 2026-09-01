@@ -1,0 +1,15 @@
+HOMEKEY LOCK REV A — GRAPHICS SYNC DELTA AUDIT
+========================================================================
+Target instances: 11
+Verified text child angles: 33
+Verified pad child angles: 29
+Q1 silk arc correction verified: True
+Q1 duplicate property removal verified: True
+Non-target footprints unchanged: True
+Board outside footprints unchanged: True
+Changed project library files: 9 / 9 expected
+Schematics unchanged: True
+Fabrication geometry identical: True (13 files)
+Errors: 0
+
+RESULT: PASS

@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "mode": "read-only baseline delta audit",
+  "baseline": "/workspace/scratch/e692c3d32621/HomeKey-Lock-RevA-PN7161-j2-sync-fixed.tar.gz",
+  "current_board": "/workspace/scratch/e692c3d32621/HomeKey-Lock-RevA-PN7161/kicad/HomeKey-Lock-RevA-PN7161.kicad_pcb",
+  "approved_changes": [
+    "U5 exposed-pad paste: full 4.10 x 4.10 mm aperture to NXP 3 x 3, 0.60 mm apertures",
+    "U5 courtyard: 6.00 x 6.00 mm to NXP Hx/Hy 7.25 x 7.25 mm",
+    "U5 child angles: legacy local representation to native board-coordinate representation",
+    "U5 project-library field visibility and removal of the invalid near-full-circle silkscreen arc",
+    "Gerber TF.CreationDate"
+  ],
+  "checks": [
+    {
+      "name": "reviewed J2 checkpoint identity",
+      "passed": true,
+      "detail": {
+        "actual": "3517f563f246f41c7e56ce6e442565d93c79b77ea65fa7ddcd5c39dab2c14c77",
+        "expected": "3517f563f246f41c7e56ce6e442565d93c79b77ea65fa7ddcd5c39dab2c14c77"
+      }
+    },
+    {
+      "name": "baseline archive path scope",
+      "passed": true,
+      "detail": {
+        "members": 222
+      }
+    },
+    {
+      "name": "board text outside U5 is byte-identical",
+      "passed": true,
+      "detail": {
+        "baseline_sha256": "33529eb683a9bc9d7df009ab14036602ad6723e91837f5727d50a5ebbfb302df",
+        "current_sha256": "33529eb683a9bc9d7df009ab14036602ad6723e91837f5727d50a5ebbfb302df",
+        "baseline_u5_bytes": 9255,
+        "current_u5_bytes": 10368
+      }
+    },
+    {
+      "name": "U5 identity and placement",
+      "passed": true,
+      "detail": {
+        "placement": {
+          "X": 78.5,
+          "Y": 37.5,
+          "angle": 180,
+          "unlocked": false
+        },
+        "path": "/generated/U5"
+      }
+    },
+    {
+      "name": "U5 41 copper pads, nets, and physical orientation unchanged",
+      "passed": true,
+      "detail": {
+        "pad_count": 41,
+        "baseline_sha256": "d40f2c47cc8178edd62942cdcad2d1df4a16db60c964d284793cdacab57221a6",
+        "current_sha256": "d40f2c47cc8178edd62942cdcad2d1df4a16db60c964d284793cdacab57221a6"
+      }
+    },
+    {
+      "name": "legacy full-area exposed-pad paste identified",
+      "passed": true,
+      "detail": {
+        "legacy_exposed_pad_paste": [
+          {
+            "number": "41",
+            "position": [
+              0.0,
+              0.0
+            ],
+            "size": [
+              4.1,
+              4.1
+            ],
+            "physical_board_angle": 180.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "NXP 3 x 3 stencil is exact",
+      "passed": true,
+      "detail": {
+        "window_count": 9,
+        "windows": [
+          {
+            "number": "",
+            "position": [
+              -0.9,
+              -0.9
+            ],
+            "size": [
+              0.6,
+              0.6
+            ],
+            "physical_board_angle": 180.0
+          },
+          {
+            "number": "",
+            "position": [
+              -0.9,
+              0.0
+            ],
+            "size": [
+              0.6,
+              0.6
+            ],
+            "physical_board_angle": 180.0
+          },
+          {
+            "number": "",
+            "position": [
+              -0.9,
+              0.9
+            ],
+            "size": [
+              0.6,
+              0.6
+            ],
+            "physical_board_angle": 180.0
+          },
+          {
+            "number": "",
+            "position": [
+              0.0,
+              -0.9
+            ],
+            "size": [
+              0.6,
+              0.6
+            ],
+            "physical_board_angle": 180.0
+          },
+          {
+            "number": "",
+            "position": [
+              0.0,
+              0.0
+            ],
+            "size": [
+              0.6,
+              0.6
+            ],
+            "physical_board_angle": 180.0
+          },
+          {
+            "number": "",
+            "position": [
+              0.0,
+              0.9
+            ],
+            "size": [
+              0.6,
+              0.6
+            ],
+            "physical_board_angle": 180.0
+          },
+          {
+            "number": "",
+            "position": [
+              0.9,
+              -0.9
+            ],
+            "size": [
+              0.6,
+              0.6
+            ],
+            "physical_board_angle": 180.0
+          },
+          {
+            "number": "",
+            "position": [
+              0.9,
+              0.0
+            ],
+            "size": [
+              0.6,
+              0.6
+            ],
+            "physical_board_angle": 180.0
+          },
+          {
+            "number": "",
+            "position": [
+              0.9,
+              0.9
+            ],
+            "size": [
+              0.6,
+              0.6
+            ],
+            "physical_board_angle": 180.0
+          }
+        ]
+      }
+    },
+    {
+      "name": "U5 text fields retain physical orientation",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "all schematic sheets are byte-identical",
+      "passed": true,
+      "detail": {
+        "file_count": 5
+      }
+    },
+    {
+      "name": "project-library change scope is U5 only",
+      "passed": true,
+      "detail": {
+        "changed": [
+          "kicad/HomeKey_RevA.pretty/HVQFN-40_L6.0-W6.0-P0.50-BL-EP4.1.kicad_mod"
+        ],
+        "file_count": 33
+      }
+    },
+    {
+      "name": "only top-paste manufacturing geometry changed",
+      "passed": true,
+      "detail": {
+        "file_count": 13,
+        "changed": [
+          "HomeKey-Lock-RevA-PN7161.GTP"
+        ]
+      }
+    },
+    {
+      "name": "assembly exports are byte-identical",
+      "passed": true,
+      "detail": {
+        "BOM_FULL.csv": true,
+        "BOM_JLCPCB_DRAFT.csv": true,
+        "CPL_JLCPCB_DRAFT.csv": true,
+        "PROCUREMENT_GAPS.md": true
+      }
+    }
+  ],
+  "errors": [],
+  "error_count": 0,
+  "result": "PASS"
+}

@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name "HomeKey_RevA")(type "KiCad")(uri "${KIPRJMOD}/HomeKey_RevA.kicad_sym")(options "")(descr "Rev A exact symbols"))
+  (lib (name "Espressif")(type "KiCad")(uri "${KIPRJMOD}/Espressif.kicad_sym")(options "")(descr "Espressif official symbols"))
+)

@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "mode": "read-only baseline delta audit",
+  "baseline": "/workspace/scratch/e692c3d32621/HomeKey-Lock-RevA-PN7161-u4-sync-fixed.tar.gz",
+  "current_board": "/workspace/scratch/e692c3d32621/HomeKey-Lock-RevA-PN7161/kicad/HomeKey-Lock-RevA-PN7161.kicad_pcb",
+  "approved_representation_changes": [
+    "J2 3 text child angles: legacy local 0 degrees to native board 180 degrees",
+    "J2 18 pad child angles: legacy local 0 degrees to native board 180 degrees",
+    "project-library positioning holes: THT spelling corrected to NPTH",
+    "project-library Value field hidden to match placed copy",
+    "custom-pad sub-micrometre coordinate spelling only",
+    "Gerber TF.CreationDate"
+  ],
+  "checks": [
+    {
+      "name": "reviewed U4 checkpoint identity",
+      "passed": true,
+      "detail": {
+        "actual": "47b1f8d25631ac45446c1b25889c99093baddc444f819a5e3900795e71051926",
+        "expected": "47b1f8d25631ac45446c1b25889c99093baddc444f819a5e3900795e71051926"
+      }
+    },
+    {
+      "name": "baseline archive path scope",
+      "passed": true,
+      "detail": {
+        "members": 175
+      }
+    },
+    {
+      "name": "board text outside J2 is byte-identical",
+      "passed": true,
+      "detail": {
+        "baseline_sha256": "53d942157b13ac5d12bf6050cff2587ab86a178f6fe12bc06a0c4a1a7e71209a",
+        "current_sha256": "53d942157b13ac5d12bf6050cff2587ab86a178f6fe12bc06a0c4a1a7e71209a",
+        "baseline_j2_bytes": 8033,
+        "current_j2_bytes": 8085
+      }
+    },
+    {
+      "name": "J2 identity and placement",
+      "passed": true,
+      "detail": {
+        "placement": {
+          "X": 134,
+          "Y": 5.3,
+          "angle": 180,
+          "unlocked": false
+        },
+        "path": "/generated/J2"
+      }
+    },
+    {
+      "name": "J2 18-pad copper, drill, nets, and physical orientation",
+      "passed": true,
+      "detail": {
+        "pad_count": 18,
+        "baseline_sha256": "b8548bbe5b3b91ac643d20b038e19dc3f058bbe180076534dc0b63d2968dd339",
+        "current_sha256": "b8548bbe5b3b91ac643d20b038e19dc3f058bbe180076534dc0b63d2968dd339"
+      }
+    },
+    {
+      "name": "J2 two plastic positioning holes are NPTH",
+      "passed": true,
+      "detail": {
+        "count": 2
+      }
+    },
+    {
+      "name": "J2 text fields retain physical orientation",
+      "passed": true,
+      "detail": {
+        "baseline_sha256": "4ec237e6cac7df069fdde2e07f06b6b115de49c78209e784969d330aaeb1ecc3",
+        "current_sha256": "4ec237e6cac7df069fdde2e07f06b6b115de49c78209e784969d330aaeb1ecc3"
+      }
+    },
+    {
+      "name": "all schematic sheets are byte-identical",
+      "passed": true,
+      "detail": {
+        "file_count": 5
+      }
+    },
+    {
+      "name": "project-library change scope is J2 only",
+      "passed": true,
+      "detail": {
+        "changed": [
+          "kicad/HomeKey_RevA.pretty/USB-C_SMD-TYPE-C-31-M-12_1.kicad_mod"
+        ],
+        "file_count": 33
+      }
+    },
+    {
+      "name": "all 13 manufacturing geometry files",
+      "passed": true,
+      "detail": {
+        "file_count": 13,
+        "normalized_equal": {
+          "HomeKey-Lock-RevA-PN7161-NPTH.drl": true,
+          "HomeKey-Lock-RevA-PN7161-PTH.drl": true,
+          "HomeKey-Lock-RevA-PN7161.G2": true,
+          "HomeKey-Lock-RevA-PN7161.G3": true,
+          "HomeKey-Lock-RevA-PN7161.GBL": true,
+          "HomeKey-Lock-RevA-PN7161.GBO": true,
+          "HomeKey-Lock-RevA-PN7161.GBP": true,
+          "HomeKey-Lock-RevA-PN7161.GBS": true,
+          "HomeKey-Lock-RevA-PN7161.GKO": true,
+          "HomeKey-Lock-RevA-PN7161.GTL": true,
+          "HomeKey-Lock-RevA-PN7161.GTO": true,
+          "HomeKey-Lock-RevA-PN7161.GTP": true,
+          "HomeKey-Lock-RevA-PN7161.GTS": true
+        }
+      }
+    },
+    {
+      "name": "assembly exports are byte-identical",
+      "passed": true,
+      "detail": {
+        "BOM_FULL.csv": true,
+        "BOM_JLCPCB_DRAFT.csv": true,
+        "CPL_JLCPCB_DRAFT.csv": true,
+        "PROCUREMENT_GAPS.md": true
+      }
+    }
+  ],
+  "errors": [],
+  "error_count": 0,
+  "result": "PASS"
+}

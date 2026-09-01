@@ -1,0 +1,24 @@
+HOMEKEY LOCK REV A — U4 SYNC PHYSICAL DELTA AUDIT
+============================================================================
+Baseline: /workspace/scratch/e692c3d32621/HomeKey-Lock-RevA-PN7161-graphics-sync-fixed.tar.gz
+Current:  /workspace/scratch/e692c3d32621/HomeKey-Lock-RevA-PN7161/kicad/HomeKey-Lock-RevA-PN7161.kicad_pcb
+
+[PASS] reviewed baseline archive identity
+[PASS] baseline archive path scope
+[PASS] board text outside U4 is byte-identical
+[PASS] footprint reference set
+[PASS] U4 identity and placement
+[PASS] U4 pad copper, drill, custom geometry, and nets
+[PASS] U4 four-layer antenna keepout geometry
+[PASS] U4 silk, Fab, courtyard, and user graphics
+[PASS] U4 models
+[PASS] U4 groups
+[PASS] all schematic sheets are byte-identical
+[PASS] project-library change scope
+[PASS] all 13 manufacturing geometry files
+[PASS] assembly exports are byte-identical
+
+Normalization is limited to KiCad serialization-only differences listed in the JSON report.
+Copper, drills, pad nets, placement, keepout geometry, schematics, and production geometry are not waived.
+
+RESULT: PASS (0 errors)

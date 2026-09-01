@@ -1,0 +1,18 @@
+HOMEKEY LOCK REV A — J2 SYNC PHYSICAL DELTA AUDIT
+============================================================================
+[PASS] reviewed U4 checkpoint identity
+[PASS] baseline archive path scope
+[PASS] board text outside J2 is byte-identical
+[PASS] J2 identity and placement
+[PASS] J2 18-pad copper, drill, nets, and physical orientation
+[PASS] J2 two plastic positioning holes are NPTH
+[PASS] J2 text fields retain physical orientation
+[PASS] all schematic sheets are byte-identical
+[PASS] project-library change scope is J2 only
+[PASS] all 13 manufacturing geometry files
+[PASS] assembly exports are byte-identical
+
+Only representation changes listed in the JSON report are waived.
+Copper, drill, net, placement, and manufacturing geometry remain gated.
+
+RESULT: PASS (0 errors)

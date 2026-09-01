@@ -1,0 +1,38 @@
+HOMEKEY LOCK REV A — FOOTPRINT SYNC AUDIT
+============================================================================
+Mode: READ-ONLY comparison; PCB and project footprint library were not modified.
+Board: kicad/HomeKey-Lock-RevA-PN7161.kicad_pcb
+Board SHA256: 72101a077827d86e26ad6c44af2159ee3bae850446bcb41e75e271862ce69996
+DRC source: reports/KICAD10_DRC_U5_SYNC_OFFICIAL.json
+DRC lib_footprint_mismatch violations: 0
+Audited placed instances: 0
+Distinct project-library footprint IDs: 0
+
+RISK SPLIT
+ - GRAPHICS_ONLY: 0
+ - STRUCTURAL_REVIEW: 0
+ - COPPER_CRITICAL_REVIEW: 0
+ - MATCH after normalization: 0
+
+INTERPRETATION
+ - GRAPHICS_ONLY: only silk/Fab/reference/value/user-field definitions differ.
+ - STRUCTURAL_REVIEW: zones/courtyard/models/settings/other graphics differ; inspect before syncing.
+ - COPPER_CRITICAL_REVIEW: pad/drill/copper graphics differ; never overwrite automatically.
+ - Pad numbers are normalized to text so EasyEDA integer-vs-KiCad string formatting is not a false alarm.
+
+PROJECT-LIBRARY GROUPS
+
+INSTANCES REQUIRING STRUCTURAL OR COPPER REVIEW
+ - None
+
+RECOMMENDED NEXT BATCH
+ - All placed project-library footprints now match their reviewed native definitions.
+ - J2 is resolved by its dedicated NPTH/native-angle and physical-delta audits.
+ - U5 is resolved against NXP SOT618-1, including the official 3 x 3 stencil apertures.
+ - U4 is resolved by its dedicated native-block and physical-delta audits; do not replace it with a legacy serialized block.
+ - After each synchronization batch, rerun physical connectivity, geometry audit, official KiCad DRC, and manufacturing export checks.
+
+Exact normalized changed-category definitions and SHA256 hashes are in FOOTPRINT_SYNC_AUDIT.json.
+Per-instance category gates are in FOOTPRINT_SYNC_AUDIT.csv.
+
+RESULT: PASS (audit completed; no design mutation)

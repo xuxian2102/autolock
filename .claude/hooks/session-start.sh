@@ -1,11 +1,11 @@
 #!/bin/bash
 # SessionStart hook: provision the KiCad toolchain this repo needs.
 #
-# The repo ships the design only as archives, and tools/ depends on packages
-# that are not declared anywhere, so a fresh container cannot verify anything
-# until this has run.  Installs KiCad 10.0.6 (the version the Rev A release
-# chain was produced with), the Python packages tools/ imports, and unpacks
-# the design into a gitignored working tree.
+# tools/ depends on packages that are not declared anywhere, and on a portable
+# KiCad tree that is not in the repository, so a fresh container cannot verify
+# anything until this has run.  Installs KiCad 10.0.6 (the version the Rev A
+# release chain was produced with), the Python packages tools/ imports, and the
+# shim that stands in for the portable KiCad layout.
 set -euo pipefail
 
 # Web sessions only; a local checkout keeps whatever KiCad the user already has.
@@ -13,9 +13,7 @@ set -euo pipefail
 
 ROOT="${CLAUDE_PROJECT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
 HOOKS="$ROOT/.claude/hooks"
-WORK="$ROOT/.work"
 PROJECT="HomeKey-Lock-RevA-PN7161"
-TARBALL="$ROOT/$PROJECT-final-local-review.tar.gz"
 
 SUDO=""
 [ "$(id -u)" -eq 0 ] || SUDO="sudo"
@@ -65,34 +63,19 @@ else
   env HOME=/nonexistent python3 -c "$PY_CHECK"
 fi
 
-# --- Unpack the design ----------------------------------------------------
-# git tracks only archives, so give the session a real tree to work in.
-# .work/ is gitignored; nothing here is a source of truth.
-if [ -d "$WORK/$PROJECT/kicad" ]; then
-  log "design already unpacked at .work/$PROJECT"
-elif [ -f "$TARBALL" ]; then
-  log "unpacking $PROJECT into .work/"
-  mkdir -p "$WORK"
-  tar xzf "$TARBALL" -C "$WORK"
-  # Stale editor lock from whoever built the archive.
-  rm -f "$WORK/$PROJECT/kicad/~$PROJECT.kicad_pro.lck"
-else
-  log "WARNING: $TARBALL not found; skipping unpack"
-fi
-
 # --- Shim for the portable-KiCad layout tools/ expects ---------------------
 # Four tools (run_official_drc, export_official_fabrication,
 # render_official_previews, test_u4_generation_chain) hardcode a portable
 # KiCad tree at <workspace>/.tools/kicad10-full-root, and 27 call sites add
-# <workspace>/.tools/py to sys.path.  Neither is in the archive, so the
-# shipped tools cannot run as-is.  Point that layout at the installed KiCad
-# instead of editing 33 files.
-TOOLS_ROOT="$WORK/.tools"
+# <workspace>/.tools/py to sys.path.  "workspace" is the repository's parent
+# directory.  Neither tree exists here, so point that layout at the installed
+# KiCad instead of editing 33 files.
+TOOLS_ROOT="$(dirname "$ROOT")/.tools"
 KICAD_SHIM="$TOOLS_ROOT/kicad10-full-root"
 if [ -x "$KICAD_SHIM/usr/bin/kicad-cli" ]; then
   log "portable-KiCad shim already in place"
 else
-  log "creating portable-KiCad shim at .work/.tools/kicad10-full-root"
+  log "creating portable-KiCad shim at $TOOLS_ROOT/kicad10-full-root"
   mkdir -p "$KICAD_SHIM/usr/bin" "$TOOLS_ROOT/py"
   ln -sfn "$(command -v kicad-cli)" "$KICAD_SHIM/usr/bin/kicad-cli"
   # LD_LIBRARY_PATH targets the tools build from KICAD_ROOT/usr/lib{,/x86_64-linux-gnu}
@@ -106,9 +89,9 @@ fi
 # --- Session environment --------------------------------------------------
 if [ -n "${CLAUDE_ENV_FILE:-}" ]; then
   {
-    echo "export HOMEKEY_PROJECT_DIR=\"$WORK/$PROJECT\""
-    echo "export HOMEKEY_KICAD_DIR=\"$WORK/$PROJECT/kicad\""
+    echo "export HOMEKEY_PROJECT_DIR=\"$ROOT\""
+    echo "export HOMEKEY_KICAD_DIR=\"$ROOT/hardware/kicad\""
   } >> "$CLAUDE_ENV_FILE"
 fi
 
-log "ready: kicad-cli $(kicad-cli --version), project at .work/$PROJECT"
+log "ready: kicad-cli $(kicad-cli --version), sources in-tree"

@@ -1,0 +1,104 @@
+{
+  "project": "HomeKey-Lock-RevA-PN7161",
+  "revision": "A",
+  "board_mm": [
+    150.0,
+    75.0
+  ],
+  "source_board": "hardware/kicad/HomeKey-Lock-RevA-PN7161.kicad_pcb",
+  "exporter": "tools/export_manufacturing.py",
+  "gerber_and_drill": {
+    "HomeKey-Lock-RevA-PN7161.GTL": {
+      "pads": 364,
+      "footprint_lines": 17,
+      "tracks": 3408,
+      "vias": 234
+    },
+    "HomeKey-Lock-RevA-PN7161.G2": {
+      "pads": 13,
+      "vias": 234
+    },
+    "HomeKey-Lock-RevA-PN7161.G3": {
+      "pads": 13,
+      "vias": 234,
+      "tracks": 940
+    },
+    "HomeKey-Lock-RevA-PN7161.GBL": {
+      "pads": 13,
+      "footprint_lines": 1,
+      "tracks": 2410,
+      "vias": 234
+    },
+    "HomeKey-Lock-RevA-PN7161.GTS": {
+      "pad_openings": 370
+    },
+    "HomeKey-Lock-RevA-PN7161.GBS": {
+      "pad_openings": 19
+    },
+    "HomeKey-Lock-RevA-PN7161.GTP": {
+      "pad_openings": 347
+    },
+    "HomeKey-Lock-RevA-PN7161.GBP": {
+      "pad_openings": 0
+    },
+    "HomeKey-Lock-RevA-PN7161.GTO": {
+      "lines": 333,
+      "circles": 33,
+      "polygons": 12
+    },
+    "HomeKey-Lock-RevA-PN7161.GBO": {},
+    "HomeKey-Lock-RevA-PN7161.GKO": {
+      "profile_segments": 4
+    },
+    "HomeKey-Lock-RevA-PN7161-PTH.drl": {
+      "round_hits": 243,
+      "slots": 4,
+      "tools": 7
+    },
+    "HomeKey-Lock-RevA-PN7161-NPTH.drl": {
+      "round_hits": 6,
+      "slots": 0,
+      "tools": 2
+    }
+  },
+  "assembly": {
+    "full_parts": 116,
+    "active_bom_refs": 95,
+    "jlc_bom_groups": 62,
+    "cpl_refs": 93,
+    "unresolved_lcsc_refs": [],
+    "manual_tht_refs": [
+      "J1",
+      "J4"
+    ]
+  },
+  "sha256": {
+    "HomeKey-Lock-RevA-PN7161-NPTH.drl": "7f264a1800b9b1cd6a0f89a53f3b5dc76300e82147d0a6eef388b777c418b5d4",
+    "HomeKey-Lock-RevA-PN7161-PTH.drl": "3dac42046b88a213c7dde13e435a78063d1010fd25fb05e1251f694bb303700d",
+    "HomeKey-Lock-RevA-PN7161.G2": "bd1bf23b4a7e5c1c0e40071f2051bda97d932d44e03cbf8f7d20e5b703e480b5",
+    "HomeKey-Lock-RevA-PN7161.G3": "7b94d72ae155212b71c8ccc44fc70aad6007734158ec13c3156dfa175eab623e",
+    "HomeKey-Lock-RevA-PN7161.GBL": "28bc9ee8d0dd385ea836b1a682ae75a15a94d41bf6c73a36b3e116c53b2be1ab",
+    "HomeKey-Lock-RevA-PN7161.GBO": "390943aeb6b53054ef019dbc512eaf1d8927a844a3ae99e40108e98ebec0eb0e",
+    "HomeKey-Lock-RevA-PN7161.GBP": "2ab093c65d7b93cae39cd432d11042cc05d0728fefd30ea09b4b37ed5e280f9a",
+    "HomeKey-Lock-RevA-PN7161.GBS": "2079cc79c1fa91d6a508ae280b302177b5405729b55a226bdcae70891cbc9654",
+    "HomeKey-Lock-RevA-PN7161.GKO": "2cdb9ab4819d499ea8417ecaf6e529b06644c9d3fb52f017c93b66c4c0d90671",
+    "HomeKey-Lock-RevA-PN7161.GTL": "7988f5afc48afca749d8d0595306202fad8a12c125dc20529e8ce8610df09f47",
+    "HomeKey-Lock-RevA-PN7161.GTO": "6dec26b32fb01027841d28263428017cd943ebc6d2f62ffad16b6aee23b482bc",
+    "HomeKey-Lock-RevA-PN7161.GTP": "e287426b6b010daddc37bb880d383d6a0027a9891a7d40a5fe154c0544fabcde",
+    "HomeKey-Lock-RevA-PN7161.GTS": "af3e39e40424acba307a1a081a4ce0be6ae119e597cd017cd70cdb8f11e5175a"
+  },
+  "fabrication_exporter": "KiCad official pcb export 10.0.6",
+  "official_layer_mapping": {
+    "HomeKey-Lock-RevA-PN7161-F_Cu.gtl": "HomeKey-Lock-RevA-PN7161.GTL",
+    "HomeKey-Lock-RevA-PN7161-In1_Cu.g1": "HomeKey-Lock-RevA-PN7161.G2",
+    "HomeKey-Lock-RevA-PN7161-In2_Cu.g2": "HomeKey-Lock-RevA-PN7161.G3",
+    "HomeKey-Lock-RevA-PN7161-B_Cu.gbl": "HomeKey-Lock-RevA-PN7161.GBL",
+    "HomeKey-Lock-RevA-PN7161-F_Mask.gts": "HomeKey-Lock-RevA-PN7161.GTS",
+    "HomeKey-Lock-RevA-PN7161-B_Mask.gbs": "HomeKey-Lock-RevA-PN7161.GBS",
+    "HomeKey-Lock-RevA-PN7161-F_Paste.gtp": "HomeKey-Lock-RevA-PN7161.GTP",
+    "HomeKey-Lock-RevA-PN7161-B_Paste.gbp": "HomeKey-Lock-RevA-PN7161.GBP",
+    "HomeKey-Lock-RevA-PN7161-F_Silkscreen.gto": "HomeKey-Lock-RevA-PN7161.GTO",
+    "HomeKey-Lock-RevA-PN7161-B_Silkscreen.gbo": "HomeKey-Lock-RevA-PN7161.GBO",
+    "HomeKey-Lock-RevA-PN7161-Edge_Cuts.gm1": "HomeKey-Lock-RevA-PN7161.GKO"
+  }
+}

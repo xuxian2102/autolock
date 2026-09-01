@@ -1,0 +1,32 @@
+Drill report for HomeKey-Lock-RevA-PN7161.kicad_pcb
+Created on 2026-08-31T13:08:31
+
+Copper Layer Stackup:
+    =============================================================
+    L1 :  F.Cu                      front
+    L2 :  In1.Cu                    in1
+    L3 :  In2.Cu                    in2
+    L4 :  B.Cu                      back
+
+
+Drill file 'HomeKey-Lock-RevA-PN7161-PTH.drl' contains
+    plated through holes:
+    =============================================================
+    T1  0.200mm  0.0079"  (208 holes))
+    T2  0.300mm  0.0118"  (10 holes))
+    T3  0.400mm  0.0157"  (13 holes))
+    T4  0.500mm  0.0197"  (2 holes))
+    T5  0.800mm  0.0315"  (4 holes)  (with 4 slots)
+    T6  1.000mm  0.0394"  (5 holes))
+    T7  1.520mm  0.0598"  (2 holes))
+
+    Total plated holes count 244
+
+
+Drill file 'HomeKey-Lock-RevA-PN7161-NPTH.drl' contains
+    unplated through holes:
+    =============================================================
+    T1  0.600mm  0.0236"  (2 holes))
+    T2  3.200mm  0.1260"  (4 holes))
+
+    Total unplated holes count 6

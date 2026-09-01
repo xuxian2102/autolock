@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "mode": "read-only baseline delta audit",
+  "baseline_archive": "/workspace/scratch/e692c3d32621/HomeKey-Lock-RevA-PN7161-graphics-sync-fixed.tar.gz",
+  "current_board": "/workspace/scratch/e692c3d32621/HomeKey-Lock-RevA-PN7161/kicad/HomeKey-Lock-RevA-PN7161.kicad_pcb",
+  "representation_normalization": [
+    "child UUID/tstamp",
+    "layer list ordering",
+    "zero-degree angle omission",
+    "KiCad 10 native Reference/Value properties",
+    "footprint-zone local versus absolute coordinate storage",
+    "Gerber TF.CreationDate",
+    "redundant default thermal bridge angle"
+  ],
+  "checks": [
+    {
+      "name": "reviewed baseline archive identity",
+      "passed": true,
+      "detail": {
+        "actual": "676984543330b6741e51e61694bccc0d4fc29cea1f97c096502869168603d575",
+        "expected": "676984543330b6741e51e61694bccc0d4fc29cea1f97c096502869168603d575"
+      }
+    },
+    {
+      "name": "baseline archive path scope",
+      "passed": true,
+      "detail": {
+        "members": 164
+      }
+    },
+    {
+      "name": "board text outside U4 is byte-identical",
+      "passed": true,
+      "detail": {
+        "baseline_sha256": "4009c01a4d6c23d6ae1c4d2dcb1dd5c4ec4f9a6e98da03237307be49c18fd609",
+        "current_sha256": "4009c01a4d6c23d6ae1c4d2dcb1dd5c4ec4f9a6e98da03237307be49c18fd609",
+        "baseline_u4_bytes": 14618,
+        "current_u4_bytes": 16058
+      }
+    },
+    {
+      "name": "footprint reference set",
+      "passed": true,
+      "detail": {
+        "baseline": 120,
+        "current": 120
+      }
+    },
+    {
+      "name": "U4 identity and placement",
+      "passed": true,
+      "detail": {
+        "library_id": "HomeKey_RevA:ESP32-C6-MINI-1",
+        "placement": [
+          99.0,
+          8.5,
+          0.0
+        ],
+        "path": "/generated/U4"
+      }
+    },
+    {
+      "name": "U4 pad copper, drill, custom geometry, and nets",
+      "passed": true,
+      "detail": {
+        "baseline_count": 61,
+        "current_count": 61,
+        "different_pad_numbers": []
+      }
+    },
+    {
+      "name": "U4 four-layer antenna keepout geometry",
+      "passed": true,
+      "detail": {
+        "baseline": {
+          "name": "antenna keepout",
+          "net": 0,
+          "layers": [
+            "B.Cu",
+            "F.Cu",
+            "In1.Cu",
+            "In2.Cu"
+          ],
+          "hatch": {
+            "pitch": 0.508,
+            "style": "edge"
+          },
+          "clearance": 0.0,
+          "min_thickness": 0.254,
+          "keepout": {
+            "copperpour": "not_allowed",
+            "footprints": "not_allowed",
+            "pads": "not_allowed",
+            "tracks": "not_allowed",
+            "vias": "not_allowed"
+          },
+          "polygons_absolute": [
+            [
+              [
+                105.6,
+                5.6
+              ],
+              [
+                92.4,
+                5.6
+              ],
+              [
+                92.4,
+                0.2
+              ],
+              [
+                105.6,
+                0.2
+              ]
+            ]
+          ]
+        },
+        "current": {
+          "name": "antenna keepout",
+          "net": 0,
+          "layers": [
+            "B.Cu",
+            "F.Cu",
+            "In1.Cu",
+            "In2.Cu"
+          ],
+          "hatch": {
+            "pitch": 0.508,
+            "style": "edge"
+          },
+          "clearance": 0.0,
+          "min_thickness": 0.254,
+          "keepout": {
+            "copperpour": "not_allowed",
+            "footprints": "not_allowed",
+            "pads": "not_allowed",
+            "tracks": "not_allowed",
+            "vias": "not_allowed"
+          },
+          "polygons_absolute": [
+            [
+              [
+                105.6,
+                5.6
+              ],
+              [
+                92.4,
+                5.6
+              ],
+              [
+                92.4,
+                0.2
+              ],
+              [
+                105.6,
+                0.2
+              ]
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "name": "U4 silk, Fab, courtyard, and user graphics",
+      "passed": true,
+      "detail": {
+        "baseline_items": 21,
+        "current_items": 21,
+        "baseline_sha256": "75dbe35184c79d9ce83d8488176a01332fe0803ab926a7d9702a11df2dd88caa",
+        "current_sha256": "75dbe35184c79d9ce83d8488176a01332fe0803ab926a7d9702a11df2dd88caa"
+      }
+    },
+    {
+      "name": "U4 models",
+      "passed": true,
+      "detail": {
+        "baseline_sha256": "ad00606fbd833f6699913b03698a9f3b251cb2ba88ac4229877fd7e30a585a49",
+        "current_sha256": "ad00606fbd833f6699913b03698a9f3b251cb2ba88ac4229877fd7e30a585a49"
+      }
+    },
+    {
+      "name": "U4 groups",
+      "passed": true,
+      "detail": {
+        "baseline_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "current_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      }
+    },
+    {
+      "name": "all schematic sheets are byte-identical",
+      "passed": true,
+      "detail": {
+        "file_count": 5,
+        "changed": []
+      }
+    },
+    {
+      "name": "project-library change scope",
+      "passed": true,
+      "detail": {
+        "file_count": 33,
+        "changed": [
+          "kicad/HomeKey_RevA.pretty/ESP32-C6-MINI-1.kicad_mod"
+        ]
+      }
+    },
+    {
+      "name": "all 13 manufacturing geometry files",
+      "passed": true,
+      "detail": {
+        "file_count": 13,
+        "normalized_equal": {
+          "HomeKey-Lock-RevA-PN7161-NPTH.drl": true,
+          "HomeKey-Lock-RevA-PN7161-PTH.drl": true,
+          "HomeKey-Lock-RevA-PN7161.G2": true,
+          "HomeKey-Lock-RevA-PN7161.G3": true,
+          "HomeKey-Lock-RevA-PN7161.GBL": true,
+          "HomeKey-Lock-RevA-PN7161.GBO": true,
+          "HomeKey-Lock-RevA-PN7161.GBP": true,
+          "HomeKey-Lock-RevA-PN7161.GBS": true,
+          "HomeKey-Lock-RevA-PN7161.GKO": true,
+          "HomeKey-Lock-RevA-PN7161.GTL": true,
+          "HomeKey-Lock-RevA-PN7161.GTO": true,
+          "HomeKey-Lock-RevA-PN7161.GTP": true,
+          "HomeKey-Lock-RevA-PN7161.GTS": true
+        }
+      }
+    },
+    {
+      "name": "assembly exports are byte-identical",
+      "passed": true,
+      "detail": {
+        "BOM_FULL.csv": true,
+        "BOM_JLCPCB_DRAFT.csv": true,
+        "CPL_JLCPCB_DRAFT.csv": true,
+        "PROCUREMENT_GAPS.md": true
+      }
+    }
+  ],
+  "error_count": 0,
+  "errors": [],
+  "result": "PASS"
+}
