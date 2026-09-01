@@ -3,7 +3,10 @@ PASSIVE PLACEMENT PROPOSAL
 Grid 0.25 mm, search radius 8.0 mm, courtyard gap 0.2 mm
 
 part  serves     net               was      now   proposed pcb_at
-C45   U6.4       SERVO_FB       17.48mm    5.11mm   (130.15, 54.05, 90)
+
+LEFT ALONE (no position found that improves on the current one)
+  C37   stays at 6.45 mm; best legal spot was 8.37 mm
+  C38   stays at 6.45 mm; best legal spot was 9.84 mm
 
 Distances are pad-to-pad on the shared net, not part centre to part centre.
 

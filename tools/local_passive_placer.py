@@ -78,6 +78,12 @@ INTENTS = {
     "C21": ("U5", "14", "PN7161 TVDD rail reservoir"),
     "C23": ("U5", "27", "PN7161 VDD rail bypass"),
     "C26": ("U5", "17", "PN7161 VMID bypass"),
+    # The receive filter capacitors.  They sit north and south of U5, which is
+    # the whole reason RXN and RXP have to turn out of the west face and travel
+    # along the one column every other escape terminates on.  In line with
+    # their own pins they would leave straight west, like TX does.
+    "C38": ("U5", "15", "PN7161 RXN filter"),
+    "C37": ("U5", "16", "PN7161 RXP filter"),
     "C2": ("U1", "3", "AP63205 VIN bypass"),
 }
 
@@ -242,12 +248,23 @@ def extent(footprint):
     )
 
 
-def rf_reservations(board, fps):
-    """Straight pad-to-pad runs of the RF nets, as no-go areas."""
+def rf_reservations(board, fps, movers=()):
+    """Straight pad-to-pad runs of the RF nets, as no-go areas.
+
+    A net one of the moving parts sits on is skipped: its corridor is defined
+    by where that part ends up, so reserving the old one would forbid the very
+    move being considered.
+    """
+    moving_nets = {
+        pad.net.name
+        for ref in movers
+        for pad in fps[ref].pads
+        if pad.net is not None and pad.net.name
+    }
     points = defaultdict(list)
     for footprint in board.footprints:
         for pad in footprint.pads:
-            if pad.net is not None and pad.net.name in RF_NETS:
+            if pad.net is not None and pad.net.name in RF_NETS and pad.net.name not in moving_nets:
                 centre = pad_geometry(footprint, pad).centroid
                 points[pad.net.name].append((centre.x, centre.y))
     shapes = []
@@ -413,7 +430,7 @@ def main() -> None:
         [e for ref, f in fps.items() if ref not in movers and (e := extent(f))]
         + list(KEEPOUTS)
         + escape_reservations(fps)
-        + rf_reservations(board, fps)
+        + rf_reservations(board, fps, movers)
         + lane_reservations(LANE_SOURCE)
     )
 
