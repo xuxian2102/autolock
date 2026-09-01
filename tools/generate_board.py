@@ -62,6 +62,11 @@ FAB_ONLY_REFERENCES = {
     "R10", "R11", "R12", "R13", "R14", "R15", "R16", "R17", "R28",
     "R29", "R31",
     "TP3", "TP11", "U5",
+    # U6's designator sits 4.95 mm above the part, which is where the feedback
+    # divider now lives: R29's pad clips it and KiCad reports silk_over_copper.
+    # The divider has to be at VFB, so the silk is what moves.  U5 is already
+    # fab-only for the same reason.
+    "U6",
 }
 
 
@@ -136,7 +141,7 @@ FIXED_PLACEMENT = {
     "C39": (122.0, 49.0, 90), "C40": (124.5, 44.0, 90),
     "U6": (128.0, 50.5, 0), "C41": (132.0, 45.5, 0),
     "L5": (137.0, 50.5, 0),
-    "R28": (137.0, 42.0, 90), "R29": (143.0, 37.0, 90),
+    "R28": (122.4, 52.3, 0), "R29": (126.9, 45.3, 90),
     "C45": (139.0, 38.0, 0),
     "C42": (143.0, 53.5, 90), "C43": (146.0, 57.0, 90),
     "C44": (136.0, 65.0, 0), "F2": (126.5, 69.0, 0),

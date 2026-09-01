@@ -70,6 +70,10 @@ PROPOSAL = ROOT / "reports" / "PASSIVE_PLACEMENT.json"
 INTENTS = {
     "R28": ("U6", "4", "TPS565201 VFB divider, top leg"),
     "R29": ("U6", "4", "TPS565201 VFB divider, bottom leg"),
+    # DNP feedforward across R28.  It belongs at the feedback node whether or
+    # not it is populated: left behind, it stretches SERVO_FB back across the
+    # board and the divider move buys almost nothing.
+    "C45": ("U6", "4", "TPS565201 VFB feedforward"),
     "C17": ("U5", "13", "PN7161 VBAT/VDD(UP) rail bypass"),
     "C21": ("U5", "14", "PN7161 TVDD rail reservoir"),
     "C23": ("U5", "27", "PN7161 VDD rail bypass"),

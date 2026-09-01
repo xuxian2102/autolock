@@ -3,18 +3,17 @@ GROUND POUR
 In1.Cu ground mesh tracks removed: 0
 Copper keep-outs added: 2 (all four layers)
 Ground pours added: In1.Cu, B.Cu
-Stitching vias added: 2
+Stitching vias added: 1
 
 POUR COVERAGE (of the 150 x 75 mm board)
- - In1.Cu:   8684.0 mm^2  (77.2%)
- - B.Cu:   8302.1 mm^2  (73.8%)
+ - In1.Cu:   8685.7 mm^2  (77.2%)
+ - B.Cu:   8276.4 mm^2  (73.6%)
 
 STITCHING VIAS
- -  113.716,   16.823
- -   87.988,   22.239
+ -  102.216,   18.439
 
 FILL FRAGMENTS DROPPED BY ISLAND REMOVAL
- - B.Cu: 5 fragment(s), 5.05 mm^2 total (largest 2.91 mm^2)
+ - B.Cu: 6 fragment(s), 5.02 mm^2 total (largest 2.91 mm^2)
    These are too small, or too hemmed in by other nets, to take a stitching via; island removal deletes them so no floating copper ships.
 
 Fragments above the 1.0 mm^2 stitching threshold with no room for a via: 2.91 mm^2

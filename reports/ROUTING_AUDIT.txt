@@ -3,11 +3,11 @@ HomeKey-Lock-RevA-PN7161 ROUTING AUDIT
 Board: 150.0 x 75.0 mm, 4 layers, 1.6 mm
 Footprints: 120
 Electrical nets: 68
-Track segments: 6783
-Vias: 233 (GND connection points: 109)
+Track segments: 7233
+Vias: 229 (GND connection points: 109)
 Copper zones: 4 (2 ground pours, 2 all-layer antenna keep-outs)
-Close same-net via groups consolidated: 9 (9 redundant vias removed)
-Single-layer (no-transition) vias removed: 3
+Close same-net via groups consolidated: 10 (10 redundant vias removed)
+Single-layer (no-transition) vias removed: 2
 BAT_SYS F.Cu high-current trunk edges: 3
 NFC keep-out: x=4..47.1, y=16..59 mm on every routing/plane layer
 ESP antenna keep-out: x=92.1..105.9, y=0..5.7 mm on every layer
@@ -45,41 +45,41 @@ BST_3V3          F.Cu        endpoints= 2 edges= 1 vias=141 PASS
 BST_5V           F.Cu        endpoints= 2 edges= 1 vias=141 PASS
 BST_SERVO        F.Cu        endpoints= 2 edges= 1 vias=141 PASS
 5V_BAT           B.Cu/In2.Cu endpoints= 6 edges= 5 vias=141 PASS
-3V3              F.Cu        endpoints=12 edges=11 vias=138 PASS
-SYS_5V           F.Cu        endpoints= 9 edges= 8 vias=147 PASS
-PN_VDD           F.Cu        endpoints= 6 edges= 5 vias=146 PASS
-PN_TVDD          F.Cu        endpoints= 5 edges= 4 vias=148 PASS
-USB_DN_CONN      F.Cu        endpoints= 5 edges= 4 vias=145 PASS
-USB_DP_CONN      F.Cu        endpoints= 5 edges= 4 vias=149 PASS
-USB_DM           F.Cu        endpoints= 2 edges= 1 vias=150 PASS
-USB_DP           F.Cu        endpoints= 2 edges= 1 vias=151 PASS
-PN_VEN           F.Cu        endpoints= 4 edges= 3 vias=152 PASS
-SERVICE_BTN      F.Cu        endpoints= 3 edges= 2 vias=153 PASS
-PN_DWL_REQ       F.Cu        endpoints= 3 edges= 2 vias=157 PASS
-PN_IRQ           F.Cu        endpoints= 3 edges= 2 vias=159 PASS
-BAT_ADC          F.Cu        endpoints= 2 edges= 1 vias=159 PASS
-ESP_EN           F.Cu        endpoints= 2 edges= 1 vias=160 PASS
-PN_MISO_IC       F.Cu        endpoints= 2 edges= 1 vias=161 PASS
-PN_MOSI_IC       F.Cu        endpoints= 2 edges= 1 vias=161 PASS
-PN_NSS_IC        F.Cu        endpoints= 2 edges= 1 vias=161 PASS
-PN_SCK_IC        F.Cu        endpoints= 2 edges= 1 vias=163 PASS
-STATUS_LED       F.Cu        endpoints= 2 edges= 1 vias=163 PASS
-SERVO_FB         B.Cu/In2.Cu endpoints= 4 edges= 3 vias=163 PASS
-PMOS_GATE        F.Cu        endpoints= 3 edges= 2 vias=163 PASS
-SERVO_EN_IC      F.Cu        endpoints= 3 edges= 2 vias=165 PASS
-BOOT             F.Cu        endpoints= 3 edges= 2 vias=169 PASS
-USB_5V           F.Cu        endpoints= 4 edges= 3 vias=175 PASS
-PN_MISO          F.Cu        endpoints= 2 edges= 1 vias=177 PASS
-PN_NSS           F.Cu        endpoints= 2 edges= 1 vias=179 PASS
-PN_SCK           F.Cu        endpoints= 2 edges= 1 vias=181 PASS
-SERVO_EN         F.Cu        endpoints= 2 edges= 1 vias=184 PASS
-UART_RX          F.Cu        endpoints= 2 edges= 1 vias=187 PASS
-UART_TX          F.Cu        endpoints= 2 edges= 1 vias=191 PASS
-USB_CC1          F.Cu        endpoints= 2 edges= 1 vias=191 PASS
-USB_CC2          F.Cu        endpoints= 2 edges= 1 vias=191 PASS
-SERVO_PWM_OUT    B.Cu/In2.Cu endpoints= 3 edges= 2 vias=191 PASS
-LED_A            B.Cu/In2.Cu endpoints= 2 edges= 1 vias=189 PASS
-PN_MOSI          F.Cu        endpoints= 2 edges= 1 vias=191 PASS
+3V3              F.Cu        endpoints=12 edges=11 vias=142 PASS
+SYS_5V           F.Cu        endpoints= 9 edges= 8 vias=149 PASS
+PN_VDD           F.Cu        endpoints= 6 edges= 5 vias=148 PASS
+PN_TVDD          F.Cu        endpoints= 5 edges= 4 vias=150 PASS
+USB_DN_CONN      F.Cu        endpoints= 5 edges= 4 vias=147 PASS
+USB_DP_CONN      F.Cu        endpoints= 5 edges= 4 vias=151 PASS
+USB_DM           F.Cu        endpoints= 2 edges= 1 vias=152 PASS
+USB_DP           F.Cu        endpoints= 2 edges= 1 vias=153 PASS
+PN_VEN           F.Cu        endpoints= 4 edges= 3 vias=154 PASS
+SERVICE_BTN      F.Cu        endpoints= 3 edges= 2 vias=155 PASS
+PN_DWL_REQ       F.Cu        endpoints= 3 edges= 2 vias=159 PASS
+PN_IRQ           F.Cu        endpoints= 3 edges= 2 vias=161 PASS
+BAT_ADC          F.Cu        endpoints= 2 edges= 1 vias=161 PASS
+ESP_EN           F.Cu        endpoints= 2 edges= 1 vias=162 PASS
+PN_MISO_IC       F.Cu        endpoints= 2 edges= 1 vias=163 PASS
+PN_MOSI_IC       F.Cu        endpoints= 2 edges= 1 vias=163 PASS
+PN_NSS_IC        F.Cu        endpoints= 2 edges= 1 vias=163 PASS
+PN_SCK_IC        F.Cu        endpoints= 2 edges= 1 vias=165 PASS
+STATUS_LED       F.Cu        endpoints= 2 edges= 1 vias=165 PASS
+SERVO_FB         B.Cu/In2.Cu endpoints= 4 edges= 3 vias=165 PASS
+PMOS_GATE        F.Cu        endpoints= 3 edges= 2 vias=165 PASS
+SERVO_EN_IC      F.Cu        endpoints= 3 edges= 2 vias=167 PASS
+BOOT             F.Cu        endpoints= 3 edges= 2 vias=171 PASS
+USB_5V           F.Cu        endpoints= 4 edges= 3 vias=177 PASS
+PN_MISO          F.Cu        endpoints= 2 edges= 1 vias=179 PASS
+PN_NSS           F.Cu        endpoints= 2 edges= 1 vias=181 PASS
+PN_SCK           F.Cu        endpoints= 2 edges= 1 vias=183 PASS
+SERVO_EN         F.Cu        endpoints= 2 edges= 1 vias=185 PASS
+UART_RX          F.Cu        endpoints= 2 edges= 1 vias=188 PASS
+UART_TX          F.Cu        endpoints= 2 edges= 1 vias=190 PASS
+USB_CC1          F.Cu        endpoints= 2 edges= 1 vias=190 PASS
+USB_CC2          F.Cu        endpoints= 2 edges= 1 vias=190 PASS
+SERVO_PWM_OUT    B.Cu/In2.Cu endpoints= 3 edges= 2 vias=190 PASS
+LED_A            B.Cu/In2.Cu endpoints= 2 edges= 1 vias=188 PASS
+PN_MOSI          F.Cu        endpoints= 2 edges= 1 vias=188 PASS
 
 ROUTING CONNECTIVITY: PASS (all non-GND endpoint trees completed)
 GND CONNECTIVITY: explicit dogbone/thermal vias into In1.Cu and B.Cu

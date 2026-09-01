@@ -1,0 +1,13 @@
+PASSIVE PLACEMENT PROPOSAL
+========================================================================
+Grid 0.25 mm, search radius 8.0 mm, courtyard gap 0.2 mm
+
+part  serves     net               was      now   proposed pcb_at
+C45   U6.4       SERVO_FB       18.01mm    4.43mm   (129.4, 53.8, 90)
+
+Distances are pad-to-pad on the shared net, not part centre to part centre.
+
+This is a proposal.  Put the numbers in FIXED_PLACEMENT (generate_board.py),
+regenerate, route,
+and keep them only if the audit gate and KiCad DRC still pass -- placement
+score and routability are only loosely related, so the router decides.
