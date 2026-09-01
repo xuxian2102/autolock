@@ -1,6 +1,6 @@
 GROUND POUR
 ========================================================================
-In1.Cu ground mesh tracks removed: 384
+In1.Cu ground mesh tracks removed: 0
 Copper keep-outs added: 2 (all four layers)
 Ground pours added: In1.Cu, B.Cu
 Stitching vias added: 2

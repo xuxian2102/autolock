@@ -44,7 +44,7 @@ import pour_ground_planes  # noqa: E402
 from kiutils.board import Board  # noqa: E402
 from kiutils.items.brditems import Segment, Via  # noqa: E402
 from kiutils.items.common import Position  # noqa: E402
-from shapely.geometry import LineString, Point  # noqa: E402
+from shapely.geometry import LineString, Point, box  # noqa: E402
 from shapely.ops import nearest_points, unary_union  # noqa: E402
 from shapely.strtree import STRtree  # noqa: E402
 
@@ -59,6 +59,14 @@ LAYERS = ("F.Cu", "B.Cu", "In2.Cu")
 COPPER_LAYERS = ("F.Cu", "In1.Cu", "In2.Cu", "B.Cu")
 ROUTER_LAYERS = {name: index for index, name in enumerate(LAYERS)}
 DEFAULT_CLEARANCE = 0.18
+
+# Where pour_ground_planes.py is not allowed to fill, so a ground via standing
+# inside one has no In1.Cu plane to reach.  Kept in step with the same
+# rectangles in pour_ground_planes.py.
+POUR_KEEPOUTS = (
+    box(0.00, 16.00, 48.50, 59.00),      # NFC loop
+    box(91.87, 0.00, 106.13, 5.91),      # ESP32 module edge antenna
+)
 HOLE_CLEARANCE = 0.25
 VIA_SIZE = 0.50
 VIA_DRILL = 0.20
@@ -558,9 +566,10 @@ def remove_redundant_vias(board):
     in the middle of an In1.Cu mesh stripe, not at its end, so an endpoint-only
     test throws away 30 perfectly good plane connections.
 
-    Call this while the In1.Cu ground mesh still exists -- before
-    pour_ground_planes.py replaces it with a zone -- so that every ground via
-    still has its plane-side copper to be counted.
+    In1.Cu carries no routed ground copper for a via to touch -- the pour
+    supplies that whole plane a few lines later -- so count the plane as
+    present for a ground via, unless the via stands inside a keep-out where the
+    pour is not allowed to fill.
     """
     copper = defaultdict(list)          # (net, layer) -> shapes
     for item in board.traceItems:
@@ -601,6 +610,16 @@ def remove_redundant_vias(board):
                     for index in trees[(net, layer)].query(here)
                 )
             }
+            # Test the via's centre, not its pad.  U4's thirteen ground fanout
+            # vias sit at y = 6.0-6.125, just below the ESP32 antenna keep-out
+            # that ends at y = 5.91; their 0.4 mm pads reach into it, but their
+            # centres are outside and the pour fills right up to them.  Asking
+            # whether the pad touches the keep-out deleted all thirteen.
+            centre = Point(item.position.X, item.position.Y)
+            if net == "GND" and not any(
+                area.covers(centre) for area in POUR_KEEPOUTS
+            ):
+                layers.add("In1.Cu")
             if len(layers) < 2:
                 removed += 1
                 continue
@@ -1307,374 +1326,94 @@ def route_net(
     return True, routed_edges, total_visited, connected, remaining
 
 
-def add_ground_connections(
-    board, net_by_name, occupancy, ground_pads, signal_vias,
-    *, fanout_only=False, ground_vias=None,
-):
-    if ground_vias is None:
-        ground_vias = []
-        seen = set()
-        for pad in ground_pads:
-            coordinate_key = (round(pad.x, 3), round(pad.y, 3))
-            if coordinate_key in seen:
-                continue
-            seen.add(coordinate_key)
-            if pad.through:
-                ground_vias.append((pad.x, pad.y))
-                continue
-            # Exposed PN7161 pad: four thermal/ground vias inside the slug.
-            if pad.reference == "U5" and pad.number == "41":
-                for dx, dy in ((-0.8, -0.8), (0.8, -0.8), (-0.8, 0.8), (0.8, 0.8)):
-                    point = (pad.x + dx, pad.y + dy)
-                    segment(board, net_by_name, "GND", (pad.x, pad.y), point, 0.35, "F.Cu")
-                    add_via(board, net_by_name, "GND", point, size=0.60, drill=0.30)
-                    occupancy.add_line(
-                        "F.Cu", (pad.x, pad.y), point,
-                        0.35 / 2 + DEFAULT_CLEARANCE + SIGNAL_HALF, "GND",
-                    )
-                    for layer in LAYERS:
-                        occupancy.add_disk(
-                            layer, *point,
-                            0.60 / 2 + DEFAULT_CLEARANCE + SIGNAL_HALF,
-                            "GND",
-                        )
-                    ground_vias.append(point)
-                continue
-            point = candidate_escape(pad, occupancy, "GND", via=True)
-            segment(board, net_by_name, "GND", (pad.x, pad.y), point, 0.30, "F.Cu")
-            add_via(board, net_by_name, "GND", point)
-            occupancy.add_line(
-                "F.Cu", (pad.x, pad.y), point,
-                0.30 / 2 + DEFAULT_CLEARANCE + SIGNAL_HALF, "GND",
-            )
-            for layer in LAYERS:
-                occupancy.add_disk(
-                    layer, *point,
-                    VIA_SIZE / 2 + DEFAULT_CLEARANCE + SIGNAL_HALF,
-                    "GND",
-                )
-            ground_vias.append(point)
+def add_ground_connections(board, net_by_name, occupancy, ground_pads, signal_vias):
+    """Drop a via from every ground pad to the plane, and return their points.
 
-        # Extra high-current ground vias beside the servo output reservoir.
-        # The final three also need explicit F.Cu ties; otherwise a through-via
-        # that touches only In1.Cu is electrically valid but useless for
-        # carrying the intended capacitor/regulator return current.
-        tied_ground_vias = {
-            (144.0, 52.0): ("C42", "2", 0.60),
-            (145.0, 55.5): ("C43", "2", 0.60),
-            (128.5, 53.0): ("U6", "1", 0.40),
-        }
-        ground_pad_by_id = {
-            (pad.reference, pad.number): pad for pad in ground_pads
-        }
-        for point in ((140.0, 64.0), (140.0, 66.0), *tied_ground_vias):
-            add_via(board, net_by_name, "GND", point, size=0.80, drill=0.40)
-            tie = tied_ground_vias.get(point)
-            if tie is not None:
-                reference, number, width = tie
-                pad = ground_pad_by_id[(reference, number)]
-                start = (pad.x, pad.y)
-                segment(board, net_by_name, "GND", start, point, width, "F.Cu")
-                occupancy.add_line(
-                    "F.Cu", start, point,
-                    width / 2 + DEFAULT_CLEARANCE + SIGNAL_HALF,
-                    "GND",
-                )
-            for layer in LAYERS:
-                occupancy.add_disk(
-                    layer, *point,
-                    0.80 / 2 + DEFAULT_CLEARANCE + SIGNAL_HALF,
-                    "GND",
-                )
-            ground_vias.append(point)
-
-    if fanout_only:
-        return ground_vias
-
-    # Dense In1 routed plane.  Raster tracks are clipped around all non-GND
-    # signal vias and non-GND through-hole pads.
-    obstacles = []
-    for x, y in signal_vias:
-        # 0.75 mm covers the largest 0.80 mm power via, the 0.42 mm
-        # mesh-track radius and at least 0.10 mm copper clearance.
-        obstacles.append((x, y, 0.75))
-    for pad in [point for point in ALL_PADS if point.through and point.net != "GND"]:
-        obstacles.append(
-            (pad.x, pad.y, math.hypot(pad.size_x, pad.size_y) / 2 + 0.40)
-        )
-    # In1.Cu is generated separately from the maze-router occupancy.  Clip its
-    # 0.42 mm raster around every NPTH drill using the exact hole-clearance
-    # rule plus half the raster width.
-    for x, y, drill_x, drill_y in NPTH_HOLES:
-        obstacles.append(
-            (
-                x,
-                y,
-                max(drill_x, drill_y) / 2
-                + HOLE_CLEARANCE
-                + 0.42 / 2,
-            )
-        )
-    for x, y in ((4, 4), (146, 4), (4, 71), (146, 71)):
-        obstacles.append((x, y, 3.8))
-
-    def excluded_x(y):
-        intervals = []
-        # Keep all inner-layer copper away from both antennas.
-        if 16.0 <= y <= 59.0:
-            intervals.append((0.0, 47.5))
-        if 0.0 <= y <= 5.91:
-            # Include 0.22 mm beyond the hard keep-out so the 0.42 mm round
-            # track cap has a measurable gap instead of merely touching the
-            # boundary at x=92.1/105.9.
-            intervals.append((91.87, 106.13))
-        for x0, y0, radius in obstacles:
-            delta = abs(y - y0)
-            if delta < radius:
-                half = math.sqrt(max(0.0, radius * radius - delta * delta))
-                intervals.append((x0 - half, x0 + half))
-        intervals.sort()
-        merged = []
-        for start, end in intervals:
-            if not merged or start > merged[-1][1]:
-                merged.append([start, end])
-            else:
-                merged[-1][1] = max(merged[-1][1], end)
-        return merged
-
-    def excluded_y(x):
-        intervals = []
-        if 4.0 <= x <= 47.5:
-            intervals.append((16.0, 59.0))
-        if 91.87 <= x <= 106.13:
-            intervals.append((0.0, 5.91))
-        for x0, y0, radius in obstacles:
-            delta = abs(x - x0)
-            if delta < radius:
-                half = math.sqrt(max(0.0, radius * radius - delta * delta))
-                intervals.append((y0 - half, y0 + half))
-        intervals.sort()
-        merged = []
-        for start, end in intervals:
-            if not merged or start > merged[-1][1]:
-                merged.append([start, end])
-            else:
-                merged[-1][1] = max(merged[-1][1], end)
-        return merged
-
-    # A 0.42 mm track has a 0.21 mm copper radius.  Keep its horizontal
-    # endpoints on x=0.75/149.25 so the actual copper-to-Edge.Cuts distance is
-    # 0.54 mm, clearing the board rule's 0.50 mm minimum with 0.04 mm margin.
-    # The previous x=0.50/149.50 endpoints left only 0.29 mm of real clearance.
-    mesh_left = 0.75
-    mesh_right = BOARD_SIZE[0] - 0.75
-
-    mesh_y_values = []
-    y = 0.75
-    while y < BOARD_SIZE[1] - 0.5:
-        mesh_y_values.append(round(y, 3))
-        cursor = mesh_left
-        for start, end in excluded_x(y):
-            if start > cursor + 0.2:
-                segment(
-                    board, net_by_name, "GND", (cursor, y),
-                    (min(start, mesh_right), y), 0.42, "In1.Cu",
-                )
-            cursor = max(cursor, end)
-        if cursor < mesh_right:
-            segment(
-                board, net_by_name, "GND", (cursor, y),
-                (mesh_right, y), 0.42, "In1.Cu",
-            )
-        y += 0.75
-
-    # Link every GND via to the nearest horizontal mesh stripe.
-    for x, y in ground_vias:
-        target_y = min(mesh_y_values, key=lambda candidate: abs(candidate - y))
-        # 0.30 mm is sufficient for an individual stitching via and keeps the
-        # vertical spoke at U5 clear of the adjacent PN_DWL_REQ through-via.
-        segment(board, net_by_name, "GND", (x, y), (x, target_y), 0.30, "In1.Cu")
-
-    # Sparse vertical rails make the raster one connected plane even around
-    # clearance islands.
-    for x in (48.5, 55.0, 70.0, 85.0, 110.0, 125.0, 149.0):
-        cursor = 0.75
-        for start, end in excluded_y(x):
-            if start > cursor + 0.2:
-                segment(board, net_by_name, "GND", (x, cursor), (x, min(start, 74.25)), 0.32, "In1.Cu")
-            cursor = max(cursor, end)
-        if cursor < 74.25:
-            segment(board, net_by_name, "GND", (x, cursor), (x, 74.25), 0.32, "In1.Cu")
-
-    stitch_ground_mesh(
-        board, net_by_name, occupancy, obstacles, ground_vias,
-    )
-    return ground_vias
-
-
-def stitch_ground_mesh(board, net_by_name, occupancy, obstacles, ground_vias):
-    """Join every clipped In1.Cu GND raster island to the main ground mesh.
-
-    Clearance holes around through vias split individual raster stripes into
-    many legitimate but electrically isolated pieces.  Build the exact copper
-    components, then route a short, clearance-aware orthogonal stitch from
-    each island to the growing main component.  This makes the deterministic
-    routed plane agree with KiCad's official connectivity engine.
+    This used to have a second half that rastered In1.Cu into a mesh of tracks
+    and stitched its islands together.  pour_ground_planes.py deletes every one
+    of those tracks and pours a real zone instead, so the raster only ever
+    reached the manufacturing image as an absence -- while still being able to
+    fail the build when an island would not stitch.  It ran after every signal
+    net was routed, so removing it moves no signal: the board comes out
+    byte-identical.
     """
-    layer = "In1.Cu"
-    width = 0.32
-    occupancy.cells[layer] = defaultdict(set)
-
-    # Recreate the same forbidden regions used to clip the raster, this time
-    # as a routing occupancy map for the island stitches.
-    for x, y, radius in obstacles:
-        occupancy.add_disk(layer, x, y, radius, "#INNER_OBSTACLE")
-    for x_index in range(int(4.0 / GRID), int(47.5 / GRID) + 1):
-        for y_index in range(int(16.0 / GRID), int(59.0 / GRID) + 1):
-            occupancy.cells[layer][(x_index, y_index)].add("#NFC_KEEP_OUT")
-    for x_index in range(int(91.87 / GRID), int(106.13 / GRID) + 1):
-        for y_index in range(0, int(5.91 / GRID) + 1):
-            occupancy.cells[layer][(x_index, y_index)].add("#ESP_ANT_KEEP_OUT")
-
-    ground_number = net_by_name["GND"].number
-    pieces = []
-    in1_segments = []
-    for item in board.traceItems:
-        if item.net != ground_number:
+    ground_vias = []
+    seen = set()
+    for pad in ground_pads:
+        coordinate_key = (round(pad.x, 3), round(pad.y, 3))
+        if coordinate_key in seen:
             continue
-        if isinstance(item, Segment) and item.layer == layer:
-            geometry = LineString([
-                    (item.start.X, item.start.Y), (item.end.X, item.end.Y),
-                ]).buffer(item.width / 2, cap_style=1, join_style=1)
-            pieces.append(geometry)
-            in1_segments.append((item, geometry))
-        elif isinstance(item, Via):
-            pieces.append(
-                Point(item.position.X, item.position.Y).buffer(item.size / 2)
-            )
-    merged = unary_union(pieces)
-    components = list(merged.geoms) if hasattr(merged, "geoms") else [merged]
-    if len(components) <= 1:
-        print("  GND mesh already connected", flush=True)
-        return
-    main = max(components, key=lambda geometry: geometry.area)
-    islands = [geometry for geometry in components if geometry is not main]
-
-    # Raster clipping can leave harmless slivers trapped between a mounting
-    # hole (or keep-out) and the board edge.  If an island carries no actual
-    # GND via/pad connection, remove its tracks instead of forcing an unsafe
-    # bridge across the protected region.
-    connection_points = [Point(x, y) for x, y in ground_vias]
-    orphan_islands = [
-        island for island in islands
-        if not any(island.distance(point) <= 1e-6 for point in connection_points)
-    ]
-    if orphan_islands:
-        remove_ids = {
-            id(item)
-            for item, geometry in in1_segments
-            if any(orphan.intersects(geometry) for orphan in orphan_islands)
-        }
-        board.traceItems = [
-            item for item in board.traceItems if id(item) not in remove_ids
-        ]
-        print(
-            f"  GND mesh pruned: {len(orphan_islands)} orphan island(s), "
-            f"{len(remove_ids)} track(s)",
-            flush=True,
-        )
-
-        pieces = []
-        for item in board.traceItems:
-            if item.net != ground_number:
-                continue
-            if isinstance(item, Segment) and item.layer == layer:
-                pieces.append(
-                    LineString([
-                        (item.start.X, item.start.Y), (item.end.X, item.end.Y),
-                    ]).buffer(item.width / 2, cap_style=1, join_style=1)
+        seen.add(coordinate_key)
+        if pad.through:
+            ground_vias.append((pad.x, pad.y))
+            continue
+        # Exposed PN7161 pad: four thermal/ground vias inside the slug.
+        if pad.reference == "U5" and pad.number == "41":
+            for dx, dy in ((-0.8, -0.8), (0.8, -0.8), (-0.8, 0.8), (0.8, 0.8)):
+                point = (pad.x + dx, pad.y + dy)
+                segment(board, net_by_name, "GND", (pad.x, pad.y), point, 0.35, "F.Cu")
+                add_via(board, net_by_name, "GND", point, size=0.60, drill=0.30)
+                occupancy.add_line(
+                    "F.Cu", (pad.x, pad.y), point,
+                    0.35 / 2 + DEFAULT_CLEARANCE + SIGNAL_HALF, "GND",
                 )
-            elif isinstance(item, Via):
-                pieces.append(
-                    Point(item.position.X, item.position.Y).buffer(item.size / 2)
-                )
-        merged = unary_union(pieces)
-        components = list(merged.geoms) if hasattr(merged, "geoms") else [merged]
-        main = max(components, key=lambda geometry: geometry.area)
-        islands = [geometry for geometry in components if geometry is not main]
-    stitches = 0
-
-    def route_2d(start_cell, target_cell, max_visits=500_000):
-        queue = [(0.0, 0.0, start_cell)]
-        came_from = {}
-        score = {start_cell: 0.0}
-        visited = 0
-
-        def heuristic(node):
-            return math.hypot(node[0] - target_cell[0], node[1] - target_cell[1])
-
-        while queue:
-            _estimate, current_score, current = heapq.heappop(queue)
-            if current_score != score.get(current):
-                continue
-            visited += 1
-            if visited > max_visits:
-                return None, visited
-            if current == target_cell:
-                path = [current]
-                while current in came_from:
-                    current = came_from[current]
-                    path.append(current)
-                path.reverse()
-                return path, visited
-            for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                neighbor = (current[0] + dx, current[1] + dy)
-                if (
-                    neighbor != target_cell
-                    and not occupancy.allowed(layer, neighbor, "GND")
-                ):
-                    continue
-                next_score = current_score + 1.0
-                if next_score < score.get(neighbor, float("inf")):
-                    score[neighbor] = next_score
-                    came_from[neighbor] = current
-                    heapq.heappush(
-                        queue,
-                        (next_score + heuristic(neighbor), next_score, neighbor),
+                for layer in LAYERS:
+                    occupancy.add_disk(
+                        layer, *point,
+                        0.60 / 2 + DEFAULT_CLEARANCE + SIGNAL_HALF,
+                        "GND",
                     )
-        return None, visited
-
-    while islands:
-        # Join the nearest remaining island first; the growing main geometry
-        # then becomes an efficient backbone for subsequent stitches.
-        island = min(islands, key=lambda geometry: geometry.distance(main))
-        main_point, island_point = nearest_points(main, island)
-        start_cell = cell(main_point.x, main_point.y)
-        target_cell = cell(island_point.x, island_point.y)
-        grid_path, visited = route_2d(start_cell, target_cell)
-        if grid_path is None:
-            raise RuntimeError(
-                "Unable to stitch In1.Cu GND island at "
-                f"({island_point.x:.3f}, {island_point.y:.3f}); visited={visited}"
-            )
-
-        points = [(main_point.x, main_point.y)]
-        points.extend(xy(node) for node in grid_path)
-        points.append((island_point.x, island_point.y))
-        compact = [points[0]]
-        for point in points[1:]:
-            if math.dist(compact[-1], point) > 1e-6:
-                compact.append(point)
-        for start, end in zip(compact, compact[1:]):
-            segment(board, net_by_name, "GND", start, end, width, layer)
-
-        path_geometry = LineString(compact).buffer(
-            width / 2, cap_style=1, join_style=1
+                ground_vias.append(point)
+            continue
+        point = candidate_escape(pad, occupancy, "GND", via=True)
+        segment(board, net_by_name, "GND", (pad.x, pad.y), point, 0.30, "F.Cu")
+        add_via(board, net_by_name, "GND", point)
+        occupancy.add_line(
+            "F.Cu", (pad.x, pad.y), point,
+            0.30 / 2 + DEFAULT_CLEARANCE + SIGNAL_HALF, "GND",
         )
-        main = unary_union([main, island, path_geometry])
-        islands.remove(island)
-        stitches += 1
-    print(f"  GND mesh stitched: {stitches} island(s)", flush=True)
+        for layer in LAYERS:
+            occupancy.add_disk(
+                layer, *point,
+                VIA_SIZE / 2 + DEFAULT_CLEARANCE + SIGNAL_HALF,
+                "GND",
+            )
+        ground_vias.append(point)
+
+    # Extra high-current ground vias beside the servo output reservoir.
+    # The final three also need explicit F.Cu ties; otherwise a through-via
+    # that touches only In1.Cu is electrically valid but useless for
+    # carrying the intended capacitor/regulator return current.
+    tied_ground_vias = {
+        (144.0, 52.0): ("C42", "2", 0.60),
+        (145.0, 55.5): ("C43", "2", 0.60),
+        (128.5, 53.0): ("U6", "1", 0.40),
+    }
+    ground_pad_by_id = {
+        (pad.reference, pad.number): pad for pad in ground_pads
+    }
+    for point in ((140.0, 64.0), (140.0, 66.0), *tied_ground_vias):
+        add_via(board, net_by_name, "GND", point, size=0.80, drill=0.40)
+        tie = tied_ground_vias.get(point)
+        if tie is not None:
+            reference, number, width = tie
+            pad = ground_pad_by_id[(reference, number)]
+            start = (pad.x, pad.y)
+            segment(board, net_by_name, "GND", start, point, width, "F.Cu")
+            occupancy.add_line(
+                "F.Cu", start, point,
+                width / 2 + DEFAULT_CLEARANCE + SIGNAL_HALF,
+                "GND",
+            )
+        for layer in LAYERS:
+            occupancy.add_disk(
+                layer, *point,
+                0.80 / 2 + DEFAULT_CLEARANCE + SIGNAL_HALF,
+                "GND",
+            )
+        ground_vias.append(point)
+
+    return ground_vias
 
 
 def apply_reviewed_manufacturing_neckdowns(board):
@@ -1929,7 +1668,6 @@ def main() -> None:
 
     ground_vias = add_ground_connections(
         board, net_by_name, occupancy, pads_by_net["GND"], signal_vias,
-        fanout_only=True,
     )
 
     for net_name in non_ground_nets:
@@ -2005,10 +1743,15 @@ def main() -> None:
 
     apply_reviewed_manufacturing_neckdowns(board)
 
-    add_ground_connections(
-        board, net_by_name, occupancy, pads_by_net["GND"], signal_vias,
-        ground_vias=ground_vias,
-    )
+    # The second ground pass used to raster In1.Cu into a mesh of copper tracks
+    # and then stitch its islands together.  pour_ground_planes.py deletes every
+    # one of those tracks a few lines below and pours a real zone instead, so
+    # the pass was emitting copper only to have it thrown away -- while still
+    # being able to fail the whole build when an island would not stitch.
+    #
+    # The ground *vias* are not dead and are still placed, by the fanout-only
+    # pass before the signal loop.  Only the raster is gone.  It ran after
+    # every signal net was routed, so removing it cannot move a signal.
     merged_via_groups, removed_vias = consolidate_close_same_net_vias(board)
     removed_dangling_vias = remove_redundant_vias(board)
     board.to_file(str(BOARD_PATH), encoding="utf-8")

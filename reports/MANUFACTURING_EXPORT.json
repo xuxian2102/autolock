@@ -73,19 +73,19 @@
     ]
   },
   "sha256": {
-    "HomeKey-Lock-RevA-PN7161-NPTH.drl": "7f264a1800b9b1cd6a0f89a53f3b5dc76300e82147d0a6eef388b777c418b5d4",
-    "HomeKey-Lock-RevA-PN7161-PTH.drl": "3dac42046b88a213c7dde13e435a78063d1010fd25fb05e1251f694bb303700d",
-    "HomeKey-Lock-RevA-PN7161.G2": "bd1bf23b4a7e5c1c0e40071f2051bda97d932d44e03cbf8f7d20e5b703e480b5",
-    "HomeKey-Lock-RevA-PN7161.G3": "7b94d72ae155212b71c8ccc44fc70aad6007734158ec13c3156dfa175eab623e",
-    "HomeKey-Lock-RevA-PN7161.GBL": "28bc9ee8d0dd385ea836b1a682ae75a15a94d41bf6c73a36b3e116c53b2be1ab",
-    "HomeKey-Lock-RevA-PN7161.GBO": "390943aeb6b53054ef019dbc512eaf1d8927a844a3ae99e40108e98ebec0eb0e",
-    "HomeKey-Lock-RevA-PN7161.GBP": "2ab093c65d7b93cae39cd432d11042cc05d0728fefd30ea09b4b37ed5e280f9a",
-    "HomeKey-Lock-RevA-PN7161.GBS": "2079cc79c1fa91d6a508ae280b302177b5405729b55a226bdcae70891cbc9654",
-    "HomeKey-Lock-RevA-PN7161.GKO": "2cdb9ab4819d499ea8417ecaf6e529b06644c9d3fb52f017c93b66c4c0d90671",
-    "HomeKey-Lock-RevA-PN7161.GTL": "7988f5afc48afca749d8d0595306202fad8a12c125dc20529e8ce8610df09f47",
-    "HomeKey-Lock-RevA-PN7161.GTO": "6dec26b32fb01027841d28263428017cd943ebc6d2f62ffad16b6aee23b482bc",
-    "HomeKey-Lock-RevA-PN7161.GTP": "e287426b6b010daddc37bb880d383d6a0027a9891a7d40a5fe154c0544fabcde",
-    "HomeKey-Lock-RevA-PN7161.GTS": "af3e39e40424acba307a1a081a4ce0be6ae119e597cd017cd70cdb8f11e5175a"
+    "HomeKey-Lock-RevA-PN7161-NPTH.drl": "204f856ae7fa07609e9c93f8f05740fe7b6f7540a43a3c7bbbf4f17d8aeec3c8",
+    "HomeKey-Lock-RevA-PN7161-PTH.drl": "1dee969b82150b0485eafb9b686b7115ddaa3aabe39cfe0f523fba5be723cce9",
+    "HomeKey-Lock-RevA-PN7161.G2": "6243c3171413e9df9cbf2689cfd1ffec8e25c6f63385a932afb4c2e5a84f6384",
+    "HomeKey-Lock-RevA-PN7161.G3": "b8f195a7d75519a3f3965b37f508da153e5df08e92ee0ce59bc35541acd8419b",
+    "HomeKey-Lock-RevA-PN7161.GBL": "05aadafe983fa8330205f1a2c7e54f7ce02cf219b3e7bf372cdb17496fbf6e1e",
+    "HomeKey-Lock-RevA-PN7161.GBO": "9fd7470607f2a1bcf18dbcd7bfdab93efa2080a90f323395eeebd8d1bb4570f9",
+    "HomeKey-Lock-RevA-PN7161.GBP": "69e8ea89453057bc9a8466a046a3f8999edfc62294e26aa1867ea3b868fc0637",
+    "HomeKey-Lock-RevA-PN7161.GBS": "d626c8928313d302bd9d593c856dd047263f5527215f2ca37921b4c44dbc4a4d",
+    "HomeKey-Lock-RevA-PN7161.GKO": "e5785f542d517a652315d503569811e8e8d26a432e678a153722c1459d4f5ff9",
+    "HomeKey-Lock-RevA-PN7161.GTL": "0f1144e6ccc0b50c554bf89260dae3189e3f7bb63f9f40c3da1cfd6d59cce23e",
+    "HomeKey-Lock-RevA-PN7161.GTO": "756a80053a6f82be289361aad9d9629471c4c2eef44baf404122d0355f55caa7",
+    "HomeKey-Lock-RevA-PN7161.GTP": "31bff8c22554ace758466143331a1679d4ea81b86f3c2f93b33f7a1b39eb561c",
+    "HomeKey-Lock-RevA-PN7161.GTS": "5c3d6a054eead4b7c9325e36f91c42bffb45cdd0d0a4e2b01ddcfc95f6e675f6"
   },
   "fabrication_exporter": "KiCad official pcb export 10.0.6",
   "official_layer_mapping": {
