@@ -122,7 +122,11 @@ Diodes:*"Place the VIN capacitors as close to the device as possible."*
 | U3 pin5 SW → L2 | 7.69 mm | <5 |
 | C9 输出电容 → L2 | 2.60 mm | <6 ✓ |
 
-**C2 在 18 mm 外,作为高频旁路等于不存在。** 单点最离谱,但影响面比 U6 小。
+~~**C2 在 18 mm 外,作为高频旁路等于不存在。** 单点最离谱,但影响面比 U6 小。~~
+
+> **2026-08-31 已修复:C2 移到 U1 pin 3 VIN 旁,焊盘间距 18.00 → 1.47 mm。**
+> 同批提案里 U5 的三颗去耦和 U6 的反馈分压被布线器否决,已回滚 —— 见
+> `PREFAB_REVIEW_ACTIONS.md` J 节和 `tools/local_passive_placer.py` 顶部的逐条记录。
 
 ---
 
