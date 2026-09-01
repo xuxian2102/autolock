@@ -37,7 +37,7 @@ KIUTILS = WORKSPACE_ROOT / ".tools" / "py"
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(KIUTILS))
 
-from design_data import BOARD_SIZE, NATIVE_CHILD_ANGLE_REFS, PROJECT_NAME, parts  # noqa: E402
+from design_data import ANTENNA, BOARD_SIZE, NATIVE_CHILD_ANGLE_REFS, PROJECT_NAME, parts  # noqa: E402
 from generate_board import BOARD_PATH  # noqa: E402
 from u4_native import install_u4_native_block  # noqa: E402
 import pour_ground_planes  # noqa: E402
@@ -68,7 +68,7 @@ ESCAPE_KEEPALIVE = 0.5
 # inside one has no In1.Cu plane to reach.  Kept in step with the same
 # rectangles in pour_ground_planes.py.
 POUR_KEEPOUTS = (
-    box(0.00, 16.00, 48.50, 59.00),      # NFC loop
+    box(*ANTENNA.keepout),               # NFC loop
     box(91.87, 0.00, 106.13, 5.91),      # ESP32 module edge antenna
 )
 HOLE_CLEARANCE = 0.25
@@ -969,7 +969,8 @@ def fanout_endpoints(board, net_by_name, pads_by_net, occupancy, net_name, front
         # the coil's B.Cu underpass.  Only its right-hand terminal is a routing
         # endpoint; treating the inner via as another endpoint would ask the
         # router to duplicate the coil connection.
-        if pad.reference == "AE1" and pad.number == "2" and pad.x < 47.9:
+        if (pad.reference == "AE1" and pad.number == "2"
+                and abs(pad.x - ANTENNA.placement[0]) > 0.1):
             continue
         footprint_pad = (pad.reference, pad.number)
         if (
@@ -1539,7 +1540,7 @@ def main() -> None:
     # board segment gives KiCad's connectivity engine the same information.
     add_explicit_path(
         board, net_by_name, occupancy, "ANT_P", "B.Cu", 0.40,
-        [(42.2, 55.4), (48.0, 40.0)],
+        ANTENNA.underpass,
     )
 
     # Fold obviously local passive clusters into one routing endpoint.  This

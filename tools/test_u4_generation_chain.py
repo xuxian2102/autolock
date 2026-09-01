@@ -60,7 +60,7 @@ def run():
         gb.OUT = out
         gb.LIB_OUT = library_out
         gb.BOARD_PATH = board_path
-        gb.ANTENNA_FOOTPRINT = library_out / "NFC_Antenna_40x40_4T.kicad_mod"
+        gb.ANTENNA_FOOTPRINT = library_out / f"{gb.ANTENNA.name}.kicad_mod"
 
         gs.copy_libraries()
         gs.write_project_file()

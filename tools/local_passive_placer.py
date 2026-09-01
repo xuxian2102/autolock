@@ -49,7 +49,7 @@ sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(ROOT.parent / ".tools" / "py"))
 
 from audit_board import pad_geometry, reference_of  # noqa: E402
-from design_data import BOARD_SIZE  # noqa: E402
+from design_data import ANTENNA, BOARD_SIZE  # noqa: E402
 from generate_board import BOARD_PATH  # noqa: E402
 from kiutils.board import Board  # noqa: E402
 from route_board import FIXED_ESCAPES, FIXED_ESCAPE_PATHS  # noqa: E402
@@ -167,7 +167,7 @@ ESCAPE_WIDTH = 0.6
 
 # Copper keep-outs the pours also honour.  A passive dropped in here would sit
 # over an antenna.
-KEEPOUTS = (box(0.0, 16.0, 48.5, 59.0), box(91.87, 0.0, 106.13, 5.91))
+KEEPOUTS = (box(*ANTENNA.keepout), box(91.87, 0.0, 106.13, 5.91))
 
 # XTAL2 leaves U5 through this corridor on F.Cu.  route_board.py still holds
 # its path as fixed waypoints, so a part parked in the corridor would wall the

@@ -6,8 +6,8 @@ Ground pours added: In1.Cu, B.Cu
 Stitching vias added: 1
 
 POUR COVERAGE (of the 150 x 75 mm board)
- - In1.Cu:   8685.7 mm^2  (77.2%)
- - B.Cu:   8285.3 mm^2  (73.6%)
+ - In1.Cu:   7485.7 mm^2  (66.5%)
+ - B.Cu:   7085.3 mm^2  (63.0%)
 
 STITCHING VIAS
  -  102.216,   18.439

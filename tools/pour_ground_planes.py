@@ -52,6 +52,8 @@ WORKSPACE = ROOT.parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(WORKSPACE / ".tools" / "py"))
 
+from design_data import ANTENNA, BOARD_SIZE  # noqa: E402
+
 BOARD_PATH = HARDWARE / "kicad" / "HomeKey-Lock-RevA-PN7161.kicad_pcb"
 REPORT = ROOT / "reports" / "GROUND_POUR.txt"
 
@@ -59,7 +61,7 @@ REPORT = ROOT / "reports" / "GROUND_POUR.txt"
 # a rerun can tell its own output apart from the router's.
 NAMESPACE = uuid.UUID("6f0a1c52-9a1b-5f7e-8a3d-0c9f2b7e4d10")
 
-BOARD_W, BOARD_H = 150.0, 75.0
+BOARD_W, BOARD_H = BOARD_SIZE
 # Pour outline inset from the board edge.  0.30 mm keeps copper off the route
 # path with margin over the 0.2 mm edge clearance the design rules ask for.
 EDGE_INSET = 0.30
@@ -68,7 +70,7 @@ EDGE_INSET = 0.30
 # live on: a plane under a loop antenna is a shorted turn.  The NFC keep-out
 # is drawn 0.5 mm outside the loop's outer conductor, which reaches x = 48.0.
 KEEPOUTS = {
-    "NFC antenna keepout": (0.00, 16.00, 48.50, 59.00),
+    "NFC antenna keepout": ANTENNA.keepout,
     "ESP32 antenna keepout": (91.87, 0.00, 106.13, 5.91),
 }
 POUR_LAYERS = ("In1.Cu", "B.Cu")

@@ -30,6 +30,7 @@ sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(KIUTILS))
 
 from design_data import (  # noqa: E402
+    ANTENNA,
     DATE,
     NC_PINS,
     PASSIVE_VARIANT_DEFINITIONS,
@@ -95,7 +96,7 @@ STOCK_FOOTPRINTS = {
 def source_footprint(part) -> Path | None:
     """Return the exact footprint source used for a manifest part."""
     name = part.footprint.split(":", 1)[1]
-    if name == "NFC_Antenna_40x40_4T":
+    if name == ANTENNA.name:
         return None
     if name == "ESP32-C6-MINI-1":
         return ESPRESSIF / "footprints" / "Espressif.pretty" / f"{name}.kicad_mod"

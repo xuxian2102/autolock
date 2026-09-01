@@ -18,7 +18,8 @@
 | LED 串阻 | R9 | C21190 | 0603WAF1001T5E | UNI-ROYAL | 1 kΩ, ±1%, 0603 |
 | ADC 分压 | R11 | C22961 | 0603WAF2203T5E | UNI-ROYAL | 220 kΩ, ±1%, 0603 |
 | RF 电容 | C27, C28 | C882521 | GRM1885C1H331FA01D | Murata Electronics | 330 pF, C0G/NP0, ±1%, 50 V, 0603 |
-| RF 电容 | C29, C30 | C237335 | GRM1885C1H680FA01D | Murata Electronics | 68 pF, C0G/NP0, ±1%, 50 V, 0603 |
+| RF 匹配串联 | C29, C30 | C519494 | CC0603FRNPO9BN510 | YAGEO | 51 pF, NP0, ±1%, 50 V, 0603 |
+| RF 匹配并联 | C31, C32 | C519496 | CC0603FRNPO9BN750 | YAGEO | 75 pF, NP0, ±1%, 50 V, 0603 |
 | RF 阻尼 | R18, R19 | C22946 | 0603WAF270KT5E | UNI-ROYAL | 2.7 Ω, ±1%, 0603 |
 | RX 支路 | R20, R21 | C4190 | 0603WAF2201T5E | UNI-ROYAL | 2.2 kΩ, ±1%, 0603 |
 | 舵机信号 | R30 | C22962 | 0603WAF2200T5E | UNI-ROYAL | 220 Ω, ±1%, 0603 |
@@ -33,7 +34,8 @@
 - C21190: https://www.lcsc.com/product-detail/C21190.html
 - C22961: https://www.lcsc.com/product-detail/C22961.html
 - C882521: https://jlcpcb.com/partdetail/946628-GRM1885C1H331FA01D/C882521
-- C237335: https://jlcpcb.com/partdetail/236779-GRM1885C1H680FA01D/C237335
+- C519494: https://www.lcsc.com/product-detail/C519494.html
+- C519496: https://www.lcsc.com/product-detail/C519496.html
 - C22946: https://www.lcsc.com/product-detail/C22946.html
 - C4190: https://www.lcsc.com/product-detail/C4190.html
 - C22962: https://www.lcsc.com/product-detail/C22962.html

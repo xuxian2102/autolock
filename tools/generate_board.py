@@ -31,6 +31,7 @@ from design_data import (  # noqa: E402
     PROJECT_NAME,
     REVISION,
     footprint_for,
+    ANTENNA,
     parts,
 )
 from generate_schematics import LIB_OUT, OUT, source_footprint  # noqa: E402
@@ -43,7 +44,7 @@ from u4_native import install_u4_native_block  # noqa: E402
 
 
 BOARD_PATH = OUT / f"{PROJECT_NAME}.kicad_pcb"
-ANTENNA_FOOTPRINT = LIB_OUT / "NFC_Antenna_40x40_4T.kicad_mod"
+ANTENNA_FOOTPRINT = LIB_OUT / f"{ANTENNA.name}.kicad_mod"
 
 
 # These reference labels sit inside dense 0402/0603 and RF/power clusters.
@@ -74,7 +75,7 @@ FAB_ONLY_REFERENCES = {
 # deliberately ordered PN7161 -> L0 -> C1 -> Rq -> antenna.
 FIXED_PLACEMENT = {
     # Board antenna and 13.56 MHz matching chain.
-    "AE1": (48.0, 37.5, 0),
+    "AE1": ANTENNA.placement,
     # The differential rows are physically inverted so TX1 (the lower-left
     # PN7161 pin after U5 rotation) has a straight run.  Differential polarity
     # is maintained by swapping the two AE1 terminal net assignments below.
@@ -170,40 +171,38 @@ for index, xyz in enumerate(
 
 
 def antenna_footprint_text() -> str:
-    """Create the 40 x 40 mm, four-turn, 0.4/0.3 mm reference coil."""
-    # Coordinates are relative to a terminal pair at x=0.  The coil occupies
-    # x=-43..-3 and y=-20..20 when AE1 is placed at (48, 37.5).
-    points = [
-        (0.0, -2.5), (-3.0, -2.5), (-3.0, -20.0), (-43.0, -20.0),
-        (-43.0, 20.0), (-3.7, 20.0), (-3.7, -19.3), (-42.3, -19.3),
-        (-42.3, 19.3), (-4.4, 19.3), (-4.4, -18.6), (-41.6, -18.6),
-        (-41.6, 18.6), (-5.1, 18.6), (-5.1, -17.9), (-40.9, -17.9),
-        (-40.9, 17.9), (-5.8, 17.9),
+    """Create the reference coil described by design_data.ANTENNA."""
+    spec = ANTENNA
+    points = spec.spiral()
+    inner = points[-1]
+    lines = [
+        f'  (fp_line (start {start[0]} {start[1]}) (end {end[0]} {end[1]}) '
+        f'(stroke (width {spec.track}) (type solid)) (layer "F.Cu"))'
+        for start, end in zip(points, points[1:])
     ]
-    lines = []
-    for start, end in zip(points, points[1:]):
-        lines.append(
-            f'  (fp_line (start {start[0]} {start[1]}) (end {end[0]} {end[1]}) '
-            f'(stroke (width 0.4) (type solid)) (layer "F.Cu"))'
-        )
     # B.Cu underpass connects the inner end back to terminal pad 2.
     lines.append(
-        '  (fp_line (start -5.8 17.9) (end 0.0 2.5) '
-        '(stroke (width 0.4) (type solid)) (layer "B.Cu"))'
+        f'  (fp_line (start {inner[0]} {inner[1]}) (end 0.0 {spec.terminal}) '
+        f'(stroke (width {spec.track}) (type solid)) (layer "B.Cu"))'
     )
+    half_w, half_h = spec.width / 2 + spec.lead, spec.height / 2
     return (
-        '(footprint "NFC_Antenna_40x40_4T" (version 20221018) (generator pcbnew)\n'
+        f'(footprint "{spec.name}" (version 20221018) (generator pcbnew)\n'
         '  (layer "F.Cu")\n'
         '  (attr board_only exclude_from_pos_files exclude_from_bom)\n'
         '  (net_tie_pad_groups "1,2")\n'
-        '  (fp_text reference "AE1" (at -23 -23 0) (layer "F.SilkS")\n'
+        f'  (fp_text reference "AE1" (at {-half_w:g} {-half_h - 3:g} 0) (layer "F.SilkS")\n'
         '    (effects (font (size 1 1) (thickness 0.15))))\n'
-        '  (fp_text value "40x40mm 4-turn PCB antenna" (at -23 23 0) (layer "F.Fab") hide\n'
+        f'  (fp_text value "{spec.description}" '
+        f'(at {-half_w:g} {half_h + 3:g} 0) (layer "F.Fab") hide\n'
         '    (effects (font (size 1 1) (thickness 0.15))))\n'
         + "\n".join(lines)
-        + '\n  (pad "1" smd rect (at 0 -2.5) (size 1.2 1.2) (layers "F.Cu" "F.Paste" "F.Mask"))\n'
-        '  (pad "2" thru_hole circle (at -5.8 17.9) (size 1.2 1.2) (drill 0.5) (layers "*.Cu" "*.Mask"))\n'
-        '  (pad "2" thru_hole circle (at 0 2.5) (size 1.2 1.2) (drill 0.5) (layers "*.Cu" "*.Mask"))\n'
+        + f'\n  (pad "1" smd rect (at 0 {-spec.terminal}) (size 1.2 1.2) '
+        '(layers "F.Cu" "F.Paste" "F.Mask"))\n'
+        f'  (pad "2" thru_hole circle (at {inner[0]} {inner[1]}) (size 1.2 1.2) (drill 0.5) '
+        '(layers "*.Cu" "*.Mask"))\n'
+        f'  (pad "2" thru_hole circle (at 0 {spec.terminal}) (size 1.2 1.2) (drill 0.5) '
+        '(layers "*.Cu" "*.Mask"))\n'
         ')\n'
     )
 

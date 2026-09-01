@@ -20,7 +20,7 @@ WORKSPACE_ROOT = PROJECT_ROOT.parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(WORKSPACE_ROOT / ".tools" / "py"))
 
-from design_data import BOARD_SIZE, NATIVE_CHILD_ANGLE_REFS, PROJECT_NAME  # noqa: E402
+from design_data import ANTENNA, BOARD_SIZE, NATIVE_CHILD_ANGLE_REFS, PROJECT_NAME  # noqa: E402
 from generate_board import BOARD_PATH  # noqa: E402
 from kiutils.board import Board  # noqa: E402
 from kiutils.items.brditems import Segment, Via  # noqa: E402
@@ -203,7 +203,7 @@ def main():
 
     # Keep-out audits use all copper: every pad, track and via, plus -- below
     # -- the area the ground pours are allowed to fill.
-    nfc_keepout = box(4.0, 16.0, 47.1, 59.0)
+    nfc_keepout = box(*ANTENNA.keepout)
     # Official ESP32-C6-MINI-1 footprint antenna keep-out transformed by the
     # fixed U4 placement (99.0, 8.5): x=92.4..105.6, y=0.2..5.6.  A small
     # A 0.1 mm process margin is included without swallowing the module's own

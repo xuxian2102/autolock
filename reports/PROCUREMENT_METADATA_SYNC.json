@@ -1,0 +1,191 @@
+{
+  "scope": "metadata only: Value, LCSC, MPN, Manufacturer",
+  "target_refs": [
+    "C11",
+    "C27",
+    "C28",
+    "C29",
+    "C3",
+    "C30",
+    "C31",
+    "C32",
+    "C39",
+    "C7",
+    "D5",
+    "R11",
+    "R18",
+    "R19",
+    "R20",
+    "R21",
+    "R30",
+    "R4",
+    "R5",
+    "R9",
+    "SW1",
+    "SW2",
+    "SW3"
+  ],
+  "target_count": 23,
+  "files": [
+    {
+      "file": "hardware/kicad/schematics/01_POWER_USB.kicad_sch",
+      "before_sha256": "e0a3bee76c3e880370b39c1e0daf31164977c7c336808ba2f3ff7e2d0da25cda",
+      "after_sha256": "e0a3bee76c3e880370b39c1e0daf31164977c7c336808ba2f3ff7e2d0da25cda",
+      "seen_target_refs": [
+        "C3",
+        "C7",
+        "R4",
+        "R5"
+      ],
+      "changes": []
+    },
+    {
+      "file": "hardware/kicad/schematics/02_MCU_IO.kicad_sch",
+      "before_sha256": "02403616b58b4d4214b4f1620481854792e5f873d940be4e74a91cdef6a6aea6",
+      "after_sha256": "02403616b58b4d4214b4f1620481854792e5f873d940be4e74a91cdef6a6aea6",
+      "seen_target_refs": [
+        "C11",
+        "D5",
+        "R11",
+        "R9",
+        "SW1",
+        "SW2",
+        "SW3"
+      ],
+      "changes": []
+    },
+    {
+      "file": "hardware/kicad/schematics/03_NFC_CONTROLLER.kicad_sch",
+      "before_sha256": "b68a3bafc5d137331dd13fba8647ac77f2447e400117887a3acceb33b47c8e9c",
+      "after_sha256": "b68a3bafc5d137331dd13fba8647ac77f2447e400117887a3acceb33b47c8e9c",
+      "seen_target_refs": [],
+      "changes": []
+    },
+    {
+      "file": "hardware/kicad/schematics/04_RF_ANTENNA.kicad_sch",
+      "before_sha256": "f89e8181a81b2c015774947dd9b897ab17c1a4576d72d66d40b9919c6529bde8",
+      "after_sha256": "b2fcd8f125576e87301b02b96e3a7ea92baff21f2c8309cd4a32c830d98ba005",
+      "seen_target_refs": [
+        "C27",
+        "C28",
+        "C29",
+        "C30",
+        "C31",
+        "C32",
+        "R18",
+        "R19",
+        "R20",
+        "R21"
+      ],
+      "changes": [
+        {
+          "reference": "C29",
+          "field": "Value",
+          "before": "68pF C0G 2%",
+          "after": "51pF NP0 1%"
+        },
+        {
+          "reference": "C29",
+          "field": "LCSC",
+          "before": "C237335",
+          "after": "C519494"
+        },
+        {
+          "reference": "C29",
+          "field": "MPN",
+          "before": "GRM1885C1H680FA01D",
+          "after": "CC0603FRNPO9BN510"
+        },
+        {
+          "reference": "C29",
+          "field": "Manufacturer",
+          "before": "Murata Electronics",
+          "after": "YAGEO"
+        },
+        {
+          "reference": "C30",
+          "field": "Value",
+          "before": "68pF C0G 2%",
+          "after": "51pF NP0 1%"
+        },
+        {
+          "reference": "C30",
+          "field": "LCSC",
+          "before": "C237335",
+          "after": "C519494"
+        },
+        {
+          "reference": "C30",
+          "field": "MPN",
+          "before": "GRM1885C1H680FA01D",
+          "after": "CC0603FRNPO9BN510"
+        },
+        {
+          "reference": "C30",
+          "field": "Manufacturer",
+          "before": "Murata Electronics",
+          "after": "YAGEO"
+        },
+        {
+          "reference": "C31",
+          "field": "Value",
+          "before": "100pF C0G 2%",
+          "after": "75pF NP0 1%"
+        },
+        {
+          "reference": "C31",
+          "field": "LCSC",
+          "before": "C5360849",
+          "after": "C519496"
+        },
+        {
+          "reference": "C31",
+          "field": "MPN",
+          "before": "",
+          "after": "CC0603FRNPO9BN750"
+        },
+        {
+          "reference": "C31",
+          "field": "Manufacturer",
+          "before": "",
+          "after": "YAGEO"
+        },
+        {
+          "reference": "C32",
+          "field": "Value",
+          "before": "100pF C0G 2%",
+          "after": "75pF NP0 1%"
+        },
+        {
+          "reference": "C32",
+          "field": "LCSC",
+          "before": "C5360849",
+          "after": "C519496"
+        },
+        {
+          "reference": "C32",
+          "field": "MPN",
+          "before": "",
+          "after": "CC0603FRNPO9BN750"
+        },
+        {
+          "reference": "C32",
+          "field": "Manufacturer",
+          "before": "",
+          "after": "YAGEO"
+        }
+      ]
+    },
+    {
+      "file": "hardware/kicad/schematics/05_SERVO_DRIVER.kicad_sch",
+      "before_sha256": "e7e110e72ea413e244039a97f3c47fccffe1657386636af213415acfcc288699",
+      "after_sha256": "e7e110e72ea413e244039a97f3c47fccffe1657386636af213415acfcc288699",
+      "seen_target_refs": [
+        "C39",
+        "R30"
+      ],
+      "changes": []
+    }
+  ],
+  "field_change_count": 16
+}

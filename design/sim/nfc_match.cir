@@ -1,0 +1,62 @@
+* HomeKey Lock -- PN7161 NFC antenna match, differential AC sweep
+*
+* Reproduces the antenna-current resonance quoted in PREFAB_REVIEW_ACTIONS.md
+* section D.  Component values and connectivity come from tools/design_data.py
+* page 04_RF_ANTENNA; the coil L/R come from the copper geometry of the
+* generated AE1 footprint.
+*
+* Override the coil and the two fitted match values from the command line, e.g.
+*   ngspice -b -D Lant=1.491u -D Rant=1.8 -D Cs=68p -D Cp=100p nfc_match.cir
+*
+.param Lant=1.979u
+.param Rant=2.40
+.param Cs=51p
+.param Cp=75p
+
+V1  TX1 TX2 AC 1
+
+* PN7161 TX EMC filter
+L3  TX1 RFP0 160n
+L4  TX2 RFN0 160n
+C27 RFP0 0 330p
+C28 RFN0 0 330p
+
+* Matching network
+C29 RFP0 RFP1 {Cs}
+C30 RFN0 RFN1 {Cs}
+C31 RFP1 0 {Cp}
+C32 RFN1 0 {Cp}
+
+* Damping + antenna-select 0R
+R18 RFP1 RFP2 2.7
+R19 RFN1 RFN2 2.7
+R22 RFP2 ANTP 1m
+R23 RFN2 ANTN 1m
+
+* Receiver taps (2.2k series, 1n coupling into the PN7161 RX pins)
+R20 RFP0 RXPAC 2.2k
+R21 RFN0 RXNAC 2.2k
+C37 RXPAC RXP 1n
+C38 RXNAC RXN 1n
+RRXP RXP 0 1k
+RRXN RXN 0 1k
+
+* AE1 loop
+LANT ANTP ANTM {Lant}
+RANT ANTM ANTX {Rant}
+* 0 V source used only as an ammeter for the loop current
+VIANT ANTX ANTN 0
+
+* DC path for the floating drive
+RLEAK TX2 0 1G
+
+.control
+ac lin 20001 9meg 20meg
+let iant = abs(viant#branch)
+meas ac ipk MAX iant from=9meg to=20meg
+let half = ipk/sqrt(2)
+meas ac flo WHEN iant=half RISE=1
+meas ac fhi WHEN iant=half FALL=1
+print ipk flo fhi
+.endc
+.end

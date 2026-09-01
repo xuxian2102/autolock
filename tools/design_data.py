@@ -75,6 +75,117 @@ GRAPHICS_SYNC_REFS = frozenset({
 # local child-angle convention to KiCad's board-coordinate convention.
 NATIVE_CHILD_ANGLE_REFS = PASSIVE_SYNC_REFS | GRAPHICS_SYNC_REFS | frozenset({"J2", "U5"})
 
+@dataclass(frozen=True)
+class AntennaSpec:
+    """The NFC loop, as parameters rather than a point list.
+
+    Everything about AE1 follows from these: the spiral the generator draws,
+    where AE1 is placed, and the copper keep-out that four separate tools used
+    to carry as their own hardcoded rectangle.
+
+    Coupling to a phone on the far side of a door is set by the loop's area
+    against the separation.  For a loop of effective radius a at distance d,
+    k is proportional to a^1.5 / (a^2 + d^2)^1.5, which peaks at a = d.  At a
+    40 mm door plus a 2 mm phone gap that optimum is a 84 mm loop -- far larger
+    than this board can hold beside its circuit.  Growing the loop vertically
+    is free, though: the board is 75 mm tall and the left third holds nothing
+    but the loop and two mounting holes.
+    """
+
+    width: float          # outer width of the loop, mm
+    height: float         # outer height of the loop, mm
+    turns: int
+    track: float = 0.40   # conductor width
+    gap: float = 0.30     # gap between turns
+    lead: float = 3.00    # terminal pads sit this far east of the loop
+    terminal: float = 2.50  # half the spacing between the two terminal pads
+    margin: float = 1.50  # copper keep-out beyond the outer turn
+    # East is where the matching network has to sit, and it has to sit
+    # close: 0.5 mm past the terminal pads is the reviewed Rev A value and
+    # R22's copper begins 0.7 mm beyond it.
+    margin_east: float = 0.50
+    centre: Tuple[float, float] = (25.0, 37.5)
+
+    @property
+    def pitch(self) -> float:
+        return self.track + self.gap
+
+    @property
+    def name(self) -> str:
+        """Library name of the generated footprint, and its file stem.
+
+        Derived so the library cannot end up with a 40x65 coil stored in a
+        file called 40x40 -- which is what happened the first time this was
+        typed out in four places.
+        """
+        return f"NFC_Antenna_{self.width:g}x{self.height:g}_{self.turns}T"
+
+    @property
+    def description(self) -> str:
+        """AE1's value string, shown on the schematic and in the BOM."""
+        return f"{self.width:g}x{self.height:g}mm {self.turns}-turn PCB antenna"
+
+    @property
+    def placement(self) -> Tuple[float, float, float]:
+        """Where AE1 goes: its origin is the terminal pair, east of the loop."""
+        return (self.centre[0] + self.width / 2 + self.lead, self.centre[1], 0)
+
+    def spiral(self):
+        """The loop's centre-line, wound inward from the east terminal."""
+        x_e = -self.lead
+        x_w = -(self.lead + self.width)
+        y_t, y_b = -self.height / 2, self.height / 2
+        points = [(0.0, -self.terminal), (x_e, -self.terminal)]
+        for turn in range(self.turns):
+            inset = turn * self.pitch
+            points.append((round(x_e - inset, 4), round(y_t + inset, 4)))
+            points.append((round(x_w + inset, 4), round(y_t + inset, 4)))
+            points.append((round(x_w + inset, 4), round(y_b - inset, 4)))
+            points.append((round(x_e - inset - self.pitch, 4), round(y_b - inset, 4)))
+        return points
+
+    @property
+    def inner_terminal(self) -> Tuple[float, float]:
+        """Footprint-local position of the coil's inner end."""
+        return self.spiral()[-1]
+
+    @property
+    def underpass(self):
+        """Board coordinates of the B.Cu return from the inner end.
+
+        The footprint graphic is the physical copper; route_board.py lays a
+        net-assigned segment along the same line so KiCad's connectivity engine
+        sees it too.  Both come from here, so the loop can be resized without
+        one of them being left behind -- which is exactly what happened when
+        this was a hardcoded pair of points.
+        """
+        ox, oy, _ = self.placement
+        ix, iy = self.inner_terminal
+        return [(round(ox + ix, 4), round(oy + iy, 4)), (ox, round(oy + self.terminal, 4))]
+
+    @property
+    def keepout(self) -> Tuple[float, float, float, float]:
+        """No copper on any layer here: a plane inside a loop is a shorted turn.
+
+        Runs to the west board edge because there is nothing to gain from a
+        sliver of copper outside the loop, and east far enough to clear the
+        terminal pads.
+        """
+        return (
+            0.0,
+            self.centre[1] - self.height / 2 - self.margin,
+            self.centre[0] + self.width / 2 + self.lead + self.margin_east,
+            self.centre[1] + self.height / 2 + self.margin,
+        )
+
+
+# 40 mm wide keeps the circuit where it is; 65 mm tall uses the empty left
+# strip and buys about 1.74 dB of coupling over the 40 x 40 loop it replaces.
+# Four turns keeps the inductance in the range the matching network was built
+# for.  Verified against reports/NFC_LINK_MODEL_REV_A.md before changing.
+ANTENNA = AntennaSpec(width=40.0, height=65.0, turns=4)
+
+
 PASSIVE_VARIANT_DEFINITIONS = {
     f"{C0603}_FabRef": (C0603, "F.Fab"),
     f"{C0603}_ValueHidden": (C0603, "F.SilkS"),
@@ -285,12 +396,25 @@ capacitor("C27", "330pF C0G 2%", {"1": "RF_P0", "2": "GND"}, "04_RF_ANTENNA", "E
           lcsc="C882521", mpn="GRM1885C1H331FA01D", manufacturer="Murata Electronics")
 capacitor("C28", "330pF C0G 2%", {"1": "RF_N0", "2": "GND"}, "04_RF_ANTENNA", "EMC filter", (49, 43, 90),
           lcsc="C882521", mpn="GRM1885C1H331FA01D", manufacturer="Murata Electronics")
-capacitor("C29", "68pF C0G 2%", {"1": "RF_P0", "2": "RF_P1"}, "04_RF_ANTENNA", "Matching", (48, 35.5, 0),
-          lcsc="C237335", mpn="GRM1885C1H680FA01D", manufacturer="Murata Electronics")
-capacitor("C30", "68pF C0G 2%", {"1": "RF_N0", "2": "RF_N1"}, "04_RF_ANTENNA", "Matching", (48, 38.5, 0),
-          lcsc="C237335", mpn="GRM1885C1H680FA01D", manufacturer="Murata Electronics")
-capacitor("C31", "100pF C0G 2%", {"1": "RF_P1", "2": "GND"}, "04_RF_ANTENNA", "Matching", (45, 32, 90), lcsc="C5360849")
-capacitor("C32", "100pF C0G 2%", {"1": "RF_N1", "2": "GND"}, "04_RF_ANTENNA", "Matching", (45, 43, 90), lcsc="C5360849")
+# Matching, sized for the 40x65 coil.  The 40x40 loop was 1.674 uH and took
+# 68 pF series / 100 pF shunt; the taller loop is about 1.33x that, so the
+# whole tank scales by 0.753 and lands on the E24 pair below.  Leaving the
+# 40x40 values in place would have resonated this coil at 11.8 MHz.
+MATCH_SERIES = ("51pF NP0 1%", "C519494", "CC0603FRNPO9BN510", "YAGEO")
+MATCH_SHUNT = ("75pF NP0 1%", "C519496", "CC0603FRNPO9BN750", "YAGEO")
+
+capacitor("C29", MATCH_SERIES[0], {"1": "RF_P0", "2": "RF_P1"}, "04_RF_ANTENNA", "Matching", (48, 35.5, 0),
+          lcsc=MATCH_SERIES[1], mpn=MATCH_SERIES[2], manufacturer=MATCH_SERIES[3])
+capacitor("C30", MATCH_SERIES[0], {"1": "RF_N0", "2": "RF_N1"}, "04_RF_ANTENNA", "Matching", (48, 38.5, 0),
+          lcsc=MATCH_SERIES[1], mpn=MATCH_SERIES[2], manufacturer=MATCH_SERIES[3])
+capacitor("C31", MATCH_SHUNT[0], {"1": "RF_P1", "2": "GND"}, "04_RF_ANTENNA", "Matching", (45, 32, 90),
+          lcsc=MATCH_SHUNT[1], mpn=MATCH_SHUNT[2], manufacturer=MATCH_SHUNT[3])
+capacitor("C32", MATCH_SHUNT[0], {"1": "RF_N1", "2": "GND"}, "04_RF_ANTENNA", "Matching", (45, 43, 90),
+          lcsc=MATCH_SHUNT[1], mpn=MATCH_SHUNT[2], manufacturer=MATCH_SHUNT[3])
+# The trim pads sit in parallel with the fitted parts, so they can only ADD
+# capacitance -- they pull f0 down, never up.  That is the useful direction
+# here: door metal near the coil lowers its effective inductance and pushes
+# f0 up, and a coil that measures smaller than modelled does the same.
 capacitor("C33", "DNP trim", {"1": "RF_P0", "2": "RF_P1"}, "04_RF_ANTENNA", "Matching", (48, 33, 0), dnp=True)
 capacitor("C34", "DNP trim", {"1": "RF_N0", "2": "RF_N1"}, "04_RF_ANTENNA", "Matching", (48, 41, 0), dnp=True)
 capacitor("C35", "DNP trim", {"1": "RF_P1", "2": "GND"}, "04_RF_ANTENNA", "Matching", (42, 32, 90), dnp=True)
@@ -312,7 +436,7 @@ resistor("R25", "DNP EXT", {"1": "RF_N2", "2": "EXT_ANT_N"}, "04_RF_ANTENNA", "A
 add("J3", "EXT ANT DNP", "Connector_Generic:Conn_01x02", "HomeKey_RevA:PinHeader_1x02_P2.54mm_Vertical",
     {"1": "EXT_ANT_P", "2": "EXT_ANT_N"}, "04_RF_ANTENNA", "Antenna select", (55, 48, 90), dnp=True,
     note="Unpopulated fallback pads; never fit at the same time as R22/R23 without retuning")
-add("AE1", "40x40mm 4-turn PCB antenna", "Device:Antenna_Loop", "HomeKey_RevA:NFC_Antenna_40x40_4T",
+add("AE1", ANTENNA.description, "Device:Antenna_Loop", f"HomeKey_RevA:{ANTENNA.name}",
     {"1": "ANT_N", "2": "ANT_P"}, "04_RF_ANTENNA", "PCB antenna", (48, 36, 0), dnp=False,
     note="Board-defined copper; excluded from BOM and placement",
     ExcludeFromBOM="yes", ExcludeFromPosition="yes")
@@ -371,8 +495,13 @@ NC_PINS = {
 
 BOARD_ONLY = [
     # ref, x, y, drill, diameter
-    ("H1", 4, 4, 3.2, 6.0), ("H2", 146, 4, 3.2, 6.0),
-    ("H3", 4, 71, 3.2, 6.0), ("H4", 146, 71, 3.2, 6.0),
+    #
+    # H1 and H3 used to sit in the left corners at x = 4.  The 65 mm loop needs
+    # that strip -- its keep-out runs y 3.5..71.5 across the whole west side --
+    # so they move just east of it, level with H2 and H4.  The west half is
+    # then unsupported; revisit when there is an enclosure to bolt to.
+    ("H1", 53, 4, 3.2, 6.0), ("H2", 146, 4, 3.2, 6.0),
+    ("H3", 53, 71, 3.2, 6.0), ("H4", 146, 71, 3.2, 6.0),
 ]
 
 

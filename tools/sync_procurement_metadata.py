@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 """Synchronize reviewed procurement fields into existing schematic instances.
 
-This is intentionally metadata-only: it updates LCSC, MPN, and Manufacturer
-properties for the reviewed Rev A batch without regenerating symbols, UUIDs,
-wires, footprints, or placements.
+This is intentionally metadata-only: it updates Value, LCSC, MPN, and
+Manufacturer properties for the reviewed Rev A batch without regenerating
+symbols, UUIDs, wires, footprints, or placements.
+
+Value is here because a schematic reading "68pF" while design_data.py says
+51 pF is a part someone may fit from the wrong column.  Every edit lands in
+the report, so a run that touches a ref you did not expect is visible.
 """
 
 from __future__ import annotations
@@ -22,12 +26,13 @@ SCHEMATIC_DIR = HARDWARE / "kicad" / "schematics"
 REPORT = ROOT / "reports" / "PROCUREMENT_METADATA_SYNC.json"
 
 TARGET_REFS = frozenset({
-    "C3", "C7", "C11", "C27", "C28", "C29", "C30", "C39", "D5",
+    "C3", "C7", "C11", "C27", "C28", "C29", "C30", "C31", "C32", "C39", "D5",
     "R4", "R5", "R9", "R11", "R18", "R19", "R20", "R21", "R30",
     "SW1", "SW2", "SW3",
 })
 
 FIELDS = {
+    "Value": "value",
     "LCSC": "lcsc",
     "MPN": "mpn",
     "Manufacturer": "manufacturer",
@@ -97,7 +102,7 @@ def main():
         raise RuntimeError(f"target instance mismatch: missing={sorted(TARGET_REFS-seen)} extra={sorted(seen-TARGET_REFS)}")
 
     report = {
-        "scope": "metadata only: LCSC, MPN, Manufacturer",
+        "scope": "metadata only: Value, LCSC, MPN, Manufacturer",
         "target_refs": sorted(TARGET_REFS),
         "target_count": len(TARGET_REFS),
         "files": results,
