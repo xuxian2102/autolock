@@ -53,7 +53,7 @@ from design_data import BOARD_SIZE  # noqa: E402
 from generate_board import BOARD_PATH  # noqa: E402
 from kiutils.board import Board  # noqa: E402
 from route_board import FIXED_ESCAPES, FIXED_ESCAPE_PATHS  # noqa: E402
-from shapely.geometry import LineString, box  # noqa: E402
+from shapely.geometry import LineString, Point, box  # noqa: E402
 from shapely.ops import unary_union  # noqa: E402
 
 
@@ -270,8 +270,15 @@ def rf_reservations(board, fps):
 
 
 def lane_reservations(path):
-    """Copper the previous successful route laid down, as places to avoid."""
-    from kiutils.items.brditems import Segment
+    """Copper the previous successful route laid down, as places to avoid.
+
+    Vias count, and ground vias count most of all.  The first version of this
+    read only track segments and skipped GND outright, so it happily put C45's
+    pad 0.025 mm from a 0.8 mm ground via -- a placement the geometry audit
+    rejects, and one no amount of rerouting can fix, because the offending
+    copper is the capacitor's own pad.
+    """
+    from kiutils.items.brditems import Segment, Via
     if not path.exists():
         print(
             f"note: {path.name} is missing, so the search is running blind to the\n"
@@ -283,6 +290,15 @@ def lane_reservations(path):
     board = Board.from_file(str(path))
     shapes = []
     for item in board.traceItems:
+        if isinstance(item, Via):
+            # A via is a hole and a pad, not a lane: nothing may sit on one,
+            # whatever its net.
+            shapes.append(
+                Point(item.position.X, item.position.Y).buffer(
+                    item.size / 2 + CLEARANCE, 12
+                )
+            )
+            continue
         if not isinstance(item, Segment):
             continue
         if board.nets[item.net].name == "GND":

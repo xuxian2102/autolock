@@ -3,7 +3,7 @@ HomeKey-Lock-RevA-PN7161 ROUTING AUDIT
 Board: 150.0 x 75.0 mm, 4 layers, 1.6 mm
 Footprints: 120
 Electrical nets: 68
-Track segments: 7233
+Track segments: 6843
 Vias: 229 (GND connection points: 109)
 Copper zones: 4 (2 ground pours, 2 all-layer antenna keep-outs)
 Close same-net via groups consolidated: 10 (10 redundant vias removed)

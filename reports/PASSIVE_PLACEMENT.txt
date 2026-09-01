@@ -3,7 +3,7 @@ PASSIVE PLACEMENT PROPOSAL
 Grid 0.25 mm, search radius 8.0 mm, courtyard gap 0.2 mm
 
 part  serves     net               was      now   proposed pcb_at
-C45   U6.4       SERVO_FB       18.01mm    4.43mm   (129.4, 53.8, 90)
+C45   U6.4       SERVO_FB       17.48mm    5.11mm   (130.15, 54.05, 90)
 
 Distances are pad-to-pad on the shared net, not part centre to part centre.
 
